@@ -1,6 +1,6 @@
 # ByteGrader
 
-The [Angular](https://angular.io/) based UI for the [Laravel](https://laravel.com) grading platform for PHP based projects.
+The [Angular](https://angular.io/) based UI for the [Laravel](https://laravel.com) based grading platform for PHP based projects.
 
 ## Development server
 
