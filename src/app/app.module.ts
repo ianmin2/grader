@@ -7,11 +7,17 @@ import { AppRoutingModule } from './app-routing.module';
 //@ APPLICATION COMPONENTS
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
+import { MenuDropdownComponent } from './header/menu-dropdown/menu-dropdown.component';
+import { MenuButtonComponent } from './header/menu-button/menu-button.component';
+import { MenuRightComponent } from './header/menu-right/menu-right.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    MenuDropdownComponent,
+    MenuButtonComponent,
+    MenuRightComponent
   ],
   imports: [
     BrowserModule,
