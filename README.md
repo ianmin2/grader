@@ -1,6 +1,6 @@
-# Ng2
+# ByteGrader
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.8.
+The [Angular](https://angular.io/) based UI for the [Laravel](https://laravel.com) grading platform for PHP based projects.
 
 ## Development server
 
