@@ -411,3 +411,11 @@ nav {
 .padding {
     padding: 1em !important;
 }
+
+.text-main {
+    font-family: "Open Sans", sans-serif !important;
+}
+
+.text-header {
+    font-family: 'Sanchez', serif !important;
+}

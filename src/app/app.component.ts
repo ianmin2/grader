@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+  import { from } from 'rxjs';
 
 @Component({
-  selector: 'app-root',
+  selector: 'byte-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
