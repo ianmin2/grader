@@ -375,7 +375,7 @@ body {
     color: #E10A0A !important;
     transform: skewY(-1.5deg);
     font-weight: bold;
-    transition-duration: 300ms;
+    transition-duration: 100ms;
 }
 
 nav {
@@ -388,6 +388,7 @@ nav {
 .nav-item.active {
     font-weight: bold;
     transform: skewY(1.5deg);
+    transition-duration: 100ms;
 }
 
 .nav-link {
@@ -406,10 +407,15 @@ nav {
 .logo {
     padding: .5em !important;
     transform: skewY(-3.5deg);
+    transition-duration: 100ms;
 }
 
 .padding {
     padding: 1em !important;
+}
+
+.margin {
+    margin: 0.5em !important;
 }
 
 .text-main {
@@ -418,4 +424,56 @@ nav {
 
 .text-header {
     font-family: 'Sanchez', serif !important;
+}
+
+.important {
+    text-shadow: 1px 1px whitesmoke !important;
+    display: inline-block;
+    background-color: #2D2D2D !important;
+    padding: 0.2em !important;
+    border-radius: 5% 10% 5% 5%;
+    clip-path: polygon(0 0, 99% 30%, 99% 87%, 0 100%);
+    color: white !important;
+}
+
+.app-danger {
+    cursor: pointer !important;
+    margin-right: auto;
+    margin-left: auto;
+    text-shadow: 1px 1px #2D2D2D !important;
+    display: inline-block;
+    background-color: crimson !important;
+    /* background-color: #E11808 !important; */
+    font-weight: bold !important;
+    box-shadow: 2px 4px pink !important;
+    padding: 0.4em !important;
+    border-radius: 5% 10% 5% 10%;
+    /* clip-path: polygon(0 0, 99% 30%, 99% 87%, 0 100%); */
+    color: white !important;
+    transition-duration: 100ms;
+}
+
+.app-danger:hover {
+    background-color: #E11808 !important;
+    box-shadow: 2px 4px darkslategray !important;
+    transition-duration: 100ms;
+}
+
+.app-list-background {
+    background-color: rgba(45, 45, 45, .5) !important;
+    color: white !important;
+    text-shadow: 1px 1px darkslategray !important;
+    transition-duration: 50ms !important;
+}
+
+.dropdown-item {
+    cursor: pointer !important;
+}
+
+a.list-group-item.clearfix.active {
+    background-color: #2D2D2D !important;
+    color: white !important;
+    text-shadow: 1px 1px #2D2D2D !important;
+    transition-duration: 50ms !important;
+    border-color: white !important;
 }

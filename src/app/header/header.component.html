@@ -6,15 +6,25 @@
 
     <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav mr-auto">
-            <byte-menu-button customClass="active txt-bold" title="Home" targetUrl="#"></byte-menu-button>
-            <byte-menu-button customClass="" title="Features" targetUrl="#"></byte-menu-button>
-            <byte-menu-dropdown title="Dropdown" targetUrl="#" customClass="" subMenuItems="[
-            { 'customClass': '', 'targetUrl': '#', 'title': 'Action', 'isolated': false, 'action': null },
-            { 'customClass': '', 'targetUrl': '#', 'title': 'Another Action', 'isolated': false, 'action': null },
-            {'customClass': '', 'targetUrl': '#', 'title': 'Something Else Here', 'isolated': true, 'action': null }
-            ]"></byte-menu-dropdown>
-            <byte-menu-button customClass="" title="Pricing" targetUrl="#"></byte-menu-button>
-            <byte-menu-button customClass="" title="About" targetUrl="#"></byte-menu-button>
+            <byte-menu-button customClass="" title="Assignments" targetUrl="/assignments"></byte-menu-button>
+            <byte-menu-button customClass="" title="Grades" targetUrl="grades"></byte-menu-button>
+            <!-- <byte-menu-dropdown isAlignedRight="false" title="ASSIGNMENTS" targetUrl="/assignments" customClass="" subMenuItems="[
+              { 'customClass': '', 'targetUrl': '/assignments/new', 'title': 'New Assignment', 'isolated': false, 'action': null },
+              {'customClass': '', 'targetUrl': '/assignments/browse', 'title': 'Browse Assignments', 'isolated': false, 'action': null }
+              ]"></byte-menu-dropdown>
+            <byte-menu-dropdown isAlignedRight="false" title="GRADES" targetUrl="/grades" customClass="" subMenuItems="[
+              { 'customClass': '', 'targetUrl': '/grades/browse', 'title': 'View Grades', 'isolated': false, 'action': null },
+              { 'customClass': '', 'targetUrl': '/grades/review', 'title': 'Review Grades', 'isolated': false, 'action': null }
+              ]"></byte-menu-dropdown> -->
+        </ul>
+
+        <ul class="navbar-nav">
+
+            <byte-menu-dropdown isAlignedRight="true" title="Manage" targetUrl="/" customClass="" subMenuItems="[
+              { 'customClass': '', 'targetUrl': '/nada', 'title': 'Save Data', 'isolated': false, 'action': null },
+              { 'customClass': '', 'targetUrl': '/nada', 'title': 'Fetch Data', 'isolated': false, 'action': null },
+              {'customClass': '', 'targetUrl': '/nada', 'title': 'Something Else Here', 'isolated': true, 'action': null }
+              ]"></byte-menu-dropdown>
 
         </ul>
         <!-- <byte-menu-right></byte-menu-right> -->

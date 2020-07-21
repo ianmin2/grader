@@ -1,11 +1,11 @@
 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" [href]="targetUrl" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [innerText]="title">
+    <a class="nav-link dropdown-toggle" routerLinkActive="active" (click)="navigateTo(targetUrl)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [innerText]="title">
 
     </a>
-    <div class="dropdown-menu bg-black" aria-labelledby="navbarDropdown">
+    <div [ngClass]="{'dropdown-menu-right': getAlignment()}" class="dropdown-menu  bg-black" aria-labelledby="navbarDropdown">
         <span *ngFor="let menuItem of subMenuItems">
             <div *ngIf="menuItem.isolated" class="dropdown-divider"></div>
-            <a href="{{menuItem.targetUrl}}" class="dropdown-item {{customClass}}" (click)="menuItem.action" >{{menuItem.title}}</a>
+            <a (click)="navigateTo(menuItem.targetUrl)" class="dropdown-item {{customClass}}" (click)="menuItem.action" >{{menuItem.title}}</a>
         </span>
 
     </div>

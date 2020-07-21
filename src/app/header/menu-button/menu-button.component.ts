@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'byte-menu-button',
@@ -7,14 +7,21 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MenuButtonComponent implements OnInit {
 
+  // @Output() pathSelected = new EventEmitter<string>();
+
   @Input() customClass:string;
   @Input() targetUrl:string;
   @Input() title:string;
-
 
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  // onSelect(path:string)
+  // {
+  //   // console.log(`\n\n=========================================================\n@menu-button onSelect selecting '${path}'\n=========================================================\n\n`)
+  //   this.pathSelected.emit(path);
+  // }
 
 }

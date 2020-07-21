@@ -1,4 +1,5 @@
-import { Component, OnInit, Input,AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'byte-menu-dropdown',
@@ -12,13 +13,14 @@ import { Component, OnInit, Input,AfterViewInit } from '@angular/core';
 
 export class MenuDropdownComponent implements OnInit {
 
-  @Input() customClass:string;
-  @Input() targetUrl:string;
-  @Input() title:string;
-  @Input() subMenuItems: any;
+  @Input() customClass:string = "";
+  @Input() targetUrl:string = "";
+  @Input() title:string = "";
+  @Input() subMenuItems: any = "";
+  @Input() isAlignedRight:string = "";
 
 
-  constructor() {
+  constructor(private router:Router) {
 
    }
 
@@ -31,41 +33,27 @@ export class MenuDropdownComponent implements OnInit {
     .match(rgx)
     .map(itm=>JSON.parse(itm),[]);
 
-    // let arr =  Array.from(this.subMenuItems);
-
-    // this.subMenuArray = (Array.isArray(arr))  ? arr.map(menuItem =>{
-    //   return (Array.isArray(menuItem)) ? new subMenuItem(menuItem[0],menuItem[1],menuItem[2],menuItem[3]) : undefined;
-    // },[]).filter(itm=>itm) : [];
-
-    // console.dir(Array.isArray(this.subMenuItems))
 
   }
 
-  AfterViewInit() : void
-  {
-
-
-
-  }
 
   doDisplayElements()
   {
     console.dir( this.subMenuItems);
   }
 
-}
-
-class subMenuItem {
-
-  constructor(title ,target = "#",custom = "",isolated = false)
+  getAlignment()
   {
-    this.title = title,
-    this.targetUrl = target;
-    this.customClass = custom;
-    this.isolated = isolated;
+    let v = this.isAlignedRight.toLowerCase();
+    return (v == "true" || v== "y" || v=="1" || v== "yes")  ? true : false;
   }
-  customClass: string;
-  targetUrl:string ;
-  title: string;
-  isolated:boolean;
+
+  navigateTo(navigationPath = '/')
+  {
+
+    let navRoute = navigationPath.split('/').filter(a=>a);
+    navRoute[0] = `${navRoute[0]? '/'+navRoute[0]: '/'}`;
+    this.router.navigate(navRoute);
+  }
+
 }

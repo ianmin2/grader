@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,14 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  title:string;
+  selectedPath:string = "Assignments"
+
+  @Input() title:string;
   constructor() {
 
-    this.title = "ByteGrader";
+    this.title = (this.title) ? this.title : "ByteGrader";
 
   }
 
   ngOnInit(): void {
   }
+
+
+
 
 }
