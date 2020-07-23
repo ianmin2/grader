@@ -1,3 +1,9 @@
+import { NewAssignmentComponent } from './../assignments/assignment-generator/new-assignment/new-assignment.component';
+import { OverviewComponent } from './../assignments/assignment-generator/overview/overview.component';
+import { OutputManagerComponent } from './../assignments/assignment-generator/output-manager/output-manager.component';
+import { MethodManagerComponent } from './../assignments/assignment-generator/method-manager/method-manager.component';
+import { PathManagerComponent } from './../assignments/assignment-generator/path-manager/path-manager.component';
+import { RouteManagerComponent } from './../assignments/assignment-generator/route-manager/route-manager.component';
 import { GradesBrowserComponent } from './../grades/grades-browser/grades-browser.component';
 import { GradesViewerComponent } from './../grades/grades-viewer/grades-viewer.component';
 import { GradesReviewerComponent } from './../grades/grades-reviewer/grades-reviewer.component';
@@ -19,7 +25,18 @@ const graderRoutes: Routes = [
   { path: 'assignments', component: AssignmentsComponent,
     children : [
       { path: '', component: AssignmentPlaceholderComponent, pathMatch: "full"},
-      { path: 'new', component: AssignmentGeneratorComponent},
+      { path: 'new', component: NewAssignmentComponent },
+      { path: 'generator', component: AssignmentGeneratorComponent,
+        children:
+        [
+          { path: 'routes',  component: RouteManagerComponent},
+          { path: 'paths',   component: PathManagerComponent },
+          { path: 'methods', component: MethodManagerComponent},
+          { path: 'outputs', component: OutputManagerComponent},
+          { path: 'review', component: OverviewComponent },
+          { path: '**', component: NotFoundComponent}
+        ]
+      },
       { path: 'browse', component : AssignmentBrowserComponent,
         children:
         [
@@ -28,7 +45,8 @@ const graderRoutes: Routes = [
         ]
       },
       // { path: ':id', component: AssignmentViewerComponent},
-      // { path: ':id/edit', component: AssignmentViewerComponent}
+      // { path: ':id/edit', component: AssignmentViewerComponent},
+      { path: '**', component: NotFoundComponent}
     ]
   },
   { path: 'grades', component: GradesComponent,
@@ -47,7 +65,8 @@ const graderRoutes: Routes = [
         ]
       },
       // { path: ':id', component: GradesViewerComponent},
-      // { path: ':id/edit', component: GradesViewerComponent}
+      // { path: ':id/edit', component: GradesViewerComponent},
+      { path: '**', component: NotFoundComponent}
     ],
   },
   { path: '**', component: NotFoundComponent}

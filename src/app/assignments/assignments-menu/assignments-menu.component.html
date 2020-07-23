@@ -2,6 +2,25 @@
 
 
     <div class="card">
+        <div class="card-header" id="headingZero">
+            <h5 class="mb-0">
+                <button class="btn btn-block" routerLink="/assignments/new" routerLinkActive="active">
+              NEW ASSIGNMENT
+            </button>
+            </h5>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingZeroAlpha">
+            <h5 class="mb-0">
+                <button class="btn btn-block" routerLink="/assignments/browse" routerLinkActive="active">
+            VIEW ASSIGNMENTS
+          </button>
+            </h5>
+        </div>
+    </div>
+
+    <div class="card">
         <div class="card-header" id="headingOne">
             <h5 class="mb-0">
                 <button class="btn btn-block" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -13,19 +32,20 @@
             <div class="card-body">
 
                 <div class="list-group">
-                    <button type="button" class="list-group-item list-group-item-action" routerLink="/assignments/new">
+
+                    <button type="button" class="list-group-item list-group-item-action" routerLink="/assignments/generator/routes" routerLinkActive="active">
                         ADD ROUTE
                     </button>
-                    <button type="button" class="list-group-item list-group-item-action">
+                    <button type="button" class="list-group-item list-group-item-action" routerLink="/assignments/generator/paths" routerLinkActive="active">
                         DEFINE PATH
                       </button>
-                    <button type="button" class="list-group-item list-group-item-action">
+                    <button type="button" class="list-group-item list-group-item-action" routerLink="/assignments/generator/methods" routerLinkActive="active">
                         DEFINE METHOD
                       </button>
-                    <button type="button" class="list-group-item list-group-item-action">
+                    <button type="button" class="list-group-item list-group-item-action" routerLink="/assignments/generator/outputs" routerLinkActive="active">
                         EXPECTED OUTPUTS <!--  status codes, data-type, marks  -->
                       </button>
-                    <button type="button" class="list-group-item list-group-item-action">
+                    <button type="button" class="list-group-item list-group-item-action" routerLink="/assignments/generator/review" routerLinkActive="active">
                         REVIEW
                       </button>
                 </div>

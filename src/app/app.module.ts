@@ -27,6 +27,7 @@ import { PathManagerComponent } from './assignments/assignment-generator/path-ma
 import { MethodManagerComponent } from './assignments/assignment-generator/method-manager/method-manager.component';
 import { OutputManagerComponent } from './assignments/assignment-generator/output-manager/output-manager.component';
 import { OverviewComponent } from './assignments/assignment-generator/overview/overview.component';
+import { NewAssignmentComponent } from './assignments/assignment-generator/new-assignment/new-assignment.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { OverviewComponent } from './assignments/assignment-generator/overview/o
     PathManagerComponent,
     MethodManagerComponent,
     OutputManagerComponent,
-    OverviewComponent
+    OverviewComponent,
+    NewAssignmentComponent
   ],
   imports: [
     BrowserModule,
