@@ -21,6 +21,12 @@ import { GradesBrowserComponent } from './grades/grades-browser/grades-browser.c
 import { GradesPlaceholderComponent } from './grades/grades-placeholder/grades-placeholder.component';
 import { GradesViewerComponent } from './grades/grades-viewer/grades-viewer.component';
 import { GradesReviewerComponent } from './grades/grades-reviewer/grades-reviewer.component';
+import { AssignmentsMenuComponent } from './assignments/assignments-menu/assignments-menu.component';
+import { RouteManagerComponent } from './assignments/assignment-generator/route-manager/route-manager.component';
+import { PathManagerComponent } from './assignments/assignment-generator/path-manager/path-manager.component';
+import { MethodManagerComponent } from './assignments/assignment-generator/method-manager/method-manager.component';
+import { OutputManagerComponent } from './assignments/assignment-generator/output-manager/output-manager.component';
+import { OverviewComponent } from './assignments/assignment-generator/overview/overview.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +46,13 @@ import { GradesReviewerComponent } from './grades/grades-reviewer/grades-reviewe
     GradesBrowserComponent,
     GradesPlaceholderComponent,
     GradesViewerComponent,
-    GradesReviewerComponent
+    GradesReviewerComponent,
+    AssignmentsMenuComponent,
+    RouteManagerComponent,
+    PathManagerComponent,
+    MethodManagerComponent,
+    OutputManagerComponent,
+    OverviewComponent
   ],
   imports: [
     BrowserModule,
