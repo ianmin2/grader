@@ -1,7 +1,7 @@
 import { AppRouterModule } from './app-router/app-router.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 
 //@ APPLICATION COMPONENTS
 import { AppComponent } from './app.component';
@@ -59,7 +59,8 @@ import { NewAssignmentComponent } from './assignments/assignment-generator/new-a
   imports: [
     BrowserModule,
     AppRouterModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

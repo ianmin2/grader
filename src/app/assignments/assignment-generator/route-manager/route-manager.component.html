@@ -1,1 +1,73 @@
-<p>route-manager works!</p>
+<div class="card">
+    <form class="border border-light p-5" [formGroup]="newRouteForm">
+
+        <p class="h4 mb-4 text-center">NEW ASSIGNMENT RULE</p>
+
+        <div id="sortable-form" class="droptrue drop-list ui-sortable">
+
+            <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
+                <label for="route_name">Rule Name</label>
+                <input type="text" id="route_name" name="route_name" class="form-control mb-4" placeholder="Rule name">
+            </div>
+
+            <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                <label for="route_method"> HTTP Method</label>
+                <select class="browser-default custom-select mb-4" id="route_method" name="route_method">
+              <option selected value="GET">GET</option>
+              <option value="POST">POST</option>
+              <option value="PUT">PUT</option>
+              <option value="DELETE">DELETE</option>
+              <option value="OPTIONS">OPTIONS</option>
+          </select>
+            </div>
+
+            <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
+                <label for="route_path">Path</label>
+                <input type="text" id="route_path" name="route_path" class="form-control mb-4" placeholder="/path">
+            </div>
+
+            <div data-template="dTextareaTemp" data-popover="textarea" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                <label for="route_description">Description</label>
+                <textarea id="route_description" name="route_description" class="form-control mb-4" placeholder="description"></textarea>
+            </div>
+
+            <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                <label for="route_assignment">Assignment</label>
+                <select class="browser-default custom-select mb-4" id="route_assignment" name="route_assignment">
+                  <option value="" disabled="" selected="">Select Assignment</option>
+                  <option value="1">Option 1</option>
+                  <option value="2">Option 2</option>
+                  <option value="3">Option 3</option>
+              </select>
+            </div>
+
+            <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                <label for="route_expected_status_code">Expected Status Code</label>
+                <input type="number" id="route_expected_status_code" name="route_expected_status_code" class="form-control mb-4" placeholder="Expected Status Code">
+            </div>
+
+            <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                <label for="route_expected_data_type">Expected Data Type</label>
+                <select class="browser-default custom-select mb-4" id="route_expected_data_type" name="route_expected_data_type">
+                <option value="" disabled="" selected="">Select Expected Data Type</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+            </div>
+
+            <div data-template="dTextareaTemp" data-popover="textarea" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                <label for="route_expected_data">Expected Data</label>
+                <textarea id="route_expected_data" name="route_expected_data" class="form-control mb-4" placeholder="expected_data"></textarea>
+            </div>
+
+            <div>
+                <h3>GRADING!</h3>
+            </div>
+
+        </div>
+
+        <button class="btn btn-info btn-block my-4" type="submit">Add Assignment</button>
+
+    </form>
+</div>

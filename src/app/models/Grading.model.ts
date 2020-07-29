@@ -17,12 +17,14 @@ class RuleSubMatch
 class RuleMatch
 {
 
+  public weight : number = 100;
   public match : number;
   public no_match : number;
   public matches : RuleSubMatch[];
 
-  constructor( match: number, no_match: number, matches: RuleSubMatch[])
+  constructor( match: number, no_match: number, matches: RuleSubMatch[], weight: number = 100)
   {
+    this.weight = weight ? weight : this.weight;
     this.match = match;
     this.no_match = no_match;
     this.matches = matches;
@@ -37,6 +39,8 @@ export class Grading
   public path : RuleMatch;
   public status_code : RuleMatch;
   public mime_type : RuleMatch;
+  public created_at : string;
+  public updated_at : string;
 
   constructor(verb: RuleMatch, path: RuleMatch, status_code: RuleMatch, mime_type: RuleMatch)
   {

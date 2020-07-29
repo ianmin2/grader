@@ -1,1 +1,44 @@
-<p>new-assignment works!</p>
+<div class="card">
+    <form class="border border-light p-5" [formGroup]="newAssignmentForm">
+
+        <p class="h4 mb-4 text-center">NEW ASSIGNMENT</p>
+
+        <div id="sortable-form" class="droptrue drop-list ui-sortable">
+
+            <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
+                <label for="assignment_name">Name</label>
+                <input type="text" id="assignment_name" name="assignment_name" class="form-control mb-4" placeholder="Assignment Name">
+            </div>
+
+
+            <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                <label for="assignment_owner">Owner</label>
+                <select class="browser-default custom-select mb-4" id="assignment_owner" name="assignment_owner">
+                    <option value="" disabled="" selected="">Select Owner</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+            </div>
+
+            <div data-template="dTextareaTemp" data-popover="textarea" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                <label for="assignment_summary">Summary</label>
+                <textarea id="assignment_summary" name="assignment_summary" class="form-control mb-4" placeholder="Summary"></textarea>
+            </div>
+
+            <div data-template="dTextareaTemp" data-popover="textarea" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                <label for="assignment_notes">Notes</label>
+                <textarea id="assignment_notes" name="assignment_notes" class="form-control mb-4" placeholder="Notes"></textarea>
+            </div>
+
+            <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
+                <label for="assignment_due">Due Date</label>
+                <input type="text" id="assignment_due" name="assignment_due" class="form-control mb-4" placeholder="Due Date">
+            </div>
+
+        </div>
+
+        <button class="btn btn-info btn-block my-4" type="submit">Add Assignment</button>
+
+    </form>
+</div>

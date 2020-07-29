@@ -2,7 +2,6 @@ import { Grading } from './Grading.model';
 
 export class Rule
 {
-
   public rule_id : number;
   public rule_method : string;
   public rule_path : string;
@@ -13,7 +12,8 @@ export class Rule
   public rule_expected_status_code : number;
   public rule_expected_data_type : string;
   public rule_grading: Grading;
-
+  public created_at : string;
+  public updated_at : string;
 
   constructor(rule_id : number,  rule_method : string,  rule_path : string,  rule_name : string,  rule_description : string,  rule_assignment : number,  rule_http_verb : string,  rule_expected_status_code : number,  rule_expected_data_type : string,  rule_grading: Grading)
   {
@@ -28,4 +28,5 @@ export class Rule
     this.rule_expected_data_type = rule_expected_data_type;
     this.rule_grading = rule_grading;
   }
+
 }

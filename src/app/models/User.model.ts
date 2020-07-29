@@ -24,7 +24,6 @@ export class User {
     this.user_salt = user_salt;
     this.user_active = user_active ;
     this.user_last_seen = user_last_seen;
-
   }
 
 
