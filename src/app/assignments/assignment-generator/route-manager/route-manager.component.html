@@ -63,7 +63,7 @@
                 <div class="col-md-3">
                     <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
                         <label for="rule_expected_data_type">Response Format</label>
-                        <input class="browser-default form-control mb-4" list="rule_expected_data_type" name="rule_expected_data_type">
+                        <input class="browser-default form-control mb-4" value="text/html" list="rule_expected_data_type" name="rule_expected_data_type">
 
                         <datalist id="rule_expected_data_type" *ngIf="mimeTypes">
                             <option  *ngFor="let typ of mimeTypes " [value]="typ.mime">{{typ.description}}</option>
