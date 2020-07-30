@@ -1,65 +1,110 @@
 <div class="card">
-    <form class="border border-light p-5" [formGroup]="newRouteForm">
+    <form class="border border-light p-5" [formGroup]="newRouteForm" (ngSubmit)="saveRoute()">
 
         <p class="h4 mb-4 text-center">NEW ASSIGNMENT RULE</p>
 
+        <hr>
+
         <div id="sortable-form" class="droptrue drop-list ui-sortable">
 
-            <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
-                <label for="route_name">Rule Name</label>
-                <input type="text" id="route_name" name="route_name" class="form-control mb-4" placeholder="Rule name">
-            </div>
 
-            <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                <label for="route_method"> HTTP Method</label>
-                <select class="browser-default custom-select mb-4" id="route_method" name="route_method">
-              <option selected value="GET">GET</option>
-              <option value="POST">POST</option>
-              <option value="PUT">PUT</option>
-              <option value="DELETE">DELETE</option>
-              <option value="OPTIONS">OPTIONS</option>
-          </select>
-            </div>
+            <!-- NAME & DESCRIPTION -->
+            <div class="row col-12 bg-black padding">
+                <div class="col-md-4">
+                    <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
+                        <label for="rule_name">Rule Name</label>
+                        <input type="text" id="rule_name" name="rule_name" class="form-control mb-4" placeholder="Rule name">
+                    </div>
+                </div>
 
-            <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
-                <label for="route_path">Path</label>
-                <input type="text" id="route_path" name="route_path" class="form-control mb-4" placeholder="/path">
-            </div>
+                <div class="col-md-3">
+                    <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                        <label for="rule_assignment">Assignment</label>
+                        <input class="browser-default form-control mb-4" list="rule_assignment" name="rule_assignment" placeholder="Assignment ">
+                        <datalist id="rule_assignment" *ngIf="assignments">
+                            <option  *ngFor="let asgnt of assignments" [value]="asgnt.assignment_id">{{asgnt.assignment_name}}</option>
+                        </datalist>
+                        <datalist id="rule_assignment" *ngIf="!assignments">
+                          <option value="" selected>Refresh to Load Assignments</option>
+                      </datalist>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                        <label for="rule_expected_status_code">Expected Status Code</label>
+                        <input type="number" id="rule_expected_status_code" name="rule_expected_status_code" class="form-control mb-4" value="200" placeholder="Expected Status Code">
+                    </div>
+                </div>
 
-            <div data-template="dTextareaTemp" data-popover="textarea" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                <label for="route_description">Description</label>
-                <textarea id="route_description" name="route_description" class="form-control mb-4" placeholder="description"></textarea>
             </div>
+            <!-- END OF --- NAME & DESCRIPTION -->
 
-            <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                <label for="route_assignment">Assignment</label>
-                <select class="browser-default custom-select mb-4" id="route_assignment" name="route_assignment">
-                  <option value="" disabled="" selected="">Select Assignment</option>
-                  <option value="1">Option 1</option>
-                  <option value="2">Option 2</option>
-                  <option value="3">Option 3</option>
-              </select>
-            </div>
 
-            <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                <label for="route_expected_status_code">Expected Status Code</label>
-                <input type="number" id="route_expected_status_code" name="route_expected_status_code" class="form-control mb-4" placeholder="Expected Status Code">
-            </div>
+            <!-- METHOD, PATH & EXPECTED TYPE -->
+            <div class="row col-12 bg-black padding">
+                <div class="col-md-3">
+                    <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                        <label for="rule_method"> HTTP Method</label>
+                        <select class="browser-default custom-select mb-4" id="rule_method" name="rule_method">
+                        <option class="bg-success" selected value="GET">GET</option>
+                        <option value="POST">POST</option>
+                        <option value="PUT">PUT</option>
+                        <option value="DELETE">DELETE</option>
+                        <option value="OPTIONS">OPTIONS</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
+                        <label for="rule_path">Path</label>
+                        <input type="text" id="rule_path" name="rule_path" class="form-control mb-4" placeholder="/path">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                        <label for="rule_expected_data_type">Response Format</label>
+                        <input class="browser-default form-control mb-4" list="rule_expected_data_type" name="rule_expected_data_type">
 
-            <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                <label for="route_expected_data_type">Expected Data Type</label>
-                <select class="browser-default custom-select mb-4" id="route_expected_data_type" name="route_expected_data_type">
-                <option value="" disabled="" selected="">Select Expected Data Type</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-            </select>
+                        <datalist id="rule_expected_data_type" *ngIf="mimeTypes">
+                            <option  *ngFor="let typ of mimeTypes " [value]="typ.mime">{{typ.description}}</option>
+                        </datalist>
+                        <datalist id="rule_expected_data_type" *ngIf="!mimeTypes ">
+                          <option value=" " selected>Refresh to Load Response Formats</option>
+                      </datalist>
+                    </div>
+                </div>
             </div>
+            <!-- END OF ---  METHOD, PATH & EXPECTED TYPE -->
 
-            <div data-template="dTextareaTemp" data-popover="textarea" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                <label for="route_expected_data">Expected Data</label>
-                <textarea id="route_expected_data" name="route_expected_data" class="form-control mb-4" placeholder="expected_data"></textarea>
+
+            <!-- ASSIGNMENT & STATUS CODE -->
+            <div class="row col-12 bg-black padding ">
+
+                <div class="col-md-6 ">
+                    <div data-template="dTextareaTemp " data-popover="textarea " class=" " style="position: relative; left: 0px; top: 0px; " data-original-title=" " title=" ">
+                        <label for="rule_description ">Description</label>
+                        <textarea id="rule_description " name="rule_description " class="form-control mb-4 " placeholder="Assignment Description "></textarea>
+                    </div>
+                </div>
+
+                <div class="col-md-5 ">
+                    <div data-template="dTextareaTemp " data-popover="textarea " class=" " style="position: relative; left: 0px; top: 0px; " data-original-title=" " title=" ">
+                        <label for="rule_expected_data ">Expected Data</label>
+                        <textarea id="rule_expected_data " name="rule_expected_data " class="form-control mb-4 " placeholder="Expected response data "></textarea>
+                    </div>
+                </div>
+
             </div>
+            <!-- EO --- ASSIGNMENT & STATUS CODE -->
+
+
+
+
+
+
+
+
+
 
             <div>
                 <h3>GRADING!</h3>
@@ -67,7 +112,7 @@
 
         </div>
 
-        <button class="btn btn-info btn-block my-4" type="submit">Add Assignment</button>
+        <button class="btn btn-info btn-block my-4 " type="submit ">Add Assignment</button>
 
     </form>
 </div>

@@ -1,5 +1,9 @@
 import { Grading } from './Grading.model';
 
+interface RuleInfo {
+  [key: string]: any
+}
+
 export class Rule
 {
   public rule_id : number;
@@ -11,11 +15,13 @@ export class Rule
   public rule_http_verb : string;
   public rule_expected_status_code : number;
   public rule_expected_data_type : string;
+  public rule_headers : RuleInfo[];
+  public rule_parameters : RuleInfo[];
   public rule_grading: Grading;
   public created_at : string;
   public updated_at : string;
 
-  constructor(rule_id : number,  rule_method : string,  rule_path : string,  rule_name : string,  rule_description : string,  rule_assignment : number,  rule_http_verb : string,  rule_expected_status_code : number,  rule_expected_data_type : string,  rule_grading: Grading)
+  constructor(rule_id : number,  rule_method : string,  rule_path : string,  rule_name : string,  rule_description : string,  rule_assignment : number,  rule_http_verb : string,  rule_expected_status_code : number,  rule_expected_data_type : string,  rule_grading: Grading, rule_headers: RuleInfo[], rule_parameters: RuleInfo[])
   {
     this.rule_id = rule_id;
     this.rule_method = rule_method;
@@ -27,6 +33,8 @@ export class Rule
     this.rule_expected_status_code = rule_expected_status_code;
     this.rule_expected_data_type = rule_expected_data_type;
     this.rule_grading = rule_grading;
+    this.rule_headers = rule_headers;
+    this.rule_parameters = rule_parameters;
   }
 
 }
