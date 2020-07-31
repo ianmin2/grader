@@ -18,8 +18,8 @@ export class RouteManagerComponent implements OnInit {
 
   private keyValueFormGroup(){
     return new FormGroup({
-      key : new FormControl(null),
-      value : new FormGroup(null)
+      key : new FormControl(),
+      value : new FormControl(),
     });
   }
 
@@ -51,9 +51,13 @@ export class RouteManagerComponent implements OnInit {
 
   }
 
+private available_positions = ["headers","parameters"]
+
   newRouteForm:FormGroup;
 
   mimeTypes: MimeType[];
+
+  headers : string[];
 
   assignments: Assignment[];
 
@@ -63,6 +67,8 @@ export class RouteManagerComponent implements OnInit {
 
     //@ Load the list of available mime types
     this.mimeTypes =  this.staticData.MimeTypes();
+
+    this.headers = this.staticData.Headers();
 
     //@ Fetch and load a list of assignments
     this.http.getAssignments().subscribe(d=>{
@@ -79,9 +85,7 @@ export class RouteManagerComponent implements OnInit {
       rule_http_verb : new FormControl(null, Validators.required),
       rule_expected_status_code : new FormControl('200',Validators.required),
       rule_expected_data_type : new FormControl('text/html', Validators.required),
-      rule_headers : new FormArray([
-        // this.keyValueFormGroup()
-      ]),
+      rule_headers : new FormArray([]),
       rule_parameters : new FormArray([
         // this.keyValueFormGroup()
       ]),
@@ -108,15 +112,26 @@ export class RouteManagerComponent implements OnInit {
 
   newValuePair( formDesignation: string){
 
-    const available_positions = ["headers","parameters"]
-
-    if( available_positions.indexOf(formDesignation.toLowerCase()) != -1)
+    if( this.available_positions.indexOf(formDesignation.toLowerCase()) != -1)
     {
-      (<FormArray>this.newRouteForm.get(`rule_${formDesignation.toLowerCase()}`)).push(this.keyValueFormGroup());
+      (<FormArray>this.newRouteForm.get(`rule_${formDesignation.toLowerCase()}`))['controls'].push(this.keyValueFormGroup());
     }
     else
     {
-      console.log(`\n_____________________\nINVALID VALUE PAIR POSITION\n_____________________\nTry ${available_positions.join('\n')}\n_____________________\n`);
+      console.log(`\n_____________________\nINVALID VALUE PAIR POSITION\n_____________________\nTry ${this.available_positions.join('\n')}\n_____________________\n`);
+    }
+  }
+
+
+  removeValuePair(formDesignation: string, idx : number)
+  {
+    if( this.available_positions.indexOf(formDesignation.toLowerCase()) != -1)
+    {
+      (<FormArray>this.newRouteForm.get(`rule_${formDesignation.toLowerCase()}`))['controls'].splice(idx,1);
+    }
+    else
+    {
+      console.log(`\n_____________________\nINVALID VALUE PAIR POSITION\n_____________________\nTry ${this.available_positions.join('\n')}\n_____________________\n`);
     }
   }
 
