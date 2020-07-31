@@ -103,7 +103,7 @@
             <!-- HEADERS -->
             <div class="row col-12 bg-black">
                 <hr class="row col-12" style="background-color: white !important;">
-                <div class="col-md-2 col-sm-6">
+                <div class="col-md-4 col-sm-6">
                     HEADERS
                 </div>
                 <div class="col-md-2 col-sm-6">
@@ -219,9 +219,153 @@
             <!-- END OF --- BODY PARAMETERS -->
 
 
-            <div>
-                <h3>GRADING!</h3>
+            <div class="row col-12 bg-black">
+                <hr class="row col-12" style="background-color: white !important;">
+                <div class="col-md-4 col-sm-6">
+                    GRADING
+                </div>
+                <!-- <div class="col-md-2 col-sm-6">
+                    <button class="btn btn-success btn-sm" type="button" (click)="newValuePair('parameters')">ADD</button>
+                </div> -->
             </div>
+
+            <div class="row col-12 bg-black" formGroupName="rule_grading">
+
+                <!-- SO -- PATH -->
+                <div class="col-12 row" formGroupName="path">
+
+                    <div class="row col-12 bg-black">
+                        <hr class="row col-12" style="background-color: white !important;">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4 col-sm-6">
+                            Path
+                        </div>
+                        <div class="col-md-2 col-sm-6">
+                            <button class="btn btn-success btn-sm" type="button" (click)="newGradingCriteria('path')">ADD</button>
+                        </div>
+                    </div>
+
+                    <div class="col-12 row form-group">
+
+                        <div class="col-md-4">
+                            <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
+                                <label class="">weight</label>
+                                <input type="text" name="weight" class="form-control form-control-lg mb-4" placeholder="Parameter" formControlName="weight">
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                                <label class="">Match Marks </label>
+                                <input type="number" name="match" class="form-control form-control-lg mb-4" placeholder="Marks for positive match" formControlName="match">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                                <label class="">No Match Marks</label>
+                                <input type="number" name="no_match" class="form-control form-control-lg mb-4" placeholder="Marks for negative match" formControlName="no_match">
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-2">
+                            <button class="btn btn-block btn-outline-danger btn-lg" type="button">X</button>
+                        </div> -->
+
+                    </div>
+
+                    <div class="col-12 row form-group" *ngFor="let parVal of newRouteForm.get('rule_grading.path.matches')['controls'];let pathidx = index">
+
+                        <div class="col-12 row form-group" [formGroupName]="pathidx">
+
+                            <div class="col-md-4">
+                                <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
+                                    <label class="">Alternate Path</label>
+                                    <input type="text" name="alternative" class="form-control form-control-lg mb-4" placeholder="Parameter" formControlName="alternative">
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                                    <label class="">Match Marks </label>
+                                    <input type="number" name="match" class="form-control form-control-lg mb-4" placeholder="Marks for positive match" formControlName="match">
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                                    <label class="">No Match Marks</label>
+                                    <input type="number" name="no_match" class="form-control form-control-lg mb-4" placeholder="Marks for negative match" formControlName="no_match">
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <!-- <button class="btn btn-block btn-outline-danger btn-lg" type="button" (click)="removeGradingCriteria('path',pathidx)">X</button> -->
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+                <!-- EO -- PATH -->
+
+                <!-- SO -- VERB -->
+                <div class="col-12 row" formGroupName="verb">
+
+                    <div class="row col-12 bg-black">
+                        <hr class="row col-12" style="background-color: white !important;">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4 col-sm-6">
+                            Verb
+                        </div>
+                        <div class="col-md-2 col-sm-6">
+                            <button class="btn btn-success btn-sm" type="button" (click)="newGradingCriteria('verb')">ADD</button>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- EO - VERB -->
+
+                <!-- SO --STATUS CODE  -->
+                <div class="col-12 row" formGroupName="status_code">
+
+                    <div class="row col-12 bg-black">
+                        <hr class="row col-12" style="background-color: white !important;">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4 col-sm-6">
+                            Status Code
+                        </div>
+                        <div class="col-md-2 col-sm-6">
+                            <button class="btn btn-success btn-sm" type="button" (click)="newGradingCriteria('status_code')">ADD</button>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- EO STATUS CODE -->
+
+                <!-- SO -- MIME TYPE -->
+                <div class="col-12 row" formGroupName="mime_type">
+
+                    <div class="row col-12 bg-black">
+                        <hr class="row col-12" style="background-color: white !important;">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4 col-sm-6">
+                            MIME Type
+                        </div>
+                        <div class="col-md-2 col-sm-6">
+                            <button class="btn btn-success btn-sm" type="button" (click)="newGradingCriteria('mime_type')">ADD</button>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- SO -- MIME TYPE -->
+
+            </div>
+
 
         </div>
 

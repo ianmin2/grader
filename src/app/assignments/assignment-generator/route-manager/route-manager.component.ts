@@ -137,10 +137,28 @@ private available_positions = ["headers","parameters"]
 
   newGradingCriteria( gradingPosition : string )
   {
+    const available_positions = {
+      "verb": 'rule_grading.verb.matches',
+      "path" : 'rule_grading.path.matches',
+      "status_code" :'rule_grading.status_code.matches',
+      "mime_type": 'rule_grading.mime_type.matches'
+    };
+
+    if( available_positions[gradingPosition.toLowerCase()]){
+      (<FormArray>this.newRouteForm.get(available_positions[gradingPosition.toLowerCase()]))['controls'].push(this.gradingSubFormGroup());
+    }
+    else
+    {
+      console.log(`\n_____________________\nINVALID GRADING POSITION\n_____________________\nTry ${Object.keys(available_positions).join('\n')}\n_____________________\n`);
+    }
+  }
+
+  removeGradingCriteria( gradingPosition : string, idx:number )
+  {
     const available_positions = ["verb","path","status_code","mime_type"];
 
     if( available_positions.indexOf(gradingPosition.toLowerCase()) != -1){
-      (<FormArray>this.newRouteForm.get(`rule_grading.${gradingPosition.toLowerCase()}.matches`)).push(this.gradingSubFormGroup());
+      this.newRouteForm.get(`rule_grading`)['controls'][gradingPosition.toLowerCase()]['controls'].matches['controls'].slice(idx,1);
     }
     else
     {
