@@ -275,37 +275,41 @@
 
                     </div>
 
-                    <div class="col-12 row form-group" *ngFor="let parVal of newRouteForm.get('rule_grading.path.matches')['controls'];let pathidx = index">
 
-                        <div class="col-12 row form-group" [formGroupName]="pathidx">
+                    <div class="col-12 row" formGroupName="matches">
 
-                            <div class="col-md-4">
-                                <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
-                                    <label class="">Alternate Path</label>
-                                    <input type="text" name="alternative" class="form-control form-control-lg mb-4" placeholder="Parameter" formControlName="alternative">
+                        <div class="col-12 row form-group" *ngFor="let parVal of newRouteForm.get('rule_grading.path.matches')['controls'];let pathidx = index">
+
+                            <div class="col-12 row form-group" formGroupName="{{pathidx}}">
+
+                                <div class="col-md-4">
+                                    <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
+                                        <label class="">Alternate Path</label>
+                                        <input type="text" name="alternative" class="form-control form-control-lg mb-4" placeholder="Parameter" formControlName="alternative">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-3">
-                                <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                                    <label class="">Match Marks </label>
-                                    <input type="number" name="match" class="form-control form-control-lg mb-4" placeholder="Marks for positive match" formControlName="match">
+                                <div class="col-md-3">
+                                    <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                                        <label class="">Match Marks </label>
+                                        <input type="number" name="match" class="form-control form-control-lg mb-4" placeholder="Marks for positive match" formControlName="match">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-3">
-                                <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                                    <label class="">No Match Marks</label>
-                                    <input type="number" name="no_match" class="form-control form-control-lg mb-4" placeholder="Marks for negative match" formControlName="no_match">
+                                <div class="col-md-3">
+                                    <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                                        <label class="">No Match Marks</label>
+                                        <input type="number" name="no_match" class="form-control form-control-lg mb-4" placeholder="Marks for negative match" formControlName="no_match">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-2">
-                                <!-- <button class="btn btn-block btn-outline-danger btn-lg" type="button" (click)="removeGradingCriteria('path',pathidx)">X</button> -->
+                                <div class="col-md-2">
+                                    <button class="btn btn-block btn-outline-danger btn-lg" type="button" (click)="removeGradingCriteria('path',pathidx)">X</button>
+                                </div>
+
                             </div>
 
                         </div>
-
                     </div>
 
 

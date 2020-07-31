@@ -51,7 +51,14 @@ export class RouteManagerComponent implements OnInit {
 
   }
 
-private available_positions = ["headers","parameters"]
+private available_positions = ["headers","parameters"];
+
+private available_match_positions = {
+  "verb": 'rule_grading.verb.matches',
+  "path" : 'rule_grading.path.matches',
+  "status_code" :'rule_grading.status_code.matches',
+  "mime_type": 'rule_grading.mime_type.matches'
+};
 
   newRouteForm:FormGroup;
 
@@ -137,32 +144,26 @@ private available_positions = ["headers","parameters"]
 
   newGradingCriteria( gradingPosition : string )
   {
-    const available_positions = {
-      "verb": 'rule_grading.verb.matches',
-      "path" : 'rule_grading.path.matches',
-      "status_code" :'rule_grading.status_code.matches',
-      "mime_type": 'rule_grading.mime_type.matches'
-    };
 
-    if( available_positions[gradingPosition.toLowerCase()]){
-      (<FormArray>this.newRouteForm.get(available_positions[gradingPosition.toLowerCase()]))['controls'].push(this.gradingSubFormGroup());
+
+    if( this.available_match_positions[gradingPosition.toLowerCase()]){
+      (<FormArray>this.newRouteForm.get(this.available_match_positions[gradingPosition.toLowerCase()]))['controls'].push(this.gradingSubFormGroup());
     }
     else
     {
-      console.log(`\n_____________________\nINVALID GRADING POSITION\n_____________________\nTry ${Object.keys(available_positions).join('\n')}\n_____________________\n`);
+      console.log(`\n_____________________\nINVALID GRADING POSITION\n_____________________\nTry ${Object.keys(this.available_match_positions).join('\n')}\n_____________________\n`);
     }
   }
 
   removeGradingCriteria( gradingPosition : string, idx:number )
   {
-    const available_positions = ["verb","path","status_code","mime_type"];
 
-    if( available_positions.indexOf(gradingPosition.toLowerCase()) != -1){
-      this.newRouteForm.get(`rule_grading`)['controls'][gradingPosition.toLowerCase()]['controls'].matches['controls'].slice(idx,1);
+    if( this.available_match_positions[gradingPosition.toLowerCase()]){
+      (<FormArray>this.newRouteForm.get(this.available_match_positions[gradingPosition.toLowerCase()]))['controls'].splice(idx,1);
     }
     else
     {
-      console.log(`\n_____________________\nINVALID GRADING POSITION\n_____________________\nTry ${available_positions.join('\n')}\n_____________________\n`);
+      console.log(`\n_____________________\nINVALID GRADING POSITION\n_____________________\nTry ${this.available_positions.join('\n')}\n_____________________\n`);
     }
   }
 
