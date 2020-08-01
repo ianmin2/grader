@@ -247,12 +247,12 @@
 
                     <div class="col-12 row form-group">
 
-                        <div class="col-md-4">
+                        <!-- <div class="col-md-4">
                             <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
                                 <label class="">weight</label>
                                 <input type="text" name="weight" class="form-control form-control-lg mb-4" placeholder="Parameter" formControlName="weight">
                             </div>
-                        </div>
+                        </div> -->
 
 
                         <div class="col-md-4">
@@ -304,6 +304,7 @@
                                 </div>
 
                                 <div class="col-md-2">
+                                    <div style="margin-top: 1.8em !important;"></div>
                                     <button class="btn btn-block btn-outline-danger btn-lg" type="button" (click)="removeGradingCriteria('path',pathidx)">X</button>
                                 </div>
 
@@ -311,8 +312,6 @@
 
                         </div>
                     </div>
-
-
 
                 </div>
                 <!-- EO -- PATH -->
@@ -328,6 +327,80 @@
                         </div>
                         <div class="col-md-2 col-sm-6">
                             <button class="btn btn-success btn-sm" type="button" (click)="newGradingCriteria('verb')">ADD</button>
+                        </div>
+                    </div>
+
+                    <div class="col-12 row form-group">
+
+                        <!-- <div class="col-md-4">
+                            <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
+                                <label class="">weight</label>
+                                <input type="text" name="weight" class="form-control form-control-lg mb-4" placeholder="Parameter" formControlName="weight">
+                            </div>
+                        </div> -->
+
+
+                        <div class="col-md-4">
+                            <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                                <label class="">Match Marks </label>
+                                <input type="number" name="match" class="form-control form-control-lg mb-4" placeholder="Marks for positive match" formControlName="match">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                                <label class="">No Match Marks</label>
+                                <input type="number" name="no_match" class="form-control form-control-lg mb-4" placeholder="Marks for negative match" formControlName="no_match">
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-2">
+                          <button class="btn btn-block btn-outline-danger btn-lg" type="button">X</button>
+                      </div> -->
+
+                    </div>
+
+
+                    <div class="col-12 row" formGroupName="matches">
+
+                        <div class="col-12 row form-group" *ngFor="let parVal of newRouteForm.get('rule_grading.verb.matches')['controls'];let verbidx = index">
+
+                            <div class="col-12 row form-group" formGroupName="{{verbidx}}">
+
+                                <div class="col-md-4">
+                                    <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
+                                        <label class="">Alternate verb</label>
+                                        <select class="custom-select custom-select-lg mb-4" name="alternative" id="alternative" formControlName="alternative">
+                                          <option >GET</option>
+                                          <option >POST</option>
+                                          <option >PUT</option>
+                                          <option >DELETE</option>
+                                          <option >OPTIONS</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                                        <label class="">Match Marks </label>
+                                        <input type="number" name="match" class="form-control form-control-lg mb-4" placeholder="Marks for positive match" formControlName="match">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                                        <label class="">No Match Marks</label>
+                                        <input type="number" name="no_match" class="form-control form-control-lg mb-4" placeholder="Marks for negative match" formControlName="no_match">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div style="margin-top: 1.8em !important;"></div>
+                                    <button class="btn btn-block btn-outline-danger btn-lg" type="button" (click)="removeGradingCriteria('verb',verbidx)">X</button>
+                                </div>
+
+                            </div>
+
                         </div>
                     </div>
 
@@ -348,6 +421,74 @@
                         </div>
                     </div>
 
+                    <div class="col-12 row form-group">
+
+                        <!-- <div class="col-md-4">
+                            <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
+                                <label class="">weight</label>
+                                <input type="text" name="weight" class="form-control form-control-lg mb-4" placeholder="Parameter" formControlName="weight">
+                            </div>
+                        </div> -->
+
+
+                        <div class="col-md-4">
+                            <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                                <label class="">Match Marks </label>
+                                <input type="number" name="match" class="form-control form-control-lg mb-4" placeholder="Marks for positive match" formControlName="match">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                                <label class="">No Match Marks</label>
+                                <input type="number" name="no_match" class="form-control form-control-lg mb-4" placeholder="Marks for negative match" formControlName="no_match">
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-2">
+                          <button class="btn btn-block btn-outline-danger btn-lg" type="button">X</button>
+                      </div> -->
+
+                    </div>
+
+
+                    <div class="col-12 row" formGroupName="matches">
+
+                        <div class="col-12 row form-group" *ngFor="let parVal of newRouteForm.get('rule_grading.status_code.matches')['controls'];let status_codeidx = index">
+
+                            <div class="col-12 row form-group" formGroupName="{{status_codeidx}}">
+
+                                <div class="col-md-4">
+                                    <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
+                                        <label class="">Alternate status_code</label>
+                                        <input type="text" name="alternative" class="form-control form-control-lg mb-4" placeholder="Alternate Status Code" formControlName="alternative">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                                        <label class="">Match Marks </label>
+                                        <input type="number" name="match" class="form-control form-control-lg mb-4" placeholder="Marks for positive match" formControlName="match">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                                        <label class="">No Match Marks</label>
+                                        <input type="number" name="no_match" class="form-control form-control-lg mb-4" placeholder="Marks for negative match" formControlName="no_match">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div style="margin-top: 1.8em !important;"></div>
+                                    <button class="btn btn-block btn-outline-danger btn-lg" type="button" (click)="removeGradingCriteria('status_code',status_codeidx)">X</button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
                 <!-- EO STATUS CODE -->
 
@@ -362,6 +503,83 @@
                         </div>
                         <div class="col-md-2 col-sm-6">
                             <button class="btn btn-success btn-sm" type="button" (click)="newGradingCriteria('mime_type')">ADD</button>
+                        </div>
+                    </div>
+
+                    <div class="col-12 row form-group">
+
+                        <!-- <div class="col-md-4">
+                            <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
+                                <label class="">weight</label>
+                                <input type="text" name="weight" class="form-control form-control-lg mb-4" placeholder="Parameter" formControlName="weight">
+                            </div>
+                        </div> -->
+
+
+                        <div class="col-md-4">
+                            <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                                <label class="">Match Marks </label>
+                                <input type="number" name="match" class="form-control form-control-lg mb-4" placeholder="Marks for positive match" formControlName="match">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                                <label class="">No Match Marks</label>
+                                <input type="number" name="no_match" class="form-control form-control-lg mb-4" placeholder="Marks for negative match" formControlName="no_match">
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-2">
+                          <button class="btn btn-block btn-outline-danger btn-lg" type="button">X</button>
+                      </div> -->
+
+                    </div>
+
+
+                    <div class="col-12 row" formGroupName="matches">
+
+                        <div class="col-12 row form-group" *ngFor="let parVal of newRouteForm.get('rule_grading.mime_type.matches')['controls'];let mime_typeidx = index">
+
+                            <div class="col-12 row form-group" formGroupName="{{mime_typeidx}}">
+
+                                <div class="col-md-4">
+                                    <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
+                                        <label class="">Alternate mime_type</label>
+                                        <!-- <input type="text" class="form-control form-control-lg mb-4 "> -->
+                                        <input name="alternative " class="browser-default form-control form-control-lg mb-4 " placeholder="Alternate Mime Type " formControlName="alternative " list="rule_expected_data_type ">
+
+                                        <datalist id="rule_expected_data_type " *ngIf="mimeTypes ">
+                                            <option  *ngFor="let typ of mimeTypes " [value]="typ.mime ">{{typ.description}}</option>
+                                        </datalist>
+                                        <datalist id="rule_expected_data_type " *ngIf="!mimeTypes ">
+                                          <option value=" " selected>Refresh to Load Response Formats</option>
+                                        </datalist>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 ">
+                                    <div data-template="dTextInputTemp " data-popover="input " class=" " style="position: relative; left: 0px; top: 0px; " data-original-title=" " title=" ">
+                                        <label class=" ">Match Marks </label>
+                                        <input type="number " name="match " class="form-control form-control-lg mb-4 " placeholder="Marks for positive match " formControlName="match ">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 ">
+                                    <div data-template="dTextInputTemp " data-popover="input " class=" " style="position: relative; left: 0px; top: 0px; " data-original-title=" " title=" ">
+                                        <label class=" ">No Match Marks</label>
+                                        <input type="number " name="no_match " class="form-control form-control-lg mb-4 " placeholder="Marks for negative match " formControlName="no_match ">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 ">
+                                    <div style="margin-top: 1.8em !important; "></div>
+                                    <button class="btn btn-block btn-outline-danger btn-lg " type="button " (click)="removeGradingCriteria( 'mime_type',mime_typeidx) ">X</button>
+                                </div>
+
+                            </div>
+
                         </div>
                     </div>
 

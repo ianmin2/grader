@@ -13,12 +13,19 @@
 
             <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
                 <label for="assignment_owner">Owner</label>
-                <select class="browser-default custom-select mb-4" id="assignment_owner" name="assignment_owner">
+                <input class="browser-default form-control form-control-lg mb-4" list="assignment_owner" name="assignment_owner" placeholder="Assignment Owner">
+                <datalist id="assignment_owner" *ngIf="users">
+                    <option  *ngFor="let owner of users" [value]="owner.id">{{owner.name}}</option>
+                </datalist>
+                <datalist id="rule_assignment" *ngIf="!users">
+                    <option value="" selected>Refresh to Load owners</option>
+                </datalist>
+                <!-- <select class="browser-default custom-select mb-4" id="assignment_owner" name="assignment_owner">
                     <option value="" disabled="" selected="">Select Owner</option>
                     <option value="1">Option 1</option>
                     <option value="2">Option 2</option>
                     <option value="3">Option 3</option>
-                </select>
+                </select> -->
             </div>
 
             <div data-template="dTextareaTemp" data-popover="textarea" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">

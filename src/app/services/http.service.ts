@@ -2,6 +2,8 @@ import { Assignment } from './../models/Assignment.model';
 import { Rule } from './../models/Rule.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { SubUser } from './SubUser.interface';
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,11 @@ private applicationHost:string = "http://localhost";
   getAssignments()
   {
     return this.http.get<Assignment[]>(`${this.applicationHost}/api/Assignments`);
+  }
+
+  getUsers()
+  {
+    return this.http.get<SubUser[]>(`${this.applicationHost}/api/Users`);
   }
 
 

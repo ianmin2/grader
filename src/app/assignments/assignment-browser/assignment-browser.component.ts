@@ -10,6 +10,8 @@ export class AssignmentBrowserComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
+
   }
 
 }
