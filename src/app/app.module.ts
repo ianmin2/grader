@@ -2,7 +2,7 @@ import { AppRouterModule } from './app-router/app-router.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
-import { HttpClientModule} from '@angular/common/http'
+import { HttpClientModule} from '@angular/common/http';
 
 //@ APPLICATION COMPONENTS
 import { AppComponent } from './app.component';
@@ -29,6 +29,7 @@ import { MethodManagerComponent } from './assignments/assignment-generator/metho
 import { OutputManagerComponent } from './assignments/assignment-generator/output-manager/output-manager.component';
 import { OverviewComponent } from './assignments/assignment-generator/overview/overview.component';
 import { NewAssignmentComponent } from './assignments/assignment-generator/new-assignment/new-assignment.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { NewAssignmentComponent } from './assignments/assignment-generator/new-a
     AppRouterModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

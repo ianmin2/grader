@@ -1,7 +1,7 @@
 <div class="card">
     <form class="border border-light p-5" [formGroup]="newRouteForm" (ngSubmit)="saveRoute()">
 
-        <p class="h4 mb-4 text-center">NEW ASSIGNMENT RULE</p>
+        <p class="h4 mb-4 text-center">NEW GRADING RULE</p>
 
         <hr>
 
@@ -13,14 +13,14 @@
                 <div class="col-md-4">
                     <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
                         <label for="rule_name">Rule Name</label>
-                        <input type="text" id="rule_name" name="rule_name" class="form-control  form-control-lg mb-4" placeholder="Rule name">
+                        <input type="text" id="rule_name" name="rule_name" formControlName="rule_name" class="form-control  form-control-lg mb-4" placeholder="Rule name">
                     </div>
                 </div>
 
                 <div class="col-md-3">
                     <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
                         <label for="rule_assignment">Assignment</label>
-                        <input class="browser-default form-control form-control-lg mb-4" list="rule_assignment" name="rule_assignment" placeholder="Assignment ">
+                        <input class="browser-default form-control form-control-lg mb-4" list="rule_assignment" name="rule_assignment" formControlName="rule_assignment" placeholder="Assignment ">
                         <datalist id="rule_assignment" *ngIf="assignments">
                             <option  *ngFor="let asgnt of assignments" [value]="asgnt.assignment_id">{{asgnt.assignment_name}}</option>
                         </datalist>
@@ -32,7 +32,14 @@
                 <div class="col-md-4">
                     <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
                         <label for="rule_expected_status_code">Expected Status Code</label>
-                        <input type="number" id="rule_expected_status_code" name="rule_expected_status_code" class="form-control form-control-lg mb-4" value="200" placeholder="Expected Status Code">
+                        <!-- <input type="number" id="rule_expected_status_code" name="rule_expected_status_code" class="form-control form-control-lg mb-4" value="200" placeholder="Expected Status Code"> -->
+                        <input class="browser-default form-control form-control-lg mb-4" list="rule_expected_status_code" name="rule_expected_status_code" formControlName="rule_expected_status_code" placeholder="Expected Status Code">
+                        <datalist id="rule_expected_status_code" *ngIf="statusCodes">
+                            <option  *ngFor="let statCode of statusCodes" [value]="statCode.code">{{statCode.description}}</option>
+                        </datalist>
+                        <datalist id="rule_expected_status_code" *ngIf="!statusCodes">
+                            <option value="" selected>Refresh to Load Status Codes</option>
+                        </datalist>
                     </div>
                 </div>
 
@@ -47,7 +54,7 @@
                         <label for="rule_method"> HTTP Method</label>
                         <!-- <input class="browser-default form-control mb-4" placeholder="HTTP Method" list="rule_method" name="rule_method"> -->
 
-                        <select class="custom-select custom-select-lg mb-4" name="rule_method" id="rule_method">
+                        <select class="custom-select custom-select-lg mb-4" name="rule_method" formControlName="rule_method" id="rule_method">
                           <option  selected>GET</option>
                           <option  >POST</option>
                           <option  >PUT</option>
@@ -59,13 +66,13 @@
                 <div class="col-md-6">
                     <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
                         <label for="rule_path">Path</label>
-                        <input type="text" id="rule_path" name="rule_path" class="form-control form-control-lg mb-4" placeholder="/path">
+                        <input type="text" id="rule_path" name="rule_path" formControlName="rule_path" class="form-control form-control-lg mb-4" placeholder="/path">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
                         <label for="rule_expected_data_type">Response Format</label>
-                        <input class="browser-default form-control form-control-lg mb-4" placeholder="Response Type" list="rule_expected_data_type" name="rule_expected_data_type">
+                        <input class="browser-default form-control form-control-lg mb-4" placeholder="Response Type" list="rule_expected_data_type" formControlName="rule_expected_data_type" name="rule_expected_data_type">
 
                         <datalist id="rule_expected_data_type" *ngIf="mimeTypes">
                             <option  *ngFor="let typ of mimeTypes " [value]="typ.mime">{{typ.description}}</option>
@@ -85,14 +92,14 @@
                 <div class="col-md-6 ">
                     <div data-template="dTextareaTemp " data-popover="textarea " class=" " style="position: relative; left: 0px; top: 0px; " data-original-title=" " title=" ">
                         <label for="rule_description ">Description</label>
-                        <textarea id="rule_description " name="rule_description " class="form-control form-control-lg mb-4 " placeholder="Assignment Description "></textarea>
+                        <textarea id="rule_description " name="rule_description" formControlName="rule_description" class="form-control form-control-lg mb-4 " placeholder="Assignment Description "></textarea>
                     </div>
                 </div>
 
                 <div class="col-md-5 ">
-                    <div data-template="dTextareaTemp " data-popover="textarea " class=" " style="position: relative; left: 0px; top: 0px; " data-original-title=" " title=" ">
+                    <div data-template="dTextareaTemp " data-popover="textarea" class=" " style="position: relative; left: 0px; top: 0px; " data-original-title=" " title=" ">
                         <label for="rule_expected_data ">Expected Data</label>
-                        <textarea id="rule_expected_data " name="rule_expected_data " class="form-control form-control-lg mb-4 " placeholder="Expected response data "></textarea>
+                        <textarea id="rule_expected_data " name="rule_expected_data" formControlName="rule_expected_data" class="form-control form-control-lg mb-4 " placeholder="Expected response data "></textarea>
                     </div>
                 </div>
 
@@ -547,12 +554,12 @@
                                     <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
                                         <label class="">Alternate mime_type</label>
                                         <!-- <input type="text" class="form-control form-control-lg mb-4 "> -->
-                                        <input name="alternative " class="browser-default form-control form-control-lg mb-4 " placeholder="Alternate Mime Type " formControlName="alternative " list="rule_expected_data_type ">
+                                        <input name="alternative" class="browser-default form-control form-control-lg mb-4 " placeholder="Alternate Mime Type" formControlName="alternative" list="rule_expected_data_type">
 
-                                        <datalist id="rule_expected_data_type " *ngIf="mimeTypes ">
-                                            <option  *ngFor="let typ of mimeTypes " [value]="typ.mime ">{{typ.description}}</option>
+                                        <datalist id="rule_expected_data_type" *ngIf="mimeTypes">
+                                            <option  *ngFor="let typ of mimeTypes" [value]="typ.mime">{{typ.description}}</option>
                                         </datalist>
-                                        <datalist id="rule_expected_data_type " *ngIf="!mimeTypes ">
+                                        <datalist id="rule_expected_data_type" *ngIf="!mimeTypes">
                                           <option value=" " selected>Refresh to Load Response Formats</option>
                                         </datalist>
 
@@ -562,14 +569,14 @@
                                 <div class="col-md-3 ">
                                     <div data-template="dTextInputTemp " data-popover="input " class=" " style="position: relative; left: 0px; top: 0px; " data-original-title=" " title=" ">
                                         <label class=" ">Match Marks </label>
-                                        <input type="number " name="match " class="form-control form-control-lg mb-4 " placeholder="Marks for positive match " formControlName="match ">
+                                        <input type="number " name="match" class="form-control form-control-lg mb-4 " placeholder="Marks for positive match " formControlName="match">
                                     </div>
                                 </div>
 
                                 <div class="col-md-3 ">
                                     <div data-template="dTextInputTemp " data-popover="input " class=" " style="position: relative; left: 0px; top: 0px; " data-original-title=" " title=" ">
                                         <label class=" ">No Match Marks</label>
-                                        <input type="number " name="no_match " class="form-control form-control-lg mb-4 " placeholder="Marks for negative match " formControlName="no_match ">
+                                        <input type="number " name="no_match " class="form-control form-control-lg mb-4 " placeholder="Marks for negative match" formControlName="no_match">
                                     </div>
                                 </div>
 
@@ -591,7 +598,7 @@
 
         </div>
 
-        <button class="btn btn-info btn-block my-4 " type="submit ">Add Assignment</button>
+        <button class="btn btn-lg btn-info btn-block my-4 " type="submit ">Add Grading Rule</button>
 
     </form>
 </div>

@@ -5,47 +5,87 @@
 
         <div id="sortable-form" class="droptrue drop-list ui-sortable">
 
-            <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
-                <label for="assignment_name">Name</label>
-                <input type="text" id="assignment_name" name="assignment_name" class="form-control mb-4" placeholder="Assignment Name">
+            <div class="col-12 row">
+                <div class="col-md-4">
+                    <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
+                        <label for="assignment_name">Name</label>
+                        <input type="text" id="assignment_name" name="assignment_name" class="form-control form-control-lg mb-4" placeholder="Assignment Name">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                        <label for="assignment_owner">Owner</label>
+                        <input class="browser-default form-control form-control-lg mb-4" list="assignment_owner" name="assignment_owner" placeholder="Assignment Owner">
+                        <datalist id="assignment_owner" *ngIf="users">
+                        <option  *ngFor="let owner of users" [value]="owner.id">{{owner.name}}</option>
+                    </datalist>
+                        <datalist id="rule_assignment" *ngIf="!users">
+                        <option value="" selected>Refresh to Load owners</option>
+                    </datalist>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <!-- <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
+                        <label for="assignment_due">Due Date</label>
+                        <input type="text" id="assignment_due" name="assignment_due" class="form-control mb-4 form-control-lg" placeholder="Due Date">
+                    </div> -->
+
+                    <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
+                        <label for="assignment_due">Due Date</label>
+
+                        <div class="input-group">
+                            <!-- [dayTemplate]="customDay"
+                          [markDisabled]="isDisabled" -->
+                            <input class="form-control form-control-lg" [dayTemplate]="customDay" placeholder="yyyy-mm-dd" name="assignment_due" ngbDatepicker [dayTemplate]="customDay" [markDisabled]="isDisabled" #d="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-lg btn-outline-secondary calendar fa fa-calendar" (click)="d.toggle()" type="button"></button>
+                            </div>
+                        </div>
+
+                        <ng-template #customDay let-date let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled" let-focused="focused">
+                            <span class="custom-day" [class.weekend]="isWeekend(date)" [class.focused]="focused" [class.bg-primary]="selected" [class.hidden]="date.month !== currentMonth" [class.text-muted]="disabled">
+                            {{ date.day }}
+                          </span>
+                        </ng-template>
+                    </div>
+
+                    <!-- <div class="input-group">
+                        <label for="assignment_due">Due Date</label>
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker [dayTemplate]="customDay" [markDisabled]="isDisabled" #d="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                        </div>
+                    </div> -->
+                </div>
             </div>
 
 
-            <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                <label for="assignment_owner">Owner</label>
-                <input class="browser-default form-control form-control-lg mb-4" list="assignment_owner" name="assignment_owner" placeholder="Assignment Owner">
-                <datalist id="assignment_owner" *ngIf="users">
-                    <option  *ngFor="let owner of users" [value]="owner.id">{{owner.name}}</option>
-                </datalist>
-                <datalist id="rule_assignment" *ngIf="!users">
-                    <option value="" selected>Refresh to Load owners</option>
-                </datalist>
-                <!-- <select class="browser-default custom-select mb-4" id="assignment_owner" name="assignment_owner">
-                    <option value="" disabled="" selected="">Select Owner</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                </select> -->
+
+            <div class="row col-12">
+                <div class="col-md-6">
+                    <div data-template="dTextareaTemp" data-popover="textarea" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                        <label for="assignment_summary">Summary</label>
+                        <textarea id="assignment_summary" name="assignment_summary" class="form-control mb-4" placeholder="Summary"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div data-template="dTextareaTemp" data-popover="textarea" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                        <label for="assignment_notes">Notes</label>
+                        <textarea id="assignment_notes" name="assignment_notes" class="form-control mb-4" placeholder="Notes"></textarea>
+                    </div>
+                </div>
             </div>
 
-            <div data-template="dTextareaTemp" data-popover="textarea" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                <label for="assignment_summary">Summary</label>
-                <textarea id="assignment_summary" name="assignment_summary" class="form-control mb-4" placeholder="Summary"></textarea>
-            </div>
 
-            <div data-template="dTextareaTemp" data-popover="textarea" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                <label for="assignment_notes">Notes</label>
-                <textarea id="assignment_notes" name="assignment_notes" class="form-control mb-4" placeholder="Notes"></textarea>
-            </div>
 
-            <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
-                <label for="assignment_due">Due Date</label>
-                <input type="text" id="assignment_due" name="assignment_due" class="form-control mb-4" placeholder="Due Date">
-            </div>
+
+
+
+
 
         </div>
 
-        <button class="btn btn-info btn-block my-4" type="submit">Add Assignment</button>
+        <button class="btn btn-info btn-block my-4 btn-lg" type="submit">Add Assignment</button>
 
     </form>
 </div>
