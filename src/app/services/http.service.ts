@@ -5,14 +5,20 @@ import { HttpClient } from '@angular/common/http';
 import { SubUser } from './SubUser.interface';
 
 
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
 
-private applicationHost:string = "http://localhost";
+ applicationHost:string = "http://localhost";
 
   constructor(private http: HttpClient) { }
+
+  post(url:string, data:any){
+    return this.http.post(url,data);
+  }
 
   getRules()
   {
