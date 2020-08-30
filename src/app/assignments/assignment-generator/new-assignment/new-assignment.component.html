@@ -1,5 +1,5 @@
 <div class="card">
-    <form class="border border-light p-5" [formGroup]="newAssignmentForm">
+    <form class="border border-light p-5" [formGroup]="newAssignmentForm" (ngSubmit)="saveAssignment()">
 
         <p class="h4 mb-4 text-center">NEW ASSIGNMENT</p>
 
@@ -9,13 +9,13 @@
                 <div class="col-md-4">
                     <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
                         <label for="assignment_name">Name</label>
-                        <input type="text" id="assignment_name" name="assignment_name" class="form-control form-control-lg mb-4" placeholder="Assignment Name">
+                        <input type="text" id="assignment_name" formControlName="assignment_name" name="assignment_name" class="form-control form-control-lg mb-4" placeholder="Assignment Name">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
                         <label for="assignment_owner">Owner</label>
-                        <input class="browser-default form-control form-control-lg mb-4" list="assignment_owner" name="assignment_owner" placeholder="Assignment Owner">
+                        <input class="browser-default form-control form-control-lg mb-4" list="assignment_owner" formControlName="assignment_owner" name="assignment_owner" placeholder="Assignment Owner">
                         <datalist id="assignment_owner" *ngIf="users">
                         <option  *ngFor="let owner of users" [value]="owner.id">{{owner.name}}</option>
                     </datalist>
@@ -36,7 +36,7 @@
                         <div class="input-group">
                             <!-- [dayTemplate]="customDay"
                           [markDisabled]="isDisabled" -->
-                            <input class="form-control form-control-lg" [dayTemplate]="customDay" placeholder="yyyy-mm-dd" name="assignment_due" ngbDatepicker [dayTemplate]="customDay" [markDisabled]="isDisabled" #d="ngbDatepicker">
+                            <input class="form-control form-control-lg" [dayTemplate]="customDay" placeholder="yyyy-mm-dd" formControlName="assignment_due" name="assignment_due" ngbDatepicker [dayTemplate]="customDay" [markDisabled]="isDisabled" #d="ngbDatepicker">
                             <div class="input-group-append">
                                 <button class="btn btn-lg btn-outline-secondary calendar fa fa-calendar" (click)="d.toggle()" type="button"></button>
                             </div>
@@ -65,13 +65,13 @@
                 <div class="col-md-6">
                     <div data-template="dTextareaTemp" data-popover="textarea" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
                         <label for="assignment_summary">Summary</label>
-                        <textarea id="assignment_summary" name="assignment_summary" class="form-control mb-4" placeholder="Summary"></textarea>
+                        <textarea id="assignment_summary" formControlName="assignment_summary" name="assignment_summary" class="form-control mb-4" placeholder="Summary"></textarea>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div data-template="dTextareaTemp" data-popover="textarea" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
                         <label for="assignment_notes">Notes</label>
-                        <textarea id="assignment_notes" name="assignment_notes" class="form-control mb-4" placeholder="Notes"></textarea>
+                        <textarea id="assignment_notes" formControlName="assignment_notes" name="assignment_notes" class="form-control mb-4" placeholder="Notes"></textarea>
                     </div>
                 </div>
             </div>

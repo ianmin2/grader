@@ -22,17 +22,27 @@ export class HttpService {
 
   getRules()
   {
-    return this.http.get<Rule[]>(`${this.applicationHost}/api/Rules`);
+    return this.http.get<Rule[]>(`${this.applicationHost}?command=get&table=routes"`);
   }
 
   getAssignments()
   {
-    return this.http.get<Assignment[]>(`${this.applicationHost}/api/Assignments`);
+    return this.http.get<Assignment[]>(`${this.applicationHost}?command=get&table=assignments`);
   }
 
   getUsers()
   {
-    return this.http.get<SubUser[]>(`${this.applicationHost}/api/Users`);
+    return this.http.get<SubUser[]>(`${this.applicationHost}?command=get&table=users`);
+  }
+
+  getChaining()
+  {
+    return this.http.get<SubUser[]>(`${this.applicationHost}?command=get&table=users`);
+  }
+
+  getAttempts()
+  {
+    return this.http.get<SubUser[]>(`${this.applicationHost}?command=get&table=users`);
   }
 
 

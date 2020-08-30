@@ -1,8 +1,9 @@
 import { Grading } from './Grading.model';
+  import { RuleInfo } from './IRuleInfo.interface';
 
-interface RuleInfo {
-  [key: string]: any
-}
+// interface RuleInfo {
+//   [key: string]: any
+// }
 
 export class Rule
 {
@@ -15,7 +16,6 @@ export class Rule
   // public rule_http_verb : string;
   public rule_expected_status_code : number;
   public rule_expected_data_type : string;
-
   public rule_expected_data : string;
   public rule_headers : RuleInfo[];
   public rule_parameters : RuleInfo[];

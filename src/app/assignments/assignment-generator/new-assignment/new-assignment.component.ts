@@ -33,12 +33,19 @@ export class NewAssignmentComponent implements OnInit {
 
     this.newAssignmentForm = new FormGroup({
       assignment_name  : new FormControl(null, [Validators.required, Validators.minLength(3)]),
-      assignmentowner  : new FormControl(null, Validators.required),
+      assignment_owner  : new FormControl(null, Validators.required),
       assignment_summary : new FormControl(null),
       assignment_notes : new FormControl(null),
       assignment_due: new FormControl(null)
     });
 
+
+
+  }
+
+  saveAssignment()
+  {
+    console.dir(this.newAssignmentForm)
   }
 
 }

@@ -30,6 +30,7 @@ import { OutputManagerComponent } from './assignments/assignment-generator/outpu
 import { OverviewComponent } from './assignments/assignment-generator/overview/overview.component';
 import { NewAssignmentComponent } from './assignments/assignment-generator/new-assignment/new-assignment.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserLoginComponent } from './user-login/user-login.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MethodManagerComponent,
     OutputManagerComponent,
     OverviewComponent,
-    NewAssignmentComponent
+    NewAssignmentComponent,
+    UserLoginComponent
   ],
   imports: [
     BrowserModule,

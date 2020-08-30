@@ -1,3 +1,4 @@
+import { UserLoginComponent } from './../user-login/user-login.component';
 import { NewAssignmentComponent } from './../assignments/assignment-generator/new-assignment/new-assignment.component';
 import { OverviewComponent } from './../assignments/assignment-generator/overview/overview.component';
 import { OutputManagerComponent } from './../assignments/assignment-generator/output-manager/output-manager.component';
@@ -22,6 +23,7 @@ import { AssignmentBrowserComponent } from '../assignments/assignment-browser/as
 
 const graderRoutes: Routes = [
   { path: '', redirectTo: "/assignments", pathMatch: "full"},
+  {path : 'auth', component: UserLoginComponent},
   { path: 'assignments', component: AssignmentsComponent,
     children : [
       { path: '', component: AssignmentPlaceholderComponent, pathMatch: "full"},
