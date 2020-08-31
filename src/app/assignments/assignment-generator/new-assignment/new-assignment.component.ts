@@ -1,7 +1,7 @@
 import { HttpService } from './../../../services/http.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { SubUser } from 'src/app/services/SubUser.interface';
+import { SubUser } from 'src/app/models/SubUser.model';
 import {NgbCalendar, NgbDate, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

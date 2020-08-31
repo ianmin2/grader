@@ -1,8 +1,9 @@
+import { User } from './../models/User.model';
 import { Assignment } from './../models/Assignment.model';
 import { Rule } from './../models/Rule.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { SubUser } from './SubUser.interface';
+import { SubUser } from './../models/SubUser.model';
 
 
 
@@ -20,14 +21,14 @@ export class HttpService {
     return this.http.post(url,data);
   }
 
-  getRules()
-  {
-    return this.http.get<Rule[]>(`${this.applicationHost}?command=get&table=routes"`);
-  }
 
-  getAssignments()
+  //=============================================================================
+  //# USERS
+  //=============================================================================
+
+  addUser( userData: User )
   {
-    return this.http.get<Assignment[]>(`${this.applicationHost}?command=get&table=assignments`);
+    return this.http.post(`${this.applicationHost}?command=add&table=user`, userData);
   }
 
   getUsers()
@@ -35,10 +36,46 @@ export class HttpService {
     return this.http.get<SubUser[]>(`${this.applicationHost}?command=get&table=users`);
   }
 
+  //=============================================================================
+  //# ASSIGNMENTS
+  //=============================================================================
+
+  addAssignment(assignmentData : Assignment)
+  {
+    return this.http.post(`${this.applicationHost}?command=add&table=assignment`, assignmentData);
+  }
+
+  getAssignments()
+  {
+    return this.http.get<Assignment[]>(`${this.applicationHost}?command=get&table=assignments`);
+  }
+
+  //=============================================================================
+  //# RULES
+  //=============================================================================
+  addRule( ruleData: Rule )
+  {
+    return this.http.post(`${this.applicationHost}?command=add&table=route`, ruleData);
+  }
+
+  getRules()
+  {
+    return this.http.get<Rule[]>(`${this.applicationHost}?command=get&table=routes"`);
+  }
+
+
+  //=============================================================================
+  //# CHAINING
+  //=============================================================================
+
   getChaining()
   {
     return this.http.get<SubUser[]>(`${this.applicationHost}?command=get&table=users`);
   }
+
+  //=============================================================================
+  //# ATTEMPTS
+  //=============================================================================
 
   getAttempts()
   {
