@@ -16,7 +16,7 @@ import { SubUser } from './../models/SubUser.model';
 })
 export class HttpService {
 
- applicationHost:string = "http://localhost";
+ applicationHost:string = "http://localhost/";
 
   constructor(private http: HttpClient) { }
 
