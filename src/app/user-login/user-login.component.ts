@@ -1,7 +1,7 @@
 import { HttpService } from './../services/http.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-
+import { LocalStorageService } from 'angular-2-local-storage';
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.component.html',
@@ -14,7 +14,7 @@ export class UserLoginComponent implements OnInit {
   loginForm : FormGroup;
   registrationForm: FormGroup;
 
-  constructor(private http: HttpService) { }
+  constructor(private http: HttpService, private _localStrorage: LocalStorageService) { }
 
   ngOnInit(): void {
 
@@ -46,8 +46,15 @@ export class UserLoginComponent implements OnInit {
 
     let newUser  = this.clone(this.registrationForm.value);
     delete newUser.password_2;
-    this.http.addUser(newUser).subscribe(d=>{
-      console.dir(d);
+    this.http.addUser(newUser).subscribe(resp=>{
+      if(resp["response"] == 200)
+      {
+        this._localStrorage.set("auth",resp["data"]["message"]);
+      }
+      else
+      {
+        alert(resp["data"]["message"]);
+      }
     });
   }
 

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
+import { LocalStorageModule } from 'angular-2-local-storage';
 
 //@ APPLICATION COMPONENTS
 import { AppComponent } from './app.component';
@@ -66,7 +67,11 @@ import { UserLoginComponent } from './user-login/user-login.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    LocalStorageModule.forRoot({
+      prefix: 'byteGrader',
+      storageType: 'localStorage'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

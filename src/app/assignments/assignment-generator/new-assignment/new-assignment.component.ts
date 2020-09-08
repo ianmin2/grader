@@ -39,8 +39,6 @@ export class NewAssignmentComponent implements OnInit {
       assignment_due: new FormControl(null)
     });
 
-
-
   }
 
   saveAssignment()
