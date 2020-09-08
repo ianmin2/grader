@@ -31,12 +31,12 @@ export class HttpService {
 
   login( userCredentials : LoginModel  )
   {
-    return this.http.post(`${this.applicationHost}?command=auth`, userCredentials,{headers: {"content-type": "application/json"}} );
+    return this.http.post(`${this.applicationHost}?command=auth`,userCredentials,{headers: {"content-type": "application/json"}} );
   }
 
   addUser( userData: User )
   {
-    return this.http.post(`${this.applicationHost}?command=add&table=user`, userData);
+    return this.http.post(`${this.applicationHost}?command=add&table=user`, userData,{headers: {"content-type": "application/json"}});
   }
 
   getUsers()
@@ -50,7 +50,7 @@ export class HttpService {
 
   addAssignment(assignmentData : Assignment)
   {
-    return this.http.post(`${this.applicationHost}?command=add&table=assignment`, assignmentData);
+    return this.http.post(`${this.applicationHost}?command=add&table=assignment`, assignmentData, {headers: {"content-type": "application/json"}});
   }
 
   getAssignments()
@@ -63,7 +63,7 @@ export class HttpService {
   //=============================================================================
   addRule( ruleData: Rule )
   {
-    return this.http.post(`${this.applicationHost}?command=add&table=route`, ruleData);
+    return this.http.post(`${this.applicationHost}?command=add&table=route`, ruleData, {headers: {"content-type": "application/json"}});
   }
 
   getRules()
@@ -78,7 +78,7 @@ export class HttpService {
 
   addChaining(chaining: Chaining)
   {
-    return this.http.post<Chaining[]>(`${this.applicationHost}?command=add&table=chaining`,chaining);
+    return this.http.post<Chaining[]>(`${this.applicationHost}?command=add&table=chaining`,chaining, {headers: {"content-type": "application/json"}});
   }
 
   getChaining()
@@ -93,7 +93,7 @@ export class HttpService {
 
   addAttempt( attempt: Attempts )
   {
-    return this.http.post(`${this.applicationHost}?command=add&table=attempt`,attempt);
+    return this.http.post(`${this.applicationHost}?command=add&table=attempt`,attempt,{headers: {"content-type": "application/json"}});
   }
 
   getAttempts()

@@ -46,7 +46,9 @@ export class UserLoginComponent implements OnInit {
 
     let newUser  = this.clone(this.registrationForm.value);
     delete newUser.password_2;
-    this.http.addUser(newUser);
+    this.http.addUser(newUser).subscribe(d=>{
+      console.dir(d);
+    });
   }
 
   loginUser()
