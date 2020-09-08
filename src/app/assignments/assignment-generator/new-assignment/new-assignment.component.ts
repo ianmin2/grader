@@ -43,7 +43,17 @@ export class NewAssignmentComponent implements OnInit {
 
   saveAssignment()
   {
-    console.dir(this.newAssignmentForm)
+    // console.dir(this.newAssignmentForm)
+    this.http.addAssignment(this.newAssignmentForm.value).subscribe((d:{response,data:{message,command}})=>{
+      if(d.response != 200)
+      {
+        alert(d.data.message);
+      }
+      else
+      {
+        alert("Assignment Saved!");
+      }
+    })
   }
 
 }
