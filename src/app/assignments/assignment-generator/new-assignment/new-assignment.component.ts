@@ -51,6 +51,7 @@ export class NewAssignmentComponent implements OnInit {
       }
       else
       {
+        this.newAssignmentForm.reset();
         alert("Assignment Saved!");
       }
     })

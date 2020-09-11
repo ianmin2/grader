@@ -50,6 +50,7 @@ export class HttpService {
 
   addAssignment(assignmentData : Assignment)
   {
+    assignmentData['assignment_due'] = new Date(parseInt(assignmentData['assignment_due']['year']),parseInt(assignmentData['assignment_due']['month']),parseInt(assignmentData['assignment_due']['day'])).toISOString();
     return this.http.post(`${this.applicationHost}?command=add&table=assignment`, assignmentData, {headers: {"content-type": "application/json"}});
   }
 
