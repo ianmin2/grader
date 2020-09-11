@@ -1,3 +1,5 @@
+import { Assignment } from './../../models/Assignment.model';
+import { HttpService } from './../../services/http.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,11 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AssignmentBrowserComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpService) { }
+
+  public assignments:Assignment[];
 
   ngOnInit(): void {
 
+    this.fetchAssignments();
 
   }
+
+
+  fetchAssignments(){
+    this.http.getAssignments().subscribe(assignments=>{
+      console.dir(assignments);
+      this.assignments = JSON.stringify(assignments);
+    })
+  }
+
+
 
 }
