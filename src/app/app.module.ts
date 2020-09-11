@@ -1,10 +1,14 @@
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { from } from 'rxjs';
+import { AuthService } from './services/auth/auth.service';
+import { AuthGuardService } from './services/auth/auth-guard.service';
 import { AuthInterceptService } from './services/auth-intercept.service';
 import { AppRouterModule } from './app-router/app-router.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, InjectionToken } from '@angular/core';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-import { LocalStorageModule } from 'angular-2-local-storage';
+import { LocalStorageModule, LocalStorageService } from 'angular-2-local-storage';
 
 //@ APPLICATION COMPONENTS
 import { AppComponent } from './app.component';
@@ -75,8 +79,16 @@ import { UserLoginComponent } from './user-login/user-login.component';
     })
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptService, multi: true }
+    , AuthGuardService
+    ,AuthService
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+ }
+
+//  ,{ provide: JWT_OPTIONS, useClass: JwtHelperService, multi: true },
+//     ,JwtHelperService
+//     ,AuthService
+//     ,AuthGuardService

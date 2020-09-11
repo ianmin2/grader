@@ -1,3 +1,4 @@
+import { AuthGuardService } from './../services/auth/auth-guard.service';
 import { UserLoginComponent } from './../user-login/user-login.component';
 import { NewAssignmentComponent } from './../assignments/assignment-generator/new-assignment/new-assignment.component';
 import { OverviewComponent } from './../assignments/assignment-generator/overview/overview.component';
@@ -49,7 +50,8 @@ const graderRoutes: Routes = [
       // { path: ':id', component: AssignmentViewerComponent},
       // { path: ':id/edit', component: AssignmentViewerComponent},
       { path: '**', component: NotFoundComponent}
-    ]
+    ],
+    canActivate : [AuthGuardService]
   },
   { path: 'grades', component: GradesComponent,
     children : [
@@ -70,6 +72,7 @@ const graderRoutes: Routes = [
       // { path: ':id/edit', component: GradesViewerComponent},
       { path: '**', component: NotFoundComponent}
     ],
+    canActivate: [AuthGuardService]
   },
   { path: '**', component: NotFoundComponent}
 ];
