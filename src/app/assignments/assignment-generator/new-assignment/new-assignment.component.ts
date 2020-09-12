@@ -28,7 +28,8 @@ export class NewAssignmentComponent implements OnInit {
 
     this.http.getUsers().subscribe(d=>
     {
-      this.users = d;
+       if (d.response !=200) alert(d.data.message);
+      this.users = d.data.message;
     });
 
     this.newAssignmentForm = new FormGroup({

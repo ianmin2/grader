@@ -85,7 +85,8 @@ private available_match_positions = {
 
     //@ Fetch and load a list of assignments
     this.http.getAssignments().subscribe(d=>{
-      this.assignments = d;
+      if (d.response !=200) alert(d.data.message);
+      this.assignments = d.data.message;
     })
 
     //@ Define the reactive form structure

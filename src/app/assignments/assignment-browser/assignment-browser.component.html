@@ -1,4 +1,12 @@
 <p>assignment-browser works!</p>
-<pre>
-  {{assignments}}
-</pre>
+
+<li *ngFor="let assignment of assignments; index as i;">
+    {{i+1}}/{{assignments.length}} &nbsp; - &nbsp; {{assignment.assignment_name}} due <code>{{assignment.assignment_due | date : 'medium'}}</code>
+</li>
+
+<!-- <p *ngFor="let assignment of assignments; index as i;">
+    {{
+      assignment.assignment_name
+    }} </p> -->
+
+<!-- {{assignments}} -->

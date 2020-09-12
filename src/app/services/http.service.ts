@@ -41,7 +41,7 @@ export class HttpService {
 
   getUsers()
   {
-    return this.http.get<SubUser[]>(`${this.applicationHost}?command=get&table=users`);
+    return this.http.get<{response,data: {message,command}}>(`${this.applicationHost}?command=get&table=users`);
   }
 
   //=============================================================================
@@ -56,7 +56,7 @@ export class HttpService {
 
   getAssignments()
   {
-    return this.http.get<Assignment[]>(`${this.applicationHost}?command=get&table=assignments`);
+    return this.http.get<{response,data: {message,command}}>(`${this.applicationHost}?command=get&table=assignments`);
   }
 
   //=============================================================================

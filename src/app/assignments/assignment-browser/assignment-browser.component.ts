@@ -19,14 +19,18 @@ export class AssignmentBrowserComponent implements OnInit {
 
   }
 
-
   fetchAssignments(){
-    this.http.getAssignments().subscribe(assignments=>{
-      console.dir(assignments);
-      this.assignments = JSON.stringify(assignments);
-    })
+    this.http.getAssignments().subscribe((d: {response,data: {message,command}})=> {
+      if(d.response == 200){
+        console.dir(d.data.message);
+        this.assignments = d.data.message;
+
+       }
+       else
+       {
+         alert(`${d.data.message.toString()}`);
+       }
+    });
   }
-
-
 
 }

@@ -87,8 +87,3 @@ import { UserLoginComponent } from './user-login/user-login.component';
 })
 export class AppModule {
  }
-
-//  ,{ provide: JWT_OPTIONS, useClass: JwtHelperService, multi: true },
-//     ,JwtHelperService
-//     ,AuthService
-//     ,AuthGuardService
