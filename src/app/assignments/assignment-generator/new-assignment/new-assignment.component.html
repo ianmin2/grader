@@ -8,13 +8,13 @@
             <div class="col-12 row">
                 <div class="col-md-4">
                     <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
-                        <label for="assignment_name">Name</label>
+                        <label for="assignment_name">Name<sup style="color:crimson;">*</sup></label>
                         <input type="text" id="assignment_name" formControlName="assignment_name" name="assignment_name" class="form-control form-control-lg mb-4" placeholder="Assignment Name">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                        <label for="assignment_owner">Owner</label>
+                        <label for="assignment_owner">Owner<sup style="color:crimson;">*</sup></label>
                         <input class="browser-default form-control form-control-lg mb-4" list="assignment_owner" formControlName="assignment_owner" name="assignment_owner" placeholder="Assignment Owner">
                         <datalist id="assignment_owner" *ngIf="users">
                         <option  *ngFor="let owner of users" [value]="owner.id">{{owner.name}}</option>
@@ -31,7 +31,7 @@
                     </div> -->
 
                     <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
-                        <label for="assignment_due">Due Date</label>
+                        <label for="assignment_due">Due Date<sup style="color:crimson;">*</sup></label>
 
                         <div class="input-group">
                             <!-- [dayTemplate]="customDay"

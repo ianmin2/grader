@@ -12,14 +12,14 @@
             <div class="row col-12 bg-black padding">
                 <div class="col-md-4">
                     <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
-                        <label for="rule_name">Rule Name</label>
+                        <label for="rule_name">Rule Name<sup style="color:crimson;">*</sup></label>
                         <input type="text" id="rule_name" name="rule_name" formControlName="rule_name" class="form-control  form-control-lg mb-4" placeholder="Rule name">
                     </div>
                 </div>
 
                 <div class="col-md-3">
                     <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                        <label for="rule_assignment">Assignment</label>
+                        <label for="rule_assignment">Assignment<sup style="color:crimson;">*</sup></label>
                         <input class="browser-default form-control form-control-lg mb-4" list="rule_assignment" name="rule_assignment" formControlName="rule_assignment" placeholder="Assignment ">
                         <datalist id="rule_assignment" *ngIf="assignments">
                             <option  *ngFor="let asgnt of assignments" [value]="asgnt.assignment_id">{{asgnt.assignment_name}}</option>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-md-4">
                     <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                        <label for="rule_expected_status_code">Expected Status Code</label>
+                        <label for="rule_expected_status_code">Expected Status Code<sup style="color:crimson;">*</sup></label>
                         <!-- <input type="number" id="rule_expected_status_code" name="rule_expected_status_code" class="form-control form-control-lg mb-4" value="200" placeholder="Expected Status Code"> -->
                         <input class="browser-default form-control form-control-lg mb-4" list="rule_expected_status_code" name="rule_expected_status_code" formControlName="rule_expected_status_code" placeholder="Expected Status Code">
                         <datalist id="rule_expected_status_code" *ngIf="statusCodes">
@@ -51,7 +51,7 @@
             <div class="row col-12 bg-black padding">
                 <div class="col-md-3">
                     <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                        <label for="rule_method"> HTTP Method</label>
+                        <label for="rule_method"> HTTP Method<sup style="color:crimson;">*</sup></label>
                         <!-- <input class="browser-default form-control mb-4" placeholder="HTTP Method" list="rule_method" name="rule_method"> -->
 
                         <select class="custom-select custom-select-lg mb-4" name="rule_method" formControlName="rule_method" id="rule_method">
@@ -65,13 +65,13 @@
                 </div>
                 <div class="col-md-6">
                     <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
-                        <label for="rule_path">Path</label>
+                        <label for="rule_path">Path<sup style="color:crimson;">*</sup></label>
                         <input type="text" id="rule_path" name="rule_path" formControlName="rule_path" class="form-control form-control-lg mb-4" placeholder="/path">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                        <label for="rule_expected_data_type">Response Format</label>
+                        <label for="rule_expected_data_type">Response Format<sup style="color:crimson;">*</sup></label>
                         <input class="browser-default form-control form-control-lg mb-4" placeholder="Response Type" list="rule_expected_data_type" formControlName="rule_expected_data_type" name="rule_expected_data_type">
 
                         <datalist id="rule_expected_data_type" *ngIf="mimeTypes">
@@ -91,7 +91,7 @@
 
                 <div class="col-md-6 ">
                     <div data-template="dTextareaTemp " data-popover="textarea " class=" " style="position: relative; left: 0px; top: 0px; " data-original-title=" " title=" ">
-                        <label for="rule_description ">Description</label>
+                        <label for="rule_description ">Description<sup style="color:crimson;">*</sup></label>
                         <textarea id="rule_description " name="rule_description" formControlName="rule_description" class="form-control form-control-lg mb-4 " placeholder="Assignment Description "></textarea>
                     </div>
                 </div>
@@ -137,7 +137,7 @@
 
                         <div class="col-md-4">
                             <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
-                                <label class="d-sm-block d-md-none d-lg-none d-l-none d-xl-none ">Header</label>
+                                <label class="d-sm-block d-md-none d-lg-none d-l-none d-xl-none ">Header<sup style="color:crimson;">*</sup></label>
                                 <input formControlName="key" class="browser-default form-control form-control-lg mb-4" placeholder="Header" list="rule_headers" name="key">
                                 <datalist id="rule_headers" *ngIf="headers">
                                     <option  *ngFor="let hdr of headers " >{{hdr}}</option>
@@ -150,7 +150,7 @@
 
                         <div class="col-md-4">
                             <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                                <label class="d-sm-block d-md-none d-lg-none d-l-none d-xl-none ">Value</label>
+                                <label class="d-sm-block d-md-none d-lg-none d-l-none d-xl-none ">Value<sup style="color:crimson;">*</sup></label>
                                 <input formControlName="value" type="text" name="value" class="form-control form-control-lg mb-4" placeholder="Value">
                             </div>
                         </div>
@@ -197,7 +197,7 @@
 
                         <div class="col-md-4">
                             <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
-                                <label class="d-sm-block d-md-none d-lg-none d-l-none d-xl-none ">Parameter</label>
+                                <label class="d-sm-block d-md-none d-lg-none d-l-none d-xl-none ">Parameter<sup style="color:crimson;">*</sup></label>
                                 <input type="text" name="key" class="form-control form-control-lg mb-4" placeholder="Parameter" formControlName="key">
                             </div>
                         </div>
@@ -205,7 +205,7 @@
 
                         <div class="col-md-4">
                             <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                                <label class="d-sm-block d-md-none d-lg-none d-l-none d-xl-none ">Value</label>
+                                <label class="d-sm-block d-md-none d-lg-none d-l-none d-xl-none ">Value<sup style="color:crimson;">*</sup></label>
                                 <input type="text" name="value" class="form-control form-control-lg mb-4" placeholder="Value" formControlName="value">
                             </div>
                         </div>
@@ -264,7 +264,7 @@
 
                         <div class="col-md-4">
                             <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                                <label class="">Match Marks </label>
+                                <label class="">Match Marks<sup style="color:crimson;">*</sup> </label>
                                 <input type="number" name="match" class="form-control form-control-lg mb-4" placeholder="Marks for positive match" formControlName="match">
                             </div>
                         </div>
@@ -291,14 +291,14 @@
 
                                 <div class="col-md-4">
                                     <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
-                                        <label class="">Alternate Path</label>
+                                        <label class="">Alternate Path<sup style="color:crimson;">*</sup></label>
                                         <input type="text" name="alternative" class="form-control form-control-lg mb-4" placeholder="Parameter" formControlName="alternative">
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                                        <label class="">Match Marks </label>
+                                        <label class="">Match Marks<sup style="color:crimson;">*</sup></label>
                                         <input type="number" name="match" class="form-control form-control-lg mb-4" placeholder="Marks for positive match" formControlName="match">
                                     </div>
                                 </div>
@@ -349,7 +349,7 @@
 
                         <div class="col-md-4">
                             <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                                <label class="">Match Marks </label>
+                                <label class="">Match Marks<sup style="color:crimson;">*</sup></label>
                                 <input type="number" name="match" class="form-control form-control-lg mb-4" placeholder="Marks for positive match" formControlName="match">
                             </div>
                         </div>
@@ -376,7 +376,7 @@
 
                                 <div class="col-md-4">
                                     <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
-                                        <label class="">Alternate verb</label>
+                                        <label class="">Alternate verb<sup style="color:crimson;">*</sup></label>
                                         <select class="custom-select custom-select-lg mb-4" name="alternative" id="alternative" formControlName="alternative">
                                           <option >GET</option>
                                           <option >POST</option>
@@ -389,7 +389,7 @@
 
                                 <div class="col-md-3">
                                     <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                                        <label class="">Match Marks </label>
+                                        <label class="">Match Marks<sup style="color:crimson;">*</sup></label>
                                         <input type="number" name="match" class="form-control form-control-lg mb-4" placeholder="Marks for positive match" formControlName="match">
                                     </div>
                                 </div>
@@ -440,7 +440,7 @@
 
                         <div class="col-md-4">
                             <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                                <label class="">Match Marks </label>
+                                <label class="">Match Marks<sup style="color:crimson;">*</sup></label>
                                 <input type="number" name="match" class="form-control form-control-lg mb-4" placeholder="Marks for positive match" formControlName="match">
                             </div>
                         </div>
@@ -467,14 +467,14 @@
 
                                 <div class="col-md-4">
                                     <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
-                                        <label class="">Alternate status_code</label>
+                                        <label class="">Alternate status_code<sup style="color:crimson;">*</sup></label>
                                         <input type="text" name="alternative" class="form-control form-control-lg mb-4" placeholder="Alternate Status Code" formControlName="alternative">
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                                        <label class="">Match Marks </label>
+                                        <label class="">Match Marks<sup style="color:crimson;">*</sup></label>
                                         <input type="number" name="match" class="form-control form-control-lg mb-4" placeholder="Marks for positive match" formControlName="match">
                                     </div>
                                 </div>
@@ -525,7 +525,7 @@
 
                         <div class="col-md-4">
                             <div data-template="dTextInputTemp" data-popover="input" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
-                                <label class="">Match Marks </label>
+                                <label class="">Match Marks<sup style="color:crimson;">*</sup></label>
                                 <input type="number" name="match" class="form-control form-control-lg mb-4" placeholder="Marks for positive match" formControlName="match">
                             </div>
                         </div>
@@ -552,7 +552,7 @@
 
                                 <div class="col-md-4">
                                     <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
-                                        <label class="">Alternate mime_type</label>
+                                        <label class="">Alternate mime_type<sup style="color:crimson;">*</sup></label>
                                         <!-- <input type="text" class="form-control form-control-lg mb-4 "> -->
                                         <input name="alternative" class="browser-default form-control form-control-lg mb-4 " placeholder="Alternate Mime Type" formControlName="alternative" list="rule_expected_data_type">
 
@@ -568,7 +568,7 @@
 
                                 <div class="col-md-3 ">
                                     <div data-template="dTextInputTemp " data-popover="input " class=" " style="position: relative; left: 0px; top: 0px; " data-original-title=" " title=" ">
-                                        <label class=" ">Match Marks </label>
+                                        <label class=" ">Match Marks<sup style="color:crimson;">*</sup></label>
                                         <input type="number " name="match" class="form-control form-control-lg mb-4 " placeholder="Marks for positive match " formControlName="match">
                                     </div>
                                 </div>
@@ -598,7 +598,7 @@
 
         </div>
 
-        <button class="btn btn-lg btn-info btn-block my-4 " type="submit ">Add Grading Rule</button>
+        <button class="btn btn-lg btn-info btn-block my-4" [disabled]="!newRouteForm.valid" type="submit ">Add Grading Rule</button>
 
     </form>
 </div>

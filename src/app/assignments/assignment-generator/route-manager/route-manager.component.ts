@@ -156,7 +156,7 @@ private available_match_positions = {
 
      console.dir(this.newRouteForm);
 
-     this.http.post(`${this.http.applicationHost}/api/Rules`, this.newRouteForm.value).subscribe(resp=>{
+     this.http.post(`${this.http.applicationHost}?command=add&table=rule`, this.newRouteForm.value).subscribe(resp=>{
        console.dir(resp);
      });
 
