@@ -27,7 +27,30 @@ export class OverviewComponent implements OnInit {
   }
 
 
+   colorize( method: string ) : string
+  {
+    switch (method.toLowerCase().replace(/\s/ig,'')) {
+      case 'get':
+        return 'green';
+        break;
 
+      case 'post':
+        return 'brown';
+      break;
+
+      case 'put':
+        return 'orange';
+        break;
+
+      case 'delete':
+        return 'crimson'
+      break;
+
+      default:
+        return 'yellow';
+        break;
+    }
+  }
 
 
   fetchRoutes(){
@@ -41,33 +64,84 @@ export class OverviewComponent implements OnInit {
           columns: [
 
               { title: "Id", data: 'rule_id'  },
-              { title: "Method", data: 'rule_method' },
-              { title: "Path", data: 'rule_path' },
-              { title: "Name", data: 'rule_name' },
-              { title: "Description", data: 'rule_description' },
+              { title: "Method", data: 'rule_method',
+                render: (data,type,row) =>
+                {
+                  return `<pre style="color:${this.colorize(data.toString())};">${data}</pre>`
+                }
+              },
+              { title: "Path", data: 'rule_path' ,
+                  render:  (data, type, row) => {
+                    //@ Format the tags to labels
+                    return `<pre style="color:blue;">${data}</pre>`
+                  }
+              },
+              { title: "Name", data: 'rule_name' ,
+                render:  (data, type, row) => {
+                  //@ Format the tags to labels
+                  return `<pre>${data}</pre>`
+                }
+              },
+              { title: "Description", data: 'rule_description' ,
+                render:  (data, type, row) => {
+                  //@ Format the tags to labels
+                  return `<pre>${data}</pre>`
+                }
+              },
               { title: "Assignment", data: 'rule_assignment' },
               // { title: "HTP Verb", data: 'rule_http_verb' },
               { title: "Expected Status Code", data: 'rule_expected_status_code' },
               { title: "Expected Data Type", data: 'rule_expected_data_type' },
-              { title: "Expected Data", data: 'rule_expected_data' },
-              { title: "Headers", data: 'rule_headers' },
-              { title: "Body Parameters", data: 'rule_parameters' },
-              { title: "Grading", data: 'rule_grading' },
+              { title: "Expected Data", data: 'rule_expected_data' ,
+                render:  (data, type, row) => {
+                  //@ Format the tags to labels
+                  return `<pre>${data}</pre>`
+                }
+              },
+              { title: "Headers", data: 'rule_headers' ,
+                render:  (data, type, row) => {
+                  //@ Format the tags to labels
+                  return `<pre>${data}</pre>`
+                }
+              },
+              { title: "Body Parameters", data: 'rule_parameters',
+                render:  (data, type, row) => {
+                  //@ Format the tags to labels
+                  return `<pre>${data}</pre>`
+                }
+              },
+              { title: "Grading", data: 'rule_grading' ,
+              render:  (data, type, row) => {
+                  //@ Format the tags to labels
+                  return `<pre>${data}</pre>`
+                }
+              },
               { title: "Created At", data: 'created_at',
                 render:  (data, type, row) => {
                   //@ Format the tags to labels
-                  return this.pipe.transform(data, 'medium');
+                  return `<pre style="color:green;">${this.pipe.transform(data, 'medium')}</pre>`;
                 }
               },
               { title: "Updated At", data: 'updated_at',
                 render:  (data, type, row) => {
                   //@ Format the tags to labels
-                  return this.pipe.transform(data, 'medium');
+                  return `<pre style="color:orange;">${this.pipe.transform(data, 'medium')}</pre>`;
                 }
              }
-
-
           ]
+          // ,responsive: {
+          //   details: {
+          //       display: $.fn.dataTable.Responsive.display.modal({
+          //           header: function (row) {
+          //               var data = row.data();
+          //               return 'Participant Details';
+          //           }
+          //       }),
+          //       renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+          //           tableClass: 'table'
+          //       })
+          //   }
+          // }
         };
 
 

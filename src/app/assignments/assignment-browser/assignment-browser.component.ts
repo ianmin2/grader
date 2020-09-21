@@ -39,20 +39,35 @@ export class AssignmentBrowserComponent implements OnInit {
           columns: [
 
             {title: 'ID', data: 'assignment_id'},
-            {title: 'Name', data: 'assignment_name'},
-            {title: 'Summary', data: 'assignment_summary'},
-            {title: 'Notes', data: 'assignment_notes'},
+            {title: 'Name', data: 'assignment_name',
+              render:  (data, type, row) => {
+                //@ Format the tags to labels
+                return `<pre style="color:teal;">${data}</pre>`
+              }
+            },
+            {title: 'Summary', data: 'assignment_summary',
+              render:  (data, type, row) => {
+                //@ Format the tags to labels
+                return `<pre>${data}</pre>`
+              }
+            },
+            {title: 'Notes', data: 'assignment_notes',
+              render:  (data, type, row) => {
+                //@ Format the tags to labels
+                return `<pre>${data}</pre>`
+              }
+            },
             {title: 'Owner', data: 'assignment_owner',
                 render:  (data, type, row) => {
                   //@ Format the tags to labels
-                 return data;
+                  return `<pre>${data}</pre>`
               }
             },
             {
               title: 'Created', data: 'assignment_created',
                 render:  (data, type, row) => {
                   //@ Format the tags to labels
-                  return this.pipe.transform(data, 'medium');
+                  return `<pre style="color:green;">${this.pipe.transform(data, 'medium')}</pre>`;
               }
             },
             {
@@ -60,7 +75,7 @@ export class AssignmentBrowserComponent implements OnInit {
               data: 'assignment_due',
               render:  (data, type, row) => {
                 //@ Format the tags to labels
-                return this.pipe.transform(data, 'medium');
+                return `<pre style="color:crimson;">${this.pipe.transform(data, 'medium')}</pre>`;
               }
             },
             {
@@ -68,7 +83,7 @@ export class AssignmentBrowserComponent implements OnInit {
               data: 'assignment_last_modified',
               render:  (data, type, row) => {
                 //@ Format the tags to labels
-                return this.pipe.transform(data, 'medium');
+                return `<pre>${this.pipe.transform(data, 'medium')}</pre>`;
               }
             }
           ]
