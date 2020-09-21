@@ -69,7 +69,7 @@ export class HttpService {
 
   getRules()
   {
-    return this.http.get<Rule[]>(`${this.applicationHost}?command=get&table=routes"`);
+    return this.http.get<{response,data: {message,command}}>(`${this.applicationHost}?command=get&table=routes`);
   }
 
 

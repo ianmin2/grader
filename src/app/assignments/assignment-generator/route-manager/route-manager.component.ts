@@ -153,11 +153,19 @@ private available_match_positions = {
     let ruleParameterValues = this.newRouteForm.controls['rule_parameters']['controls'].map(a=>a.value);
     this.newRouteForm.controls['rule_parameters']['value'].push(...ruleParameterValues);
 
+    //  console.dir(this.newRouteForm);
 
-     console.dir(this.newRouteForm);
-
-     this.http.post(`${this.http.applicationHost}?command=add&table=rule`, this.newRouteForm.value).subscribe(resp=>{
-       console.dir(resp);
+    //@ Send the data over to the server for storage
+    this.http.post(`${this.http.applicationHost}?command=add&table=rule`, this.newRouteForm.value).subscribe((resp:{response,data:{message,command}})=>{
+      if(resp.response != 200)
+      {
+        alert(resp.data.message);
+      }
+      else
+      {
+        this.newRouteForm.reset();
+        alert("Grading rule Saved!");
+      }
      });
 
     //  this.newRouteForm.controls['rule_grading']['value'][gradingKey]['matches']
