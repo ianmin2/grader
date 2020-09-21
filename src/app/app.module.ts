@@ -5,6 +5,7 @@ import { AuthGuardService } from './services/auth/auth-guard.service';
 import { AuthInterceptService } from './services/auth-intercept.service';
 import { AppRouterModule } from './app-router/app-router.module';
 import { BrowserModule } from '@angular/platform-browser';
+import { DataTablesModule } from 'angular-datatables';
 import { NgModule, InjectionToken } from '@angular/core';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
@@ -76,7 +77,8 @@ import { UserLoginComponent } from './user-login/user-login.component';
     LocalStorageModule.forRoot({
       prefix: 'byteGrader',
       storageType: 'localStorage'
-    })
+    }),
+    DataTablesModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptService, multi: true }
