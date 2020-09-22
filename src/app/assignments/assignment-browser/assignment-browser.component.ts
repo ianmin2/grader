@@ -1,7 +1,7 @@
 import { Assignment } from './../../models/Assignment.model';
 import { HttpService } from './../../services/http.service';
 import { Component, OnInit } from '@angular/core';
-import {DatePipe} from '@angular/common'
+import {DatePipe, JsonPipe} from '@angular/common'
 import { ViewChild } from '@angular/core';
 
 declare var $;
@@ -15,6 +15,8 @@ export class AssignmentBrowserComponent implements OnInit {
 
   dataTable: any;
   dtOptions: any;
+
+  jsonpipe = new JsonPipe();
   pipe = new DatePipe('en-GB');
   @ViewChild('assignmentBrowser', {static: true}) table;
 
@@ -87,6 +89,7 @@ export class AssignmentBrowserComponent implements OnInit {
               }
             }
           ]
+          ,responsive: true
         };
        }
        else
