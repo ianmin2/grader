@@ -1,7 +1,8 @@
+import { Router } from '@angular/router';
+import { ByteGraderHelperService } from './../../services/byte-grader-helper.service';
 import { Assignment } from './../../models/Assignment.model';
 import { HttpService } from './../../services/http.service';
 import { Component, OnInit } from '@angular/core';
-import {DatePipe, JsonPipe} from '@angular/common'
 import { ViewChild } from '@angular/core';
 
 declare var $;
@@ -16,18 +17,24 @@ export class AssignmentBrowserComponent implements OnInit {
   dataTable: any;
   dtOptions: any;
 
-  jsonpipe = new JsonPipe();
-  pipe = new DatePipe('en-GB');
   @ViewChild('assignmentBrowser', {static: true}) table;
 
   public assignments:Assignment[];
 
-  constructor(private http: HttpService) { }
+  constructor(private http: HttpService, private helpers: ByteGraderHelperService, private router: Router) { }
 
 
   ngOnInit(): void {
 
     this.fetchAssignments();
+
+    $(document).on('click','.openAssignment', (d) =>
+    {
+      let identifier = $(d.currentTarget).attr('id');
+      let assignmentData = JSON.parse(($(d.currentTarget).attr('data')||'{}').replace(/'/ig,'"').replace(/&apos;/ig,"'"));
+      this.router.navigateByUrl(`/assignments/browse/${identifier}`, { state: assignmentData });
+
+    })
 
   }
 
@@ -42,51 +49,35 @@ export class AssignmentBrowserComponent implements OnInit {
 
             {title: 'ID', data: 'assignment_id'},
             {title: 'Name', data: 'assignment_name',
-              render:  (data, type, row) => {
-                //@ Format the tags to labels
-                return `<pre style="color:teal;">${data}</pre>`
-              }
+              render:  (data, type, row) => this.helpers.stringify(data,'teal')
             },
             {title: 'Summary', data: 'assignment_summary',
-              render:  (data, type, row) => {
-                //@ Format the tags to labels
-                return `<pre>${data}</pre>`
-              }
+              render:  (data, type, row) => this.helpers.stringify(data,undefined)
             },
             {title: 'Notes', data: 'assignment_notes',
-              render:  (data, type, row) => {
-                //@ Format the tags to labels
-                return `<pre>${data}</pre>`
-              }
+              render:  (data, type, row) => this.helpers.stringify(data,undefined)
             },
             {title: 'Owner', data: 'assignment_owner',
-                render:  (data, type, row) => {
-                  //@ Format the tags to labels
-                  return `<pre>${data}</pre>`
-              }
+              render:  (data, type, row) => this.helpers.stringify(row.assignment_owner_name,'blue')
+            },
+            {
+              title : 'Extras',
+              data : 'assignment_id',
+              render:  (data,type,row) => `<button class='btn btn-primary openAssignment' id="${data}" data="${this.helpers.str(row).replace(/'/ig,'&apos;').replace(/"/ig,"'")}"> View Rules </btn>`
             },
             {
               title: 'Created', data: 'assignment_created',
-                render:  (data, type, row) => {
-                  //@ Format the tags to labels
-                  return `<pre style="color:green;">${this.pipe.transform(data, 'medium')}</pre>`;
-              }
+              render:  (data, type, row) => this.helpers.dateify(data,'green')
             },
             {
               title: 'Due',
               data: 'assignment_due',
-              render:  (data, type, row) => {
-                //@ Format the tags to labels
-                return `<pre style="color:crimson;">${this.pipe.transform(data, 'medium')}</pre>`;
-              }
+              render:  (data, type, row) => this.helpers.dateify(data,'crimson')
             },
             {
               title: 'Last Modified',
               data: 'assignment_last_modified',
-              render:  (data, type, row) => {
-                //@ Format the tags to labels
-                return `<pre>${this.pipe.transform(data, 'medium')}</pre>`;
-              }
+              render:  (data, type, row) => this.helpers.dateify(data,undefined)
             }
           ]
           ,responsive: true

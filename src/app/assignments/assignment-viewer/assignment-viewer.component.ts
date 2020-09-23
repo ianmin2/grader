@@ -12,4 +12,9 @@ export class AssignmentViewerComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  gotoDynamic() {
+    //this.router.navigateByUrl('/dynamic', { state: { id:1 , name:'Angular' } });
+    this.router.navigateByUrl(`/${id}`, { state: this.product });
+  }
+
 }
