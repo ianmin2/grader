@@ -67,9 +67,9 @@ export class HttpService {
     return this.http.post(`${this.applicationHost}?command=add&table=route`, ruleData, {headers: {"content-type": "application/json"}});
   }
 
-  getRules()
+  getRules(id?,isIdAssignment=false)
   {
-    return this.http.get<{response,data: {message,command}}>(`${this.applicationHost}?command=get&table=routes`);
+    return this.http.get<{response,data: {message,command}}>(`${this.applicationHost}?command=get&table=routes${id?'&id='+id+'&byAssignment='+isIdAssignment:''}`);
   }
 
 
@@ -97,9 +97,9 @@ export class HttpService {
     return this.http.post(`${this.applicationHost}?command=add&table=attempt`,attempt,{headers: {"content-type": "application/json"}});
   }
 
-  getAttempts()
+  getAttempts(assignment?,id?)
   {
-    return this.http.get<Attempts[]>(`${this.applicationHost}?command=get&table=attempts`);
+    return this.http.get<Attempts[]>(`${this.applicationHost}?command=get&table=attempts${assignment?'&assignment='+assignment:''}${id?'&id='+id:''}`);
   }
 
 
