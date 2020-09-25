@@ -1,3 +1,5 @@
+import { AssignmentBrowserPlaceholderComponent } from './../assignments/assignment-browser/assignment-browser-placeholder/assignment-browser-placeholder.component';
+import { AssignmentBrowserRubricComponent } from './../assignments/assignment-browser/assignment-browser-rubric/assignment-browser-rubric.component';
 import { AuthGuardService } from './../services/auth/auth-guard.service';
 import { UserLoginComponent } from './../user-login/user-login.component';
 import { NewAssignmentComponent } from './../assignments/assignment-generator/new-assignment/new-assignment.component';
@@ -43,8 +45,11 @@ const graderRoutes: Routes = [
       { path: 'browse', component : AssignmentBrowserComponent,
         children:
         [
-          { path: ':id', component: AssignmentViewerComponent},
-          { path: ':id/edit', component: AssignmentViewerComponent}
+          { path: '', component: AssignmentBrowserPlaceholderComponent, pathMatch: "full"},
+          {path : 'rubric/:id', component: AssignmentBrowserRubricComponent },
+          // { path: ':id', component: AssignmentBrowserRubricComponent},
+          // { path: ':id/edit', component:AssignmentBrowserRubricComponent}
+          { path: '**', component: NotFoundComponent}
         ]
       },
       // { path: ':id', component: AssignmentViewerComponent},

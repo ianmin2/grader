@@ -54,9 +54,9 @@ export class HttpService {
     return this.http.post(`${this.applicationHost}?command=add&table=assignment`, assignmentData, {headers: {"content-type": "application/json"}});
   }
 
-  getAssignments()
+  getAssignments(id?)
   {
-    return this.http.get<{response,data: {message,command}}>(`${this.applicationHost}?command=get&table=assignments`);
+    return this.http.get<{response,data: {message,command}}>(`${this.applicationHost}?command=get&table=assignments${id?'&id='+id:''}`);
   }
 
   //=============================================================================

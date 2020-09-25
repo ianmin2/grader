@@ -38,6 +38,8 @@ import { OverviewComponent } from './assignments/assignment-generator/overview/o
 import { NewAssignmentComponent } from './assignments/assignment-generator/new-assignment/new-assignment.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserLoginComponent } from './user-login/user-login.component';
+import { AssignmentBrowserRubricComponent } from './assignments/assignment-browser/assignment-browser-rubric/assignment-browser-rubric.component';
+import { AssignmentBrowserPlaceholderComponent } from './assignments/assignment-browser/assignment-browser-placeholder/assignment-browser-placeholder.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import { UserLoginComponent } from './user-login/user-login.component';
     OutputManagerComponent,
     OverviewComponent,
     NewAssignmentComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    AssignmentBrowserRubricComponent,
+    AssignmentBrowserPlaceholderComponent
   ],
   imports: [
     BrowserModule,
