@@ -25,8 +25,6 @@ export class AssignmentBrowserRubricComponent implements OnInit {
           this.activeAssignment = assignmentdata;
         })
         .catch(e=>{
-          console.log(`POINT 2 @ NADAA`)
-          console.dir(e)
           this.router.navigateByUrl(`/assignments/browse`)
         });
       }
@@ -41,9 +39,6 @@ export class AssignmentBrowserRubricComponent implements OnInit {
 
          })
          .catch(e=>{
-           console.dir(nav);
-           console.log(`POINT 2 @ ELSE`)
-           console.dir(e)
            this.router.navigateByUrl(`/assignments/browse`)
          });
 
@@ -55,7 +50,6 @@ export class AssignmentBrowserRubricComponent implements OnInit {
       //   throw new Error();
       // }
     } catch (error) {
-      console.dir(error)
       this.router.navigateByUrl(`/assignments/browse`);
     }
   }
