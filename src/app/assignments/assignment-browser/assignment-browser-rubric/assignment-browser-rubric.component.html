@@ -1,95 +1,149 @@
-<div class="container-fluid bg-gray padding printable">
+<div class="container-fluid bg-gray padding" id="printable">
 
-    <div class="row">
-        <div class="col-8 col-main-header">
-            <b class="u">Assignment Name</b> &nbsp;&nbsp;&nbsp;
-            <code class="code">( Issue Date )</code> &nbsp;&nbsp;&nbsp;
+    <button id="unprintable" class=" btn btn-primary " (click)="helper.printPDF( 'printable',activeAssignment.assignment_name+' by '+ activeAssignment.assignment_owner_name) ">DOWNLOAD PDF</button>
+
+    <div class="row ">
+        <div class="col-8 col-main-header ">
+            <b class="u ">Assignment Name</b> &nbsp;&nbsp;&nbsp;
+            <code class="code ">( Issue Date )</code> &nbsp;&nbsp;&nbsp;
 
         </div>
-        <div class="col-1">
+        <div class="col-1 ">
 
         </div>
-        <div class="col-3 col-bordered">
+        <div class="col-3 col-bordered ">
             assignment-id
         </div>
     </div>
-    <div class="row">
-        <div class="col-9">
-            <sub class="sub">by <b>Assignment Owner</b></sub>
+    <div class="row ">
+        <div class="col-9 ">
+            <sub class="sub ">by <b>Assignment Owner</b></sub>
         </div>
-        <div class="col-3 col-bordered">
+        <div class="col-3 col-bordered ">
             Assignment Due
         </div>
     </div>
 
     <hr>
-    <div class="row">
-        <div class="col-12 subtitle">
-            SUMMARY
-        </div>
-        <div class="col-12 sub myfont">
-            Actual Summary goes here
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-12 subtitle">
-            DESCRIPTION
-        </div>
-        <div class="col-12 sub myfont">
-            Actual description goes here
+    <div class="row ">
+        <div class="col-12">
+            <span class="subtitle">SUMMARY:</span>
+            <span class="sub myfont mid-text">
+              &nbsp;  Actual Summary goes here
+            </span>
         </div>
     </div>
     <hr>
-    <div class="row">
-        <div class="col-12 subtitle">
+    <div class="row ">
+        <div class="col-12">
+            <span class="subtitle">DESCRIPTION:</span>
+            <span class="sub myfont mid-text">
+              &nbsp;  Actual description goes here
+            </span>
+        </div>
+    </div>
+    <hr>
+    <div class="row ">
+        <div class="col-12 subtitle ">
             GRADING CRITERIA
         </div>
     </div>
     <hr>
-    <div class="row">
-        <div class="col-12">
-            <div class="container-fluid grading-criterion padding">
-                <div class="row">
-                    <div class="col-12 uu">
+    <div class="row ">
+        <div class="col-12 ">
+            <div class="container-fluid grading-criterion padding ">
+                <div class="row ">
+                    <div class="col-12 uu ">
                         RULE NAME
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12" style="font-weight: lighter;">
-                        <i class="uu small-text">DESCRIPTION</i>:
-                        <div class="sub myfont">Actual rule description (if any)</div>
+                <div class="row ">
+                    <div class="col-12 " style=" ">
+                        <i class="uu small-text bold">DESCRIPTION</i>:
+                        <span class="sub myfont mid-text"> &nbsp; Actual rule description (if any)</span>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-2 col-bordered-left">
-                        <i class="uu small-text"> METHOD:</i>
+                <p></p>
+                <div class="row ">
+                    <div class="col-2 col-bordered-left ">
+                        <i class="uu small-text "> METHOD:</i> <span style="color:{{helper.colorize( 'GET')}} " class="computerfont mid-text bold ">GET</span>
                     </div>
-                    <div class="col-4 col-bordered-left">
-                        <i class="uu small-text">PATH:</i>
+                    <div class="col-4 col-bordered-left ">
+                        <i class="uu small-text ">PATH:</i> <span class="computerfont mid-text bold " style="color:blue; "> /my/uncertain/path</span>
                     </div>
-                    <div class="col-4 col-bordered-left">
-                        <i class="uu small-text">DATA TYPE:</i>
+                    <div class="col-4 col-bordered-left ">
+                        <i class="uu small-text ">DATA TYPE:</i> <span class="computerfont mid-text bold " style="color: purple "> application/json</span>
                     </div>
-                    <div class="col-2 col-bordered-left">
-                        <i class="uu small-text"> STATUS CODE:</i>
+                    <div class="col-2 col-bordered-left ">
+                        <i class="uu small-text myfont "> STATUS CODE:</i> <span class="computerfont mid-text bold " style="color:crimson "> 200</span>
                     </div>
                 </div>
+                <p></p>
+                <div class="row ">
+                    <div class="col-12">
+                        <i class="uu small-text bold">EXPECTED STATIC DATA</i>:
+                        <span class="sub mid-text myfont "> static data </span>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="row ">
+                    <div class="col-6">
+
+                        <i class="uu small-text bold ">PROVIDED HEADERS</i>:
+                        <table class="table table-dark mid-text">
+                            <thead class="uppercase bold small-text">
+                                <td>Name</td>
+                                <td>Value</td>
+                                <td>Points</td>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>nom</td>
+                                    <td>val</td>
+                                    <td>points</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="col-6">
+                        <i class="uu small-text bold ">PROVIDED PARAMETERS</i>:
+                        <table class="table table-dark mid-text">
+                            <thead class="uppercase bold small-text">
+                                <td>name</td>
+                                <td>value</td>
+                                <td>Points</td>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>nom</td>
+                                    <td>val</td>
+                                    <td>points</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
 
             </div>
         </div>
     </div>
 
 
-    <p>List the assignment details</p>
-    <br>
-    <p>Fetch all rules tied to this assignment</p>
-    <br>
-    <p>Generate a rubric for the given assignment</p>
+
+
+    {{ activeAssignment | json}}
+
+
 
 </div>
 
-
-
-{{ activeAssignment | json}}
+<p>List the assignment details</p>
+<br>
+<p>Fetch all rules tied to this assignment</p>
+<br>
+<p>Generate a rubric for the given assignment</p>

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {DatePipe, JsonPipe} from '@angular/common'
+import html2canvas from 'html2canvas'
+import  jspdf from 'jspdf'
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +10,34 @@ export class ByteGraderHelperService {
 
   jsonPipe = new JsonPipe();
   pipe = new DatePipe('en-GB');
-  constructor() { }
+
+  printPDF (elementID,target) {
+
+
+    const domElement = document.getElementById(elementID);
+
+    const ideal_height = 2040;
+
+    alert(domElement.clientHeight);
+
+
+
+
+    html2canvas(domElement, { onclone: (document) => {
+        document.getElementById('unprintable').style.visibility = 'hidden'
+      }}).then(canvas => {
+        var imgWidth = 208;
+        var imgHeight = canvas.height * imgWidth / canvas.width;
+        const contentDataURL = canvas.toDataURL('image/png')
+        let pdf = new jspdf('p', 'mm', 'letter');
+        var position = 0;
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
+        pdf.save(`${target}.pdf`);
+      });
+
+
+  }
+
 
   colorize( method: string ) : string
   {

@@ -3,6 +3,8 @@ import { HttpService } from './../../../services/http.service';
 import { Assignment } from './../../../models/Assignment.model';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ByteGraderHelperService } from 'src/app/services/byte-grader-helper.service';
+import { By } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-assignment-browser-rubric',
@@ -13,8 +15,10 @@ export class AssignmentBrowserRubricComponent implements OnInit {
 
   activeAssignment: Assignment;
 
+  helper : ByteGraderHelperService;
 
-  constructor(private router:Router, private activatedRoute:ActivatedRoute, private http : HttpService) {
+
+  constructor(private router:Router, private activatedRoute:ActivatedRoute, private http : HttpService, private helpers: ByteGraderHelperService) {
 
     const nav = this.router.getCurrentNavigation();
     try {
@@ -56,6 +60,7 @@ export class AssignmentBrowserRubricComponent implements OnInit {
 
   ngOnInit(): void {
     // this.activeAssignment = history.state;
+    this.helper = this.helpers;
   }
 
   private async fetchAssignmentById( assignmentId ) : Promise<Assignment>

@@ -10,9 +10,12 @@ export class Assignment
   public assignment_last_modified : string;
   public assignment_summary : string;
   public assignment_notes : string;
+  public assignment_owner_name? : string;
+
+  public assignment_owner_email? : string;
   public routes? : Rule[]
 
-  constructor(assignment_id:number, assignment_name:string, assignment_owner:number, assignment_created:string, assignment_due:string, assignment_last_modified:string, assignment_summary:string, assignment_notes:string, routes? : Rule[] ) {
+  constructor(assignment_id:number, assignment_name:string, assignment_owner:number, assignment_created:string, assignment_due:string, assignment_last_modified:string, assignment_summary:string, assignment_notes:string, assignment_owner_name?: string, assignment_owner_email?:string, routes? : Rule[] ) {
     this.assignment_id = assignment_id,
     this.assignment_name = assignment_name;
     this.assignment_owner = assignment_owner;
@@ -21,6 +24,8 @@ export class Assignment
     this.assignment_last_modified = assignment_last_modified;
     this.assignment_summary = assignment_summary;
     this.assignment_notes = assignment_notes;
+    this.assignment_owner_name = assignment_owner_name;
+    this.assignment_owner_email = assignment_owner_email;
     this.routes = routes;
   }
 
