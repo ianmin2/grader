@@ -70,11 +70,22 @@ export class ByteGraderHelperService {
     return `<pre>${this.jsonPipe.transform(this.json(data))}</pre>`;
   }
 
+  plainJsonify(data)
+  {
+    return this.jsonPipe.transform(this.json(data));
+  }
+
   dateify (data, color)
   {
     //@ Format the data into a date
     color= color ? `style='color:${color}'` : '';
-    return `<pre ${color}>${this.pipe.transform(data, 'medium')}</pre>`;
+
+    return `<pre ${color}>${data ? this.pipe.transform(data.replace(/\s\+/ig,'+'), 'medium') : 'not specified'}</pre>`;
+  }
+
+  plainDateify(data)
+  {
+    return data ? this.pipe.transform(data.replace(/\s\+/ig,'+'), 'medium') : 'not specified';
   }
 
   stringify(data, color)
@@ -83,10 +94,15 @@ export class ByteGraderHelperService {
     return `<pre ${color}>${data}</pre>`;
   }
 
+  plainStringify(data)
+  {
+    return this.str(data);
+  }
+
   json  ( obj )
   {
     try {
-            return ( typeof(obj) === 'object' ) ? obj : JSON.parse( obj )
+            return ( typeof(obj) === 'object' ) ? obj : JSON.parse( obj.replace(/&quot;/ig,'"') )
     }
     catch(e)
     {
