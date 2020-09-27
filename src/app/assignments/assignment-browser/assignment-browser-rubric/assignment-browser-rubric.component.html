@@ -24,8 +24,8 @@
         </div>
     </div>
 
-    <hr>
-    <div class="row ">
+    <hr *ngIf="activeAssignment.assignment_summary">
+    <div class="row " *ngIf="activeAssignment.assignment_summary">
         <div class="col-12">
             <span class="subtitle">SUMMARY:</span>
             <span class="sub myfont mid-text">
@@ -33,8 +33,9 @@
             </span>
         </div>
     </div>
-    <hr>
-    <div class="row ">
+
+    <hr *ngIf="activeAssignment.assignment_notes">
+    <div class="row " *ngIf="activeAssignment.assignment_notes">
         <div class="col-12">
             <span class="subtitle">DESCRIPTION:</span>
             <span class="sub myfont mid-text">
@@ -42,6 +43,7 @@
             </span>
         </div>
     </div>
+
     <hr>
     <div class="row ">
         <div class="col-12 uppercase mid-text bold">
@@ -49,10 +51,8 @@
         </div>
     </div>
 
-
-
     <div class="row padding" *ngFor="let rule of activeAssignment.routes; let idx = index; ">
-        {{rule | json}}
+
         <div class="col-12 ">
             <div class="container-fluid grading-criterion padding ">
                 <div class="row ">
@@ -97,8 +97,9 @@
                         </span>
                     </div>
                 </div>
-                <p></p>
-                <div class="row ">
+
+                <p *ngIf="rule.rule_expected_data"></p>
+                <div class="row" *ngIf="rule.rule_expected_data">
                     <div class="col-12">
                         <i class="uu small-text bold">EXPECTED STATIC DATA</i>:
                         <span class="sub mid-text myfont ">
@@ -106,7 +107,7 @@
                         </span>
                     </div>
                 </div>
-                <hr>
+                <hr *ngIf="rule.rule_headers || rule.rule_parameters">
 
                 <!-- HEADERS & PARAMETERS -->
                 <div class="row ">
@@ -154,19 +155,19 @@
                         <table class="table table-dark mid-text">
                             <thead class="uppercase bold small-text">
                                 <td>path</td>
-                                <td>Match weight</td>
+                                <!-- <td>Match weight</td> -->
                                 <td>MATCHED MARKS</td>
                                 <td>NO MATCH MARKS</td>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>{{rule.rule_path}}</td>
-                                    <td>{{rule.rule_grading.path.weight}}</td>
+                                    <!-- <td>{{rule.rule_grading.path.weight}}</td> -->
                                     <td>{{rule.rule_grading.path.match}}</td>
                                     <td>{{rule.rule_grading.path.match.no_match|| 0}}</td>
                                 </tr>
                                 <tr *ngFor="let rule_path_match of rule.rule_grading.path.matches">
-                                    <td colspan="2">{{rule_path_match.alternative}}</td>
+                                    <td>{{rule_path_match.alternative}}</td>
                                     <td>{{rule_path_match.match}}</td>
                                     <td>{{rule_path_match.match.no_match|| 0}}</td>
                                 </tr>
@@ -183,20 +184,20 @@
                         <table class="table table-dark mid-text">
                             <thead class="uppercase bold small-text">
                                 <td>CODE</td>
-                                <td>Match Weight</td>
+                                <!-- <td>Match Weight</td> -->
                                 <td>MATCHED MARKS</td>
                                 <td>NO MATCH MARKS</td>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>{{rule.rule_expected_status_code}}</td>
-                                    <td>{{rule.rule_grading.status_code.weight}}</td>
+                                    <!-- <td>{{rule.rule_grading.status_code.weight}}</td> -->
                                     <td>{{rule.rule_grading.status_code.match}}</td>
                                     <td>{{rule.rule_grading.status_code.match.no_match || 0}}</td>
                                 </tr>
 
                                 <tr *ngFor="let rule_status_code_match of rule.rule_grading.status_code.matches">
-                                    <td colspan="2">{{rule_status_code_match.alternative}}</td>
+                                    <td>{{rule_status_code_match.alternative}}</td>
                                     <td>{{rule_status_code_match.match}}</td>
                                     <td>{{rule_status_code_match.match.no_match || 0}}</td>
                                 </tr>
@@ -217,20 +218,20 @@
                         <table class="table table-dark mid-text">
                             <thead class="uppercase bold small-text">
                                 <td>VERB</td>
-                                <td>Match Weight</td>
+                                <!-- <td>Match Weight</td> -->
                                 <td>MATCHED MARKS</td>
                                 <td>NO MATCH MARKS</td>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>{{rule.rule_method}}</td>
-                                    <td>{{rule.rule_grading.verb.weight}}</td>
+                                    <!-- <td>{{rule.rule_grading.verb.weight}}</td> -->
                                     <td>{{rule.rule_grading.verb.match}}</td>
                                     <td>{{rule.rule_grading.verb.match.no_match || 0}}</td>
                                 </tr>
 
                                 <tr *ngFor="let rule_verb_match of rule.rule_grading.verb.matches">
-                                    <td colspan="2">{{rule_verb_match.alternative}}</td>
+                                    <td>{{rule_verb_match.alternative}}</td>
                                     <td>{{rule_verb_match.match}}</td>
                                     <td>{{rule_verb_match.match.no_match || 0}}</td>
                                 </tr>
@@ -240,25 +241,33 @@
                     </div>
 
                     <!-- MIME TYPE MATCHING -->
-                    <!-- <div class="col-6">
+                    <div class="col-6">
 
                         <i class="uu small-text bold uppercase">MIME TYPE MATCHING</i>
                         <table class="table table-dark mid-text">
                             <thead class="uppercase bold small-text">
                                 <td>MIME TYPE</td>
+                                <!-- <td>Match Weight</td> -->
                                 <td>MATCHED MARKS</td>
                                 <td>NO MATCH MARKS</td>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>nom</td>
-                                    <td>val</td>
-                                    <td>points</td>
+                                    <td>{{rule.rule_expected_data_type}}</td>
+                                    <!-- <td>{{rule.rule_grading.mime_type.weight}}</td> -->
+                                    <td>{{rule.rule_grading.mime_type.match}}</td>
+                                    <td>{{rule.rule_grading.mime_type.match.no_match || 0}}</td>
+                                </tr>
+
+                                <tr *ngFor="let rule_mime_type_match of rule.rule_grading.mime_type.matches">
+                                    <td>{{rule_mime_type_match.alternative}}</td>
+                                    <td>{{rule_mime_type_match.match}}</td>
+                                    <td>{{rule_mime_type_match.match.no_match || 0}}</td>
                                 </tr>
                             </tbody>
                         </table>
 
-                    </div> -->
+                    </div>
                 </div>
 
             </div>
