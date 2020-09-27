@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ByteGraderHelperService } from 'src/app/services/byte-grader-helper.service';
 import { By } from '@angular/platform-browser';
 
+
 @Component({
   selector: 'app-assignment-browser-rubric',
   templateUrl: './assignment-browser-rubric.component.html',
@@ -26,6 +27,16 @@ export class AssignmentBrowserRubricComponent implements OnInit {
       {
         this.fetchAssignmentById(this.activatedRoute.snapshot.paramMap.get("id"))
        .then( assignmentdata =>{
+          assignmentdata.routes = <Rule[]>assignmentdata.routes.map(rd=>{
+            rd.rule_grading = this.helper.json(rd.rule_grading);
+            // rd.rule_grading.path = this.helper.json(rd.rule_grading.path);
+            // rd.rule_grading.mime_type = this.helper.json(rd.rule_grading.mime_type);
+            // rd.rule_grading.status_code = this.helper.json(rd.rule_grading.status_code);
+            // rd.rule_grading.verb = this.helper.json(rd.rule_grading.verb);
+            return rd;
+          });
+
+
           this.activeAssignment = assignmentdata;
         })
         .catch(e=>{
@@ -38,8 +49,17 @@ export class AssignmentBrowserRubricComponent implements OnInit {
         this.fetchAssignmentRoutes(nav.extras.state.assignment_id)
         .then( (routeAssignmentData: Rule[]) =>{
 
+
+
            this.activeAssignment = <Assignment>(nav.extras.state);
-           this.activeAssignment.routes = routeAssignmentData;
+           this.activeAssignment.routes =  <Rule[]>routeAssignmentData.map(rd=>{
+            rd.rule_grading = this.helper.json(rd.rule_grading);
+            // rd.rule_grading.path = this.helper.json(rd.rule_grading.path);
+            // rd.rule_grading.mime_type = this.helper.json(rd.rule_grading.mime_type);
+            // rd.rule_grading.status_code = this.helper.json(rd.rule_grading.status_code);
+            // rd.rule_grading.verb = this.helper.json(rd.rule_grading.verb);
+            return rd;
+          });
 
          })
          .catch(e=>{
