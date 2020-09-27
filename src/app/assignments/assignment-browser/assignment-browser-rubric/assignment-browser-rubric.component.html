@@ -192,13 +192,13 @@
                                     <td>{{rule.rule_expected_status_code}}</td>
                                     <td>{{rule.rule_grading.status_code.weight}}</td>
                                     <td>{{rule.rule_grading.status_code.match}}</td>
-                                    <td>{{rule.rule_grading.status_code.match.no_match}}</td>
+                                    <td>{{rule.rule_grading.status_code.match.no_match || 0}}</td>
                                 </tr>
 
                                 <tr *ngFor="let rule_status_code_match of rule.rule_grading.status_code.matches">
                                     <td colspan="2">{{rule_status_code_match.alternative}}</td>
                                     <td>{{rule_status_code_match.match}}</td>
-                                    <td>{{rule_status_code_match.match.no_match}}</td>
+                                    <td>{{rule_status_code_match.match.no_match || 0}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -211,25 +211,33 @@
                 <hr>
                 <div class="row ">
                     <!-- VERB MATCHING -->
-                    <!-- <div class="col-6">
+                    <div class="col-6">
 
                         <i class="uu small-text bold uppercase">VERB MATCHING</i>
                         <table class="table table-dark mid-text">
                             <thead class="uppercase bold small-text">
                                 <td>VERB</td>
+                                <td>Match Weight</td>
                                 <td>MATCHED MARKS</td>
                                 <td>NO MATCH MARKS</td>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>nom</td>
-                                    <td>val</td>
-                                    <td>points</td>
+                                    <td>{{rule.rule_method}}</td>
+                                    <td>{{rule.rule_grading.verb.weight}}</td>
+                                    <td>{{rule.rule_grading.verb.match}}</td>
+                                    <td>{{rule.rule_grading.verb.match.no_match || 0}}</td>
+                                </tr>
+
+                                <tr *ngFor="let rule_verb_match of rule.rule_grading.verb.matches">
+                                    <td colspan="2">{{rule_verb_match.alternative}}</td>
+                                    <td>{{rule_verb_match.match}}</td>
+                                    <td>{{rule_verb_match.match.no_match || 0}}</td>
                                 </tr>
                             </tbody>
                         </table>
 
-                    </div> -->
+                    </div>
 
                     <!-- MIME TYPE MATCHING -->
                     <!-- <div class="col-6">
