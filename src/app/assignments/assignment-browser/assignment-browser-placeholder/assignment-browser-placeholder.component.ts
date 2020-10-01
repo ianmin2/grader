@@ -49,31 +49,31 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
           columns: [
 
             {title: 'ID', data: 'assignment_id'},
-            {title: 'Name', data: 'assignment_name',
+            {title: 'Name', data: 'assignment_name', className: 'editable',
               render:  (data, type, row) => this.helpers.stringify(data,'teal')
             },
-            {title: 'Summary', data: 'assignment_summary',
+            {title: 'Summary', data: 'assignment_summary', className: 'editable',
               render:  (data, type, row) => this.helpers.stringify(data,undefined)
             },
-            {title: 'Notes', data: 'assignment_notes',
+            {title: 'Notes', data: 'assignment_notes', className: 'editable',
               render:  (data, type, row) => this.helpers.stringify(data,undefined)
             },
             {title: 'Owner', data: 'assignment_owner',
               render:  (data, type, row) => this.helpers.stringify(row.assignment_owner_name,'blue')
             },
             {
-              title : 'Extras',
+              title : 'buttons',
               data : 'assignment_id',
-              render:  (data,type,row) => `<button class='btn btn-primary openAssignment' id="${data}" data="${this.helpers.str(row).replace(/'/ig,'&apos;').replace(/"/ig,"'")}"> View Rules </btn>`
+              render:  (data,type,row) => `<button class='btn btn-primary openAssignment' id="${data}" data="${this.helpers.str(row).replace(/'/ig,'&apos;').replace(/"/ig,"'")}"> Rules </btn>`
+            },
+            {
+              title: 'Due',
+              data: 'assignment_due', className: 'editable',
+              render:  (data, type, row) => this.helpers.dateify(data,'crimson')
             },
             {
               title: 'Created', data: 'assignment_created',
               render:  (data, type, row) => this.helpers.dateify(data,'green')
-            },
-            {
-              title: 'Due',
-              data: 'assignment_due',
-              render:  (data, type, row) => this.helpers.dateify(data,'crimson')
             },
             {
               title: 'Last Modified',
@@ -81,7 +81,59 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
               render:  (data, type, row) => this.helpers.dateify(data,undefined)
             }
           ]
-          ,responsive: true
+          ,dom: 'Bfrtip',        // Needs button container
+          select: true, //'single',
+          responsive: true,
+          altEditor: true,     // Enable altEditor
+          buttons: [
+             'excel',
+             'pdf',
+
+              {
+                  extend: 'selected', // Bind to Selected row
+                  text: 'Edit',
+                  name: 'edit'        // do not change name
+              },
+              {
+                  extend: 'selected', // Bind to Selected row
+                  text: 'Delete',
+                  name: 'delete'      // do not change name
+              },
+              {
+                  text: 'Refresh',
+                  name: 'refresh'      // do not change name
+              }
+          ],
+          onAddRow: function(datatable, rowdata, success, error) {
+              $.ajax({
+                  // a tipycal url would be / with type='PUT'
+                  url: `/`,
+                  type: 'GET',
+                  data: rowdata,
+                  success: success,
+                  error: error
+              });
+          },
+          onDeleteRow: function(datatable, rowdata, success, error) {
+              $.ajax({
+                  // a tipycal url would be /{id} with type='DELETE'
+                  url: `/`,
+                  type: 'GET',
+                  data: rowdata,
+                  success: success,
+                  error: error
+              });
+          },
+          onEditRow: function(datatable, rowdata, success, error) {
+              $.ajax({
+                  // a tipycal url would be /{id} with type='POST'
+                  url: `/`,
+                  type: 'GET',
+                  data: rowdata,
+                  success: success,
+                  error: error
+              });
+          }
         };
        }
        else

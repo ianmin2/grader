@@ -16,7 +16,7 @@ import { SubUser } from './../models/SubUser.model';
 })
 export class HttpService {
 
- applicationHost:string = "http://localhost/";
+ applicationHost:string =  "http://localhost/"; // `${window.location.href}/api.php/`; //"http://localhost/";
 
   constructor(private http: HttpClient) { }
 
