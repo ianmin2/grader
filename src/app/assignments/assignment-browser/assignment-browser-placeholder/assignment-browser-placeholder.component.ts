@@ -21,12 +21,11 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
 
   public assignments:Assignment[];
 
-  constructor(private http: HttpService, private helpers: ByteGraderHelperService, private router: Router, private ngZone : NgZone) { }
+  constructor(private http: HttpService, private helpers: ByteGraderHelperService, private router: Router, private ngZone: NgZone) { }
 
-  public navigate(commands: any[], pars : any = {}): void {
+  private navigate(commands: any[], pars: any = {}): void {
     this.ngZone.run(() => this.router.navigate(commands,pars)).then();
   }
-
 
   ngOnInit(): void {
 
@@ -35,13 +34,11 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
     $(document).on('click','.openAssignment', (d) =>
     {
       d.stopPropagation()
-
       let identifier = $(d.currentTarget).attr('id');
       let assignmentData = JSON.parse(($(d.currentTarget).attr('data')||'{}').replace(/'/ig,'"').replace(/&apos;/ig,"'"));
-      this.navigate([`/assignments/browse/rubric/${identifier}`],{state: assignmentData})
-
-      // this.router.navigateByUrl(`/assignments/browse/rubric/${identifier}`, { state: assignmentData });
+      this.navigate([`/assignments/browse/rubric/${identifier}`], { state: assignmentData });
       // /assignments/browse/rubric/${identifier}
+
     })
 
   }
@@ -87,8 +84,89 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
               data: 'assignment_last_modified',
               render:  (data, type, row) => this.helpers.dateify(data,undefined)
             }
+          ]
+          ,dom: 'Bfrtip',        // Needs button container
+          select: true, //'single',
+          responsive: true,
+          altEditor: true,     // Enable altEditor
+          buttons: [
+             'excel',
+             'pdf',
+             {
+              extend: 'selected', // Bind to Selected row
+              text: 'Edit',
+              name: 'edit'        // do not change name
+          },
+          // {
+          //     extend: 'selected', // Bind to Selected row
+          //     text: 'Delete',
+          //     name: 'delete'      // do not change name
+          // },
+          // {
+          //     text: 'Refresh',
+          //     name: 'refresh'      // do not change name
+          // }
+              // {
+              //     text: 'Refresh',
+              //     name: 'refresh'      // do not change name
+              // }
           ],
-          responsive: true
+          onAddRow: function(datatable, rowdata, success, error) {
+              $.ajax({
+                  // a tipycal url would be / with type='PUT'
+                  url: `/`,
+                  type: 'GET',
+                  data: rowdata,
+                  success: success,
+                  error: error
+              });
+          },
+          onDeleteRow: function(datatable, rowdata, success, error) {
+              $.ajax({
+                  // a tipycal url would be /{id} with type='DELETE'
+                  url: `/`,
+                  type: 'GET',
+                  data: rowdata,
+                  success: success,
+                  error: error
+              });
+          },
+          onEditRow: (datatable, rowdata, success, error) => {
+
+            console.dir(rowdata);
+
+              const { attempt_id ,
+                attempt_name,
+                attempt_student_identifier,
+                attempt_main_path,
+                attempt_submission_time,
+                attempt_grading_time,
+                attempt_grade_breakdown,
+                attempt_grade_complete,
+                attempt_assignment,
+                created_at,
+                updated_at } = rowdata;
+
+                this.http.getLocal({
+                  table : 'assignments',
+                  command : 'update',
+                  attempt_id ,
+                  attempt_name,
+                  attempt_student_identifier,
+                  attempt_main_path,
+                  attempt_submission_time,
+                  attempt_grading_time,
+                  attempt_grade_breakdown,
+                  attempt_grade_complete,
+                  attempt_assignment,
+                  created_at,
+                  updated_at
+                }).subscribe((d: {response,data: {message,command}})=> {
+                    console.dir(d)
+                })
+
+
+          }
         };
        }
        else
@@ -96,7 +174,7 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
          alert(`${d.data.message.toString()}`);
        }
     }, err => {}, () => {
-      // console.dir(this.table)
+      console.dir(this.table)
       this.dataTable = $(this.table.nativeElement);
       // console.dir(this.dataTable);
       this.dataTable.DataTable(this.dtOptions);
