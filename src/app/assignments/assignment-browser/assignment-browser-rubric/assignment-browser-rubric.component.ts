@@ -1,10 +1,11 @@
 import { Rule } from './../../../models/Rule.model';
 import { HttpService } from './../../../services/http.service';
 import { Assignment } from './../../../models/Assignment.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ByteGraderHelperService } from 'src/app/services/byte-grader-helper.service';
-import { By } from '@angular/platform-browser';
+import { AssignmentStoreService } from '../../../services/stor/assignment.stor.service'
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -14,16 +15,37 @@ import { By } from '@angular/platform-browser';
 })
 export class AssignmentBrowserRubricComponent implements OnInit {
 
-  activeAssignment: Assignment;
+assignmentSubscription : Subscription;
+
+ activeAssignment: Assignment;
 
   helper : ByteGraderHelperService;
 
+  private nav;
 
-  constructor(private router:Router, private activatedRoute:ActivatedRoute, private http : HttpService, private helpers: ByteGraderHelperService) {
+  constructor(private ngZone: NgZone, private router:Router, private activatedRoute:ActivatedRoute, private http : HttpService, private helpers: ByteGraderHelperService, private assignmentUpdater: AssignmentStoreService) {
 
-    const nav = this.router.getCurrentNavigation();
+    this.nav = this.router.getCurrentNavigation();
+
+  }
+
+  public navigate(commands: any[]): void {
+    this.ngZone.run(() => this.router.navigate(commands)).then();
+  }
+
+  ngOnInit(): void {
+    // this.activeAssignment = history.state;
+    this.helper = this.helpers;
+
+      //@ Watch for recipe changes
+    this.assignmentSubscription = this.assignmentUpdater.assignmentUpdated.subscribe((assignments: Assignment[]) => {
+      this.activeAssignment = assignments[0];
+    });
+
+    console.dir(this.nav)
+
     try {
-      if(!nav.extras.state)
+      if(!this.nav.extras.state)
       {
         this.fetchAssignmentById(this.activatedRoute.snapshot.paramMap.get("id"))
        .then( assignmentdata =>{
@@ -36,8 +58,8 @@ export class AssignmentBrowserRubricComponent implements OnInit {
             return rd;
           });
 
-
-          this.activeAssignment = assignmentdata;
+          this.assignmentUpdater.addAssignment(assignmentdata);
+          // this.activeAssignment = assignmentdata;
         })
         .catch(e=>{
           this.router.navigateByUrl(`/assignments/browse`)
@@ -45,42 +67,43 @@ export class AssignmentBrowserRubricComponent implements OnInit {
       }
       else //if(!nav.extras.state.assignment_id)
       {
+
+        this.assignmentUpdater.addAssignment(<Assignment>(this.nav.extras.state));
+        // this.activeAssignment = <Assignment>(nav.extras.state);
+
+        console.dir(this.activeAssignment);
+
+        console.log(`... Fetching assignment rules for the assignment '${this.nav.extras.state.assignment_name}'`)
+
+
         //@ Fetch the relevant assignment route/rule data
-        this.fetchAssignmentRoutes(nav.extras.state.assignment_id)
+        this.fetchAssignmentRoutes(this.nav.extras.state.assignment_id)
         .then( (routeAssignmentData: Rule[]) =>{
 
-
-
-           this.activeAssignment = <Assignment>(nav.extras.state);
-           this.activeAssignment.routes =  <Rule[]>routeAssignmentData.map(rd=>{
-            rd.rule_grading = this.helper.json(rd.rule_grading);
-            // rd.rule_grading.path = this.helper.json(rd.rule_grading.path);
-            // rd.rule_grading.mime_type = this.helper.json(rd.rule_grading.mime_type);
-            // rd.rule_grading.status_code = this.helper.json(rd.rule_grading.status_code);
-            // rd.rule_grading.verb = this.helper.json(rd.rule_grading.verb);
+           let assignmentRoutes =  <Rule[]>routeAssignmentData.map(rd=>{
+            rd.rule_grading = this.helpers.json(rd.rule_grading);
             return rd;
           });
 
+          this.assignmentUpdater.registerRoutes(assignmentRoutes);
+
          })
          .catch(e=>{
+           console.log(`\n\n@ Fetch assignment routes`)
+           console.dir(e);
            this.router.navigateByUrl(`/assignments/browse`)
          });
 
-        //@ Set the data to the passed assignment data
-        this.activeAssignment = history.state;
       }
       // else
       // {
       //   throw new Error();
       // }
     } catch (error) {
+      console.dir(error)
       this.router.navigateByUrl(`/assignments/browse`);
     }
-  }
 
-  ngOnInit(): void {
-    // this.activeAssignment = history.state;
-    this.helper = this.helpers;
   }
 
   private async fetchAssignmentById( assignmentId ) : Promise<Assignment>
@@ -106,5 +129,10 @@ export class AssignmentBrowserRubricComponent implements OnInit {
   private browseAllAssignments(){
     this.router.navigateByUrl(`/assignments/browse`);
   }
+
+  ngOnDestroy(){
+    this.assignmentSubscription.unsubscribe();
+  }
+
 
 }

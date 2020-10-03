@@ -1,4 +1,4 @@
-<div class="container-fluid bg-gray padding" id="printable">
+<div class="container-fluid bg-gray padding" id="printable" *ngIf="activeAssignment">
 
     <button id="unprintable" class=" btn btn-primary " (click)="helper.printPDF( 'printable',activeAssignment.assignment_name+' by '+ activeAssignment.assignment_owner_name) ">DOWNLOAD PDF</button>
 
@@ -281,6 +281,11 @@
 
 
 
+</div>
+
+<div *ngIf="!activeAssignment">
+    <div class="i fa fa-spin"></div>
+    ... Loading assignment rubric
 </div>
 
 <p>List the assignment details</p>
