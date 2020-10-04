@@ -34,7 +34,6 @@
                         ],
                         "scripts": [
                             "node_modules/jszip/dist/jszip.min.js",
-                            "node_modules/pdfmake/build/pdfmake.min.js",
                             "node_modules/jquery/dist/jquery.min.js",
                             "node_modules/@popperjs/core/dist/umd/popper.min.js",
                             "node_modules/bootstrap/dist/js/bootstrap.min.js",
@@ -47,6 +46,8 @@
                             "node_modules/datatables.net-buttons/js/buttons.print.min.js",
                             "src/assets/datatables.net/editor-free.js",
                             "src/assets/datatables.net/select.js",
+                            "node_modules/pdfmake/build/pdfmake.min.js",
+                            "node_modules/pdfmake/build/vfs_fonts.js"
                         ]
                     },
                     "configurations": {

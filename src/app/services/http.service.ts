@@ -29,6 +29,11 @@ export class HttpService {
     return this.http.get(this.applicationHost, { params: data });
   }
 
+  postLocal( data : any)
+  {
+    return this.http.post(this.applicationHost, data);
+  }
+
 
   //=============================================================================
   //# USERS

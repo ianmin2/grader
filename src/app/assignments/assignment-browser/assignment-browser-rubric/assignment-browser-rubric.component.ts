@@ -42,8 +42,6 @@ assignmentSubscription : Subscription;
       this.activeAssignment = assignments[0];
     });
 
-    console.dir(this.nav)
-
     try {
       if(!this.nav.extras.state)
       {
@@ -69,9 +67,6 @@ assignmentSubscription : Subscription;
       {
 
         this.assignmentUpdater.addAssignment(<Assignment>(this.nav.extras.state));
-        // this.activeAssignment = <Assignment>(nav.extras.state);
-
-        console.dir(this.activeAssignment);
 
         console.log(`... Fetching assignment rules for the assignment '${this.nav.extras.state.assignment_name}'`)
 
@@ -89,7 +84,7 @@ assignmentSubscription : Subscription;
 
          })
          .catch(e=>{
-           console.log(`\n\n@ Fetch assignment routes`)
+           console.log(`\n\n@ Error at Fetch assignment routes`)
            console.dir(e);
            this.router.navigateByUrl(`/assignments/browse`)
          });
@@ -127,7 +122,7 @@ assignmentSubscription : Subscription;
   }
 
   private browseAllAssignments(){
-    this.router.navigateByUrl(`/assignments/browse`);
+    this.navigate([`/assignments/browse`]);
   }
 
   ngOnDestroy(){
