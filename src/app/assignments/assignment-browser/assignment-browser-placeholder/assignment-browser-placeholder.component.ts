@@ -27,12 +27,38 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
     // (window as any).pdfMake.vfs = (window as any).pdfFonts.pdfMake.vfs;
     // console.dir(window)
 
-   }
+  }
+
+  ngOnInit(): void {
+
+    //  this.http.countAllRecords().then(console.dir)
+
+    this.initializeDataTable();
+
+    this.assignmentsSubscription = this.assignmentsUpdater.assignmentsUpdated.subscribe((assignments: Assignment[]) => {
+      console.log(`\n\nReceived new data .... redrawing table!`)
+      this.assignments = assignments;
+      this.dataTable.DataTable().destroy();;
+      this.initializeDataTable();
+    });
+
+    this.fetchAssignments();
+
+    $(document).on('click','.openAssignment', (d) =>
+    {
+      d.stopPropagation()
+      let identifier = $(d.currentTarget).attr('id');
+      let assignmentData = JSON.parse(($(d.currentTarget).attr('data')||'{}').replace(/'/ig,'"').replace(/&apos;/ig,"'"));
+      this.navigate([`/assignments/browse/rubric/${identifier}`], { state: assignmentData });
+      // /assignments/browse/rubric/${identifier}
+
+    })
+
+  }
 
   private navigate(commands: any[], pars: any = {}): void {
     this.ngZone.run(() => this.router.navigate(commands,pars)).then();
   }
-
 
   formOptions(){
     return {
@@ -42,17 +68,18 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
         {title: 'Name', data: 'assignment_name', className: 'editable',
           render:  (data, type, row) => this.helpers.stringify(data,'teal')
         },
-        {title: 'Summary', data: 'assignment_summary', className: 'editable',
+        {title: 'Summary', data: 'assignment_summary', className: 'editable', sortable: false,
           render:  (data, type, row) => this.helpers.stringify(data,undefined)
         },
-        {title: 'Notes', data: 'assignment_notes', className: 'editable',
+        {title: 'Notes', data: 'assignment_notes', className: 'editable', sortable: false,
           render:  (data, type, row) => this.helpers.stringify(data,undefined)
         },
         {title: 'Owner', data: 'assignment_owner',
           render:  (data, type, row) => this.helpers.stringify(row.assignment_owner_name,'blue')
         },
         {
-          title: 'buttons',
+          title: '',
+          sortable: false,
           data: null,
           render:  (data,type,row) => `<button class='btn btn-primary openAssignment' id="${row.assignment_id}" data="${this.helpers.str(row).replace(/'/ig,'&apos;').replace(/"/ig,"'")}"> Rules </btn>`
         },
@@ -178,6 +205,7 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
             assignment_created,
             assignment_last_modified,
             }).subscribe((d: {response,data: {message,command}})=> {
+              if(d.response == 200) this.fetchAssignments();
                 console.log(`Assignment Data update attempted!\nProof:`)
                 console.dir(d)
             },err=> {
@@ -185,7 +213,7 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
             }, ()=> {
 
               $('.modal,.modal-backdrop').hide();
-              this.fetchAssignments();
+
             })
 
             /*
@@ -225,33 +253,6 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void {
-
-    //  this.http.countAllRecords().then(console.dir)
-
-    this.initializeDataTable();
-
-    this.assignmentsSubscription = this.assignmentsUpdater.assignmentsUpdated.subscribe((assignments: Assignment[]) => {
-      console.log(`\n\nReceived new data .... redrawing table!`)
-      this.assignments = assignments;
-      this.dataTable.DataTable().destroy();;
-      this.initializeDataTable();
-    });
-
-    this.fetchAssignments();
-
-    $(document).on('click','.openAssignment', (d) =>
-    {
-      d.stopPropagation()
-      let identifier = $(d.currentTarget).attr('id');
-      let assignmentData = JSON.parse(($(d.currentTarget).attr('data')||'{}').replace(/'/ig,'"').replace(/&apos;/ig,"'"));
-      this.navigate([`/assignments/browse/rubric/${identifier}`], { state: assignmentData });
-      // /assignments/browse/rubric/${identifier}
-
-    })
-
-  }
-
   initializeDataTable() {
     this.dataTable = $(this.table.nativeElement);
     // console.dir(this.dataTable);
@@ -268,9 +269,7 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
        {
          alert(`${d.data.message.toString()}`);
        }
-    }, err => {}, () => {
-
-    });
+    }, err => {});
   }
 
 
