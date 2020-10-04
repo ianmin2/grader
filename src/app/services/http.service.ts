@@ -16,6 +16,8 @@ import { SubUser } from './../models/SubUser.model';
 })
 export class HttpService {
 
+  tableNames: String[] = ['users','routes','chainings','attempts','assignments']
+
  applicationHost:string =  "http://localhost/"; // `${window.location.href}/api.php/`; //"http://localhost/";
 
   constructor(private http: HttpClient) { }
@@ -32,6 +34,26 @@ export class HttpService {
   postLocal( data : any)
   {
     return this.http.post(this.applicationHost, data);
+  }
+
+  //=============================================================================
+  //# COUNT SUMMARY
+  //=============================================================================
+  countAllRecords()
+  {
+    return Promise.all(
+      this.tableNames.map( tableName =>
+        new Promise((resolve,reject) =>
+          this.http.post(this.applicationHost,{ command : 'count', table : tableName  })
+          .subscribe(( fieldData: {response,data: {message,command}})=> {
+            resolve(fieldData.data.message);
+          },
+          err => {
+            reject(err)
+          })
+        )
+      )
+    )
   }
 
 

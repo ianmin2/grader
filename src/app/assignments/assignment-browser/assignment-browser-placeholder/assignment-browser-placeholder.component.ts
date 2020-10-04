@@ -227,6 +227,8 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
 
   ngOnInit(): void {
 
+    //  this.http.countAllRecords().then(console.dir)
+
     this.initializeDataTable();
 
     this.assignmentsSubscription = this.assignmentsUpdater.assignmentsUpdated.subscribe((assignments: Assignment[]) => {
