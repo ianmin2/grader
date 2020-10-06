@@ -44,6 +44,7 @@ export class OverviewComponent implements OnInit {
   {
 
     return {
+      scrollY: this.helpers.getPageHeight(),
       data: this.routes,
       columns: [
 

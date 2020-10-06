@@ -1,32 +1,33 @@
-import { Router } from '@angular/router';
-import { ByteGraderHelperService } from './../../../services/byte-grader-helper.service';
-import { Assignment } from './../../../models/Assignment.model';
-import { HttpService } from './../../../services/http.service';
+import { Attempts } from './../../models/Attempts.model';
 import { Component, OnInit, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
+import { ByteGraderHelperService } from '../../services/byte-grader-helper.service';
+import { Assignment } from '../../models/Assignment.model';
+import { HttpService } from '../../services/http.service';
 import { ViewChild } from '@angular/core';
-import { AssignmentsStoreService } from 'src/app/services/stor/assignments.stor.service';
+import { AttemptStoreService } from 'src/app/services/stor/attempts.stor.service';
 import { Subscription } from 'rxjs';
 
 declare var $;
-@Component({
-  selector: 'app-assignment-browser-placeholder',
-  templateUrl: './assignment-browser-placeholder.component.html',
-  styleUrls: ['./assignment-browser-placeholder.component.css']
-})
-export class AssignmentBrowserPlaceholderComponent implements OnInit {
 
+
+@Component({
+  selector: 'app-assignment-submission-browser',
+  templateUrl: './assignment-submission-browser.component.html',
+  styleUrls: ['./assignment-submission-browser.component.css']
+})
+export class AssignmentSubmissionBrowserComponent implements OnInit {
   dataTable: any;
 
-  assignmentsSubscription : Subscription;
+  attemptsSubscription : Subscription;
 
-  @ViewChild('assignmentBrowser', {static: true}) table;
+  @ViewChild('assignmentSubmissionBrowser', {static: true}) table;
 
-  public assignments:Assignment[];
+  public attempts:Attempts[];
 
-  constructor(private http: HttpService, private helpers: ByteGraderHelperService, private router: Router, private ngZone: NgZone,  private assignmentsUpdater: AssignmentsStoreService) {
+  constructor(private http: HttpService, private helpers: ByteGraderHelperService, private router: Router, private ngZone: NgZone,  private attemptsUpdater: AttemptStoreService) {
     // (window as any).pdfMake.vfs = (window as any).pdfFonts.pdfMake.vfs;
     // console.dir(window)
-
   }
 
   ngOnInit(): void {
@@ -35,24 +36,24 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
 
     this.initializeDataTable();
 
-    this.assignmentsSubscription = this.assignmentsUpdater.assignmentsUpdated.subscribe((assignments: Assignment[]) => {
+    this.attemptsSubscription = this.attemptsUpdater.attemptsUpdated.subscribe((attempts: Attempts[]) => {
       console.log(`\n\nReceived new data .... redrawing table!`)
-      this.assignments = assignments;
+      this.attempts = attempts;
       this.dataTable.DataTable().destroy();;
       this.initializeDataTable();
     });
 
-    this.fetchAssignments();
+    this.fetchAssignmentAttempts();
 
-    $(document).on('click','.openAssignment', (d) =>
-    {
-      d.stopPropagation()
-      let identifier = $(d.currentTarget).attr('id');
-      let assignmentData = JSON.parse(($(d.currentTarget).attr('data')||'{}').replace(/'/ig,'"').replace(/&apos;/ig,"'"));
-      this.navigate([`/assignments/browse/rubric/${identifier}`], { state: assignmentData });
-      // /assignments/browse/rubric/${identifier}
+    // $(document).on('click','.openAssignment', (d) =>
+    // {
+    //   d.stopPropagation()
+    //   let identifier = $(d.currentTarget).attr('id');
+    //   let assignmentData = JSON.parse(($(d.currentTarget).attr('data')||'{}').replace(/'/ig,'"').replace(/&apos;/ig,"'"));
+    //   this.navigate([`/attempts/browse/rubric/${identifier}`], { state: assignmentData });
+    //   // /attempts/browse/rubric/${identifier}
 
-    })
+    // })
 
   }
 
@@ -63,39 +64,39 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
   formOptions(){
     return {
       scrollY: this.helpers.getPageHeight(),
-      data: this.assignments,
+      data: this.attempts,
       columns: [
-        {title: 'ID', data: 'assignment_id'},
-        {title: 'Name', data: 'assignment_name', className: 'editable',
+        {title: 'ID', data: 'attempt_id'},
+        {title: 'Name', data: 'attempt_name', className: 'editable',
           render:  (data, type, row) => this.helpers.stringify(data,'teal')
         },
-        {title: 'Summary', data: 'assignment_summary', className: 'editable', sortable: false,
+        {title: 'Submitor\'s ID', data: 'attempt_student_identifier', className: 'editable', sortable: false,
           render:  (data, type, row) => this.helpers.stringify(data,undefined)
         },
-        {title: 'Notes', data: 'assignment_notes', className: 'editable', sortable: false,
+        {title: 'App URL', data: 'attempt_main_path', className: 'editable', sortable: false,
           render:  (data, type, row) => this.helpers.stringify(data,undefined)
         },
-        {title: 'Owner', data: 'assignment_owner',
-          render:  (data, type, row) => this.helpers.stringify(row.assignment_owner_name,'blue')
+        {title: 'Assignment', data: 'attempt_assignment',
+          render:  (data, type, row) => this.helpers.stringify(row.attempt_assignment,'blue')
         },
         {
           title: '',
           sortable: false,
           data: null,
-          render:  (data,type,row) => `<button class='btn btn-primary openAssignment' id="${row.assignment_id}" data="${this.helpers.str(row).replace(/'/ig,'&apos;').replace(/"/ig,"'")}"> Rules </btn>`
+          render:  (data,type,row) => `<button class='btn btn-primary openAssignment' id="${row.attempt_id}" data="${this.helpers.str(row).replace(/'/ig,'&apos;').replace(/"/ig,"'")}"> DUD </btn>`
         },
         {
-          title: 'Due',
-          data: 'assignment_due', className: 'editable',
-          render:  (data, type, row) => this.helpers.dateify(data,'crimson')
+          title: 'Submitted',
+          data: 'attempt_submission_time', className: 'editable',
+          render:  (data, type, row) => this.helpers.stringify(data,'crimson')
         },
         {
-          title: 'Created', data: 'assignment_created',
+          title: 'Created', data: 'created_at',
           render:  (data, type, row) => this.helpers.dateify(data,'green')
         },
         {
           title: 'Last Modified',
-          data: 'assignment_last_modified',
+          data: 'updated_at',
           render:  (data, type, row) => this.helpers.dateify(data,undefined)
         },
       ]
@@ -119,7 +120,7 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
       {
           text: 'Refresh',
           action:  (e, dt, node, config) => {
-            this.fetchAssignments();
+            this.fetchAssignmentAttempts();
           }
       }
       ],
@@ -184,30 +185,34 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
 
 
           const {
-            assignment_id ,
-            assignment_name,
-            assignment_owner,
-            assignment_due,
-            assignment_summary,
-            assignment_notes,
-            assignment_created,
-            assignment_last_modified,
-          } = <Assignment>rowDataArray;
+            attempt_id ,
+            attempt_name,
+            attempt_student_identifier,
+            attempt_main_path,
+            attempt_submission_time,
+            attempt_grading_time,
+            attempt_grade_breakdown,
+            attempt_grade_complete,
+            attempt_assignment,
+            updated_at
+          } = <Attempts>rowDataArray;
 
             this.http.postLocal({
-              table : 'assignment',
+              table : 'attempt',
               command : 'update',
-              assignment_id ,
-            assignment_name,
-            assignment_owner,
-            assignment_due,
-            assignment_summary,
-            assignment_notes,
-            assignment_created,
-            assignment_last_modified,
+              attempt_id ,
+            attempt_name,
+            attempt_student_identifier,
+            attempt_main_path,
+            attempt_submission_time,
+            attempt_grading_time,
+            attempt_grade_breakdown,
+            attempt_grade_complete,
+            attempt_assignment,
+            updated_at
             }).subscribe((d: {response,data: {message,command}})=> {
-              if(d.response == 200) this.fetchAssignments();
-                console.log(`Assignment Data update attempted!\nProof:`)
+              if(d.response == 200) this.fetchAssignmentAttempts();
+                console.log(`Assignment Submission Data update attempted!\nProof:`)
                 console.dir(d)
             },err=> {
               console.error();
@@ -231,7 +236,7 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
                 updated_at } = rowdata;
 
               this.http.getLocal({
-                table : 'assignments',
+                table : 'attempts',
                 command : 'update',
                 attempt_id ,
                 attempt_name,
@@ -260,11 +265,11 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
     this.dataTable.DataTable(this.formOptions());
   }
 
-  fetchAssignments(){
-    this.http.getAssignments().subscribe((d: {response,data: {message,command}})=> {
+  fetchAssignmentAttempts(){
+    this.http.getAttempts().subscribe((d: {response,data: {message,command}})=> {
       if(d.response == 200){
         // console.dir(d.data.message);
-        this.assignmentsUpdater.resetAssignments(<Assignment[]>d.data.message);
+        this.attemptsUpdater.resetAttempts(<Attempts[]>d.data.message);
        }
        else
        {
@@ -275,7 +280,6 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
 
 
   ngOnDestroy(){
-    this.assignmentsSubscription.unsubscribe();
+    this.attemptsSubscription.unsubscribe();
   }
-
 }

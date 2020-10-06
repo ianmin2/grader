@@ -1,0 +1,69 @@
+<div class="card">
+    <form class="border border-light p-5" [formGroup]="newAttemptForm" (ngSubmit)="saveAttempt()">
+
+        <u class="h4 mb-12 text-left font-weight-bold ">SUBMIT AN ASSIGNMENT</u>
+        <p></p>
+
+        <div id="sortable-form" class="droptrue drop-list ui-sortable">
+
+            <div class="col-12 row">
+                <div class="col-md-4">
+                    <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
+                        <label for="attempt_name">Your Name<sup style="color:crimson;">*</sup></label>
+                        <input type="text" id="attempt_name" formControlName="attempt_name" name="attempt_name" class="form-control form-control-lg mb-4" placeholder="Submitor's Name">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div data-template="dTextInputTemp" data-popover="input" style="position: relative; left: 0px; top: 0px;" class="" data-original-title="" title="">
+                        <label for="attempt_student_identifier">Student Id<sup style="color:crimson;">*</sup></label>
+                        <input type="text" id="attempt_student_identifier" formControlName="attempt_student_identifier" name="attempt_student_identifier" class="form-control form-control-lg mb-4" placeholder="Student Id">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                        <label for="attempt_assignment">Assignment<sup style="color:crimson;">*</sup></label>
+                        <input class="browser-default form-control form-control-lg mb-4" list="attempt_assignment" name="attempt_assignment" formControlName="attempt_assignment" placeholder="Assignment ">
+                        <datalist id="attempt_assignment" *ngIf="assignments">
+                        <option  *ngFor="let asgnt of assignments" [value]="asgnt.assignment_id">{{asgnt.assignment_name}}</option>
+                    </datalist>
+                        <datalist id="attempt_assignment" *ngIf="!assignments">
+                      <option value="" selected>Refresh to Load Assignments</option>
+                  </datalist>
+                    </div>
+                </div>
+                <!-- <div class="col-md-4">
+                    <div data-template="dSelectTemp" data-popover="select" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                        <label for="assignment_owner">Owner<sup style="color:crimson;">*</sup></label>
+                        <input class="browser-default form-control form-control-lg mb-4" list="assignment_owner" formControlName="assignment_owner" name="assignment_owner" placeholder="Assignment Owner">
+                        <datalist id="assignment_owner" *ngIf="users">
+                      <option  *ngFor="let owner of users" [value]="owner.id">{{owner.name}}</option>
+                  </datalist>
+                        <datalist id="rule_assignment" *ngIf="!users">
+                      <option value="" selected>Refresh to Load owners</option>
+                  </datalist>
+                    </div>
+                </div> -->
+
+            </div>
+
+
+
+            <div class="row col-12">
+                <div class="col-md-12">
+                    <div data-template="dTextareaTemp" data-popover="textarea" class="" style="position: relative; left: 0px; top: 0px;" data-original-title="" title="">
+                        <label for="attempt_main_path">Main Application URL<sup style="color:crimson;">*</sup></label>
+                        <input type="text" id="attempt_main_path" formControlName="attempt_main_path" name="attempt_main_path" class="form-control mb-4 form-control-lg" placeholder="Your Application's URL" />
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <pre>
+          {{ newAttemptForm.valid }}
+        </pre>
+
+        <button class="btn btn-info btn-block my-4 btn-lg" [disabled]="!newAttemptForm.valid" type="submit">Submit Assignment</button>
+
+    </form>
+</div>
