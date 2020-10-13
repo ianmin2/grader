@@ -111,12 +111,12 @@ export class HttpService {
 
   addChaining(chaining: Chaining)
   {
-    return this.http.post<Chaining[]>(`${this.applicationHost}?command=add&table=chaining`,chaining, {headers: {"content-type": "application/json"}});
+    return this.http.post(`${this.applicationHost}?command=add&table=chaining`,chaining, {headers: {"content-type": "application/json"}});
   }
 
   getChaining()
   {
-    return this.http.get<Chaining[]>(`${this.applicationHost}?command=get&table=chainings`);
+    return this.http.get<{response,data: {message,command}}>(`${this.applicationHost}?command=get&table=chainings`);
   }
 
 
@@ -131,7 +131,7 @@ export class HttpService {
 
   getAttempts(assignment?,id?)
   {
-    return this.http.get<Attempts[]>(`${this.applicationHost}?command=get&table=attempts${assignment?'&assignment='+assignment:''}${id?'&id='+id:''}`);
+    return this.http.get<{response,data: {message,command}}>(`${this.applicationHost}?command=get&table=attempts${assignment?'&assignment='+assignment:''}${id?'&id='+id:''}`);
   }
 
 

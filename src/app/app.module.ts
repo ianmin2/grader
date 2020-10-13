@@ -40,6 +40,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { AssignmentBrowserRubricComponent } from './assignments/assignment-browser/assignment-browser-rubric/assignment-browser-rubric.component';
 import { AssignmentBrowserPlaceholderComponent } from './assignments/assignment-browser/assignment-browser-placeholder/assignment-browser-placeholder.component';
+import { AssignmentSubmissionComponent } from './assignments/assignment-submission/assignment-submission.component';
+import { AssignmentSubmissionBrowserComponent } from './assignments/assignment-submission-browser/assignment-submission-browser.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,9 @@ import { AssignmentBrowserPlaceholderComponent } from './assignments/assignment-
     NewAssignmentComponent,
     UserLoginComponent,
     AssignmentBrowserRubricComponent,
-    AssignmentBrowserPlaceholderComponent
+    AssignmentBrowserPlaceholderComponent,
+    AssignmentSubmissionComponent,
+    AssignmentSubmissionBrowserComponent
   ],
   imports: [
     BrowserModule,

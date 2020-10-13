@@ -1,3 +1,4 @@
+import { AssignmentSubmissionBrowserComponent } from './../assignments/assignment-submission-browser/assignment-submission-browser.component';
 import { AssignmentBrowserPlaceholderComponent } from './../assignments/assignment-browser/assignment-browser-placeholder/assignment-browser-placeholder.component';
 import { AssignmentBrowserRubricComponent } from './../assignments/assignment-browser/assignment-browser-rubric/assignment-browser-rubric.component';
 import { AuthGuardService } from './../services/auth/auth-guard.service';
@@ -17,6 +18,7 @@ import { AssignmentViewerComponent } from './../assignments/assignment-viewer/as
 import { AssignmentGeneratorComponent } from './../assignments/assignment-generator/assignment-generator.component';
 import { AssignmentPlaceholderComponent } from './../assignments/assignment-placeholder/assignment-placeholder.component';
 import { AssignmentsComponent } from './../assignments/assignments.component';
+import { AssignmentSubmissionComponent } from './../assignments/assignment-submission/assignment-submission.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -31,6 +33,7 @@ const graderRoutes: Routes = [
     children : [
       { path: '', component: AssignmentPlaceholderComponent, pathMatch: "full"},
       { path: 'new', component: NewAssignmentComponent },
+      { path : 'submit', component: AssignmentSubmissionComponent },
       { path: 'generator', component: AssignmentGeneratorComponent,
         children:
         [
@@ -45,8 +48,9 @@ const graderRoutes: Routes = [
       { path: 'browse', component : AssignmentBrowserComponent,
         children:
         [
-          { path: '', component: AssignmentBrowserPlaceholderComponent, pathMatch: "full"},
-          {path : 'rubric/:id', component: AssignmentBrowserRubricComponent },
+          { path : '', component: AssignmentBrowserPlaceholderComponent, pathMatch: "full"},
+          { path : 'rubric/:id', component: AssignmentBrowserRubricComponent },
+          { path : 'submissions', component: AssignmentSubmissionBrowserComponent },
           // { path: ':id', component: AssignmentBrowserRubricComponent},
           // { path: ':id/edit', component:AssignmentBrowserRubricComponent}
           { path: '**', component: NotFoundComponent}

@@ -5,10 +5,10 @@ export class Attempts
 	attempt_name : string;
 	attempt_student_identifier : string;
 	attempt_main_path : string;
-	attempt_submission_time : Date;
-	attempt_grading_time : Date;
-	attempt_grade_breakdown :any;
-	attempt_grade_complete : boolean;
+	attempt_submission_time? : Date;
+	attempt_grading_time? : Date;
+	attempt_grade_breakdown? :any;
+	attempt_grade_complete? : boolean;
   attempt_assignment : Number;
   attempt_assignment_data? : Assignment;
 	created_at?  : Date;

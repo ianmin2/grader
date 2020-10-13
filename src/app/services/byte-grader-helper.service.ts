@@ -120,5 +120,15 @@ export class ByteGraderHelperService {
     }
   }
 
+  getPageHeight()
+  {
+
+    const body = document.body,
+    html = document.documentElement;
+
+    return Math.min( body.scrollHeight, body.offsetHeight,html.clientHeight, html.scrollHeight, html.offsetHeight ) - 80;
+
+  }
+
 
 }
