@@ -38,7 +38,7 @@ const graderRoutes: Routes = [
         children:
         [
           { path: 'routes',  component: RouteManagerComponent},
-          { path: 'paths',   component: PathManagerComponent },
+          { path: 'chaining',   component: PathManagerComponent },
           { path: 'methods', component: MethodManagerComponent},
           { path: 'outputs', component: OutputManagerComponent},
           { path: 'review', component: OverviewComponent },
