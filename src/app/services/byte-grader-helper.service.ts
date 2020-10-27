@@ -2,11 +2,18 @@ import { Injectable } from '@angular/core';
 import {DatePipe, JsonPipe} from '@angular/common'
 import html2canvas from 'html2canvas'
 import  jspdf from 'jspdf'
+import { LocalStorageService } from 'angular-2-local-storage';
+import { User } from '../models/User.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ByteGraderHelperService {
+
+  constructor(private _localStorage: LocalStorageService)
+  {
+
+  }
 
   jsonPipe = new JsonPipe();
   pipe = new DatePipe('en-GB');
@@ -127,6 +134,15 @@ export class ByteGraderHelperService {
     html = document.documentElement;
 
     return Math.min( body.scrollHeight, body.offsetHeight,html.clientHeight, html.scrollHeight, html.offsetHeight ) - 80;
+
+  }
+
+  getUserInfo()
+  {
+
+    const userToken: string = this._localStorage.get('auth');
+    if(!userToken) return <User>{};
+    return <User>this.json(atob(userToken.split('.')[1]));
 
   }
 

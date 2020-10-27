@@ -1,0 +1,10 @@
+.clickable {
+    transition-duration: .1s;
+    cursor: pointer;
+}
+
+.clickable:hover {
+    transition-duration: .1s;
+    background-color: #2D2D2D !important;
+    color: #ffffff !important;
+}

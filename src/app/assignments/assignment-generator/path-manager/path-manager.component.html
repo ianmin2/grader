@@ -1,3 +1,33 @@
+---- SHOW ALL ASSIGNMENTS ----
+
+
+<div *ngIf="!userAssignments" style="text-align: center !important;">
+    <br><br>
+    <h3><code>You have not added any assignments. <br> Please add one to continue. </code></h3>
+    <br>
+    <button class="btn btn-block btn-success" routerLink="/assignments/new" routerLinkActive="active">
+      CREATE ASSIGNMENT
+    </button>
+    <br><br>
+</div>
+
+{{ helpers.str(activeAssignment)}}
+<div *ngIf="userAssignments && !activeAssignment" class="dropdown">
+    <b><u><h3>Pick an Assignment to edit</h3></u></b>
+    <ul class="list-group">
+        <li class="list-group-item assignmentPicker clickable" *ngFor="let personal_assignment of userAssignments;let idx = index" [ngClass]="{'list-group-item-primary': idx%2 == 0 }" id="{{personal_assignment.assignment_id}}">
+            {{personal_assignment.assignment_name}} <sub>by <i><b>{{personal_assignment.assignment_owner_name}}</b></i></sub> <sup><b class="pull-right"><i>Due {{helpers.plainDateify(personal_assignment.assignment_due)}}</i></b></sup>
+        </li>
+    </ul>
+</div>
+
+
+
+
+<br>
+<br>
+<br>
+
 <h3>RULE BUNDLING/CHAINING!</h3>
 <hr>
 <p>1. Define bundle type [(recipent/dependant/ has parent),(donor/links to)]</p>
@@ -41,3 +71,24 @@
     <span style="color:blue">&#125;,</span>
   &#125;
 </pre>
+
+
+
+<!--
+  ##### MAIL RELATED SETTINGS
+
+  # SMTP Non-Encrypted 25
+  autossh -fNR 25:localhost:25 ianmin2@bixbyte.io
+
+  # SMTP TLS 587
+  autossh -fNR 587:localhost:587 ianmin2@bixbyte.io
+
+  # SMTP SSL 465
+  autossh -fNR 465:localhost:465 ianmin2@bixbyte.io
+
+  # POP3 Non-Encrypted 110
+  autossh -fNR 110:localhost:110 ianmin2@bixbyte.io
+
+  # POP3 SSL 995
+  autossh -fNR 995:localhost:995 ianmin2@bixbyte.io
+-->
