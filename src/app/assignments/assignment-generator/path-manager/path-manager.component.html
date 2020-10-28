@@ -22,7 +22,10 @@
     </ul>
 </div>
 
-
+<div *ngIf="gradingRules">
+    <br> {{gradingRules.owned.length}} owned
+    <br> {{gradingRules.public.length}} public
+</div>
 
 
 <br>

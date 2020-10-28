@@ -21,6 +21,11 @@ export class PathManagerComponent implements OnInit {
 
   assignmentsSubscription : Subscription;
 
+  public gradingRules : {
+    owned : any[],
+    public: any[],
+  };
+
   public activeAssignment: Assignment;
 
   public assignments:Assignment[];
@@ -65,6 +70,7 @@ export class PathManagerComponent implements OnInit {
   setActiveAssignment(assignment: Assignment){
     this.activeAssignment = <Assignment>assignment;
     if(!this.activeAssignment) return;
+    this.fetchAssignmentRules(this.activeAssignment.assignment_id);
   }
 
   hasActiveAssignment(){
@@ -92,8 +98,16 @@ export class PathManagerComponent implements OnInit {
     }, err => {});
   }
 
-  // fetchAssignmentRules(){
-  //   this.http.getRules().subscribe((d: {res}))
-  // }
+  fetchAssignmentRules(assignmentId){
+    this.http.getRules(assignmentId,true,true).subscribe((d: GraderResponse) => {
+      if(d.response == 200)
+      {
+        this.gradingRules = d.data.message;
+      }
+      else{
+        alert(`${d.data.message.toString()}`);
+      }
+    })
+  }
 
 }

@@ -100,9 +100,9 @@ export class HttpService {
     return this.http.post(`${this.applicationHost}?command=add&table=route`, ruleData, {headers: {"content-type": "application/json"}});
   }
 
-  getRules(id?,isIdAssignment=false)
+  getRules(id?,isIdAssignment=false,grouped=false)
   {
-    return this.http.get<GraderResponse>(`${this.applicationHost}?command=get&table=routes${id?'&id='+id+'&byAssignment='+isIdAssignment:''}`);
+    return this.http.get<GraderResponse>(`${this.applicationHost}?command=get&table=routes${id?'&id='+id+'&byAssignment='+isIdAssignment+'&grouped='+grouped:''}`);
   }
 
 
