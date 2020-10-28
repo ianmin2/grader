@@ -7,6 +7,7 @@ import { Rule } from './../models/Rule.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SubUser } from './../models/SubUser.model';
+import { GraderResponse } from '../models/Response.model';
 
 
 
@@ -45,7 +46,7 @@ export class HttpService {
       this.tableNames.map( tableName =>
         new Promise((resolve,reject) =>
           this.http.post(this.applicationHost,{ command : 'count', table : tableName  })
-          .subscribe(( fieldData: {response,data: {message,command}})=> {
+          .subscribe(( fieldData: GraderResponse)=> {
             resolve(fieldData.data.message);
           },
           err => {
@@ -73,7 +74,7 @@ export class HttpService {
 
   getUsers()
   {
-    return this.http.get<{response,data: {message,command}}>(`${this.applicationHost}?command=get&table=users`);
+    return this.http.get<GraderResponse>(`${this.applicationHost}?command=get&table=users`);
   }
 
   //=============================================================================
@@ -88,7 +89,7 @@ export class HttpService {
 
   getAssignments(id?)
   {
-    return this.http.get<{response,data: {message,command}}>(`${this.applicationHost}?command=get&table=assignments${id?'&id='+id:''}`);
+    return this.http.get<GraderResponse>(`${this.applicationHost}?command=get&table=assignments${id?'&id='+id:''}`);
   }
 
   //=============================================================================
@@ -101,7 +102,7 @@ export class HttpService {
 
   getRules(id?,isIdAssignment=false)
   {
-    return this.http.get<{response,data: {message,command}}>(`${this.applicationHost}?command=get&table=routes${id?'&id='+id+'&byAssignment='+isIdAssignment:''}`);
+    return this.http.get<GraderResponse>(`${this.applicationHost}?command=get&table=routes${id?'&id='+id+'&byAssignment='+isIdAssignment:''}`);
   }
 
 
@@ -116,7 +117,7 @@ export class HttpService {
 
   getChaining()
   {
-    return this.http.get<{response,data: {message,command}}>(`${this.applicationHost}?command=get&table=chainings`);
+    return this.http.get<GraderResponse>(`${this.applicationHost}?command=get&table=chainings`);
   }
 
 
@@ -131,7 +132,7 @@ export class HttpService {
 
   getAttempts(assignment?,id?)
   {
-    return this.http.get<{response,data: {message,command}}>(`${this.applicationHost}?command=get&table=attempts${assignment?'&assignment='+assignment:''}${id?'&id='+id:''}`);
+    return this.http.get<GraderResponse>(`${this.applicationHost}?command=get&table=attempts${assignment?'&assignment='+assignment:''}${id?'&id='+id:''}`);
   }
 
 

@@ -5,6 +5,7 @@ import { HttpService } from '../../services/http.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AssignmentsStoreService } from 'src/app/services/stor/assignments.stor.service';
 import { Subscription } from 'rxjs';
+import { GraderResponse } from 'src/app/models/Response.model';
 
 @Component({
   selector: 'app-assignment-submission',
@@ -41,7 +42,7 @@ export class AssignmentSubmissionComponent implements OnInit {
   }
 
   fetchAssignments(){
-    this.http.getAssignments().subscribe((d: {response,data: {message,command}})=> {
+    this.http.getAssignments().subscribe((d: GraderResponse)=> {
       if(d.response == 200){
         // console.dir(d.data.message);
         this.assignmentsUpdater.resetAssignments(<Assignment[]>d.data.message);

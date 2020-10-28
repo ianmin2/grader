@@ -7,6 +7,7 @@ import { HttpService } from '../../services/http.service';
 import { ViewChild } from '@angular/core';
 import { AttemptStoreService } from 'src/app/services/stor/attempts.stor.service';
 import { Subscription } from 'rxjs';
+import { GraderResponse } from 'src/app/models/Response.model';
 
 declare var $;
 
@@ -210,7 +211,7 @@ export class AssignmentSubmissionBrowserComponent implements OnInit {
             attempt_grade_complete,
             attempt_assignment,
             updated_at
-            }).subscribe((d: {response,data: {message,command}})=> {
+            }).subscribe((d: GraderResponse)=> {
               if(d.response == 200) this.fetchAssignmentAttempts();
                 console.log(`Assignment Submission Data update attempted!\nProof:`)
                 console.dir(d)
@@ -249,7 +250,7 @@ export class AssignmentSubmissionBrowserComponent implements OnInit {
                 attempt_assignment,
                 created_at,
                 updated_at
-              }).subscribe((d: {response,data: {message,command}})=> {
+              }).subscribe((d: GraderResponse)=> {
                   console.log(`Assignment Data update attempted!\nProof:`)
                   console.dir(d)
               })
@@ -266,7 +267,7 @@ export class AssignmentSubmissionBrowserComponent implements OnInit {
   }
 
   fetchAssignmentAttempts(){
-    this.http.getAttempts().subscribe((d: {response,data: {message,command}})=> {
+    this.http.getAttempts().subscribe((d: GraderResponse)=> {
       if(d.response == 200){
         // console.dir(d.data.message);
         this.attemptsUpdater.resetAttempts(<Attempts[]>d.data.message);

@@ -1,6 +1,3 @@
----- SHOW ALL ASSIGNMENTS ----
-
-
 <div *ngIf="!userAssignments" style="text-align: center !important;">
     <br><br>
     <h3><code>You have not added any assignments. <br> Please add one to continue. </code></h3>
@@ -11,8 +8,12 @@
     <br><br>
 </div>
 
-{{ helpers.str(activeAssignment)}}
-<div *ngIf="userAssignments && !activeAssignment" class="dropdown">
+<span *ngIf="hasActiveAssignment()">
+ <u><b>{{activeAssignment.assignment_name}}</b> <sub> by <b>{{activeAssignment.assignment_owner_name}}</b></sub></u>
+  &nbsp;&nbsp;<button (click)="clearAssignment()"  type="button" class="btn btn-danger"><i class="fa fa-times"></i></button>
+</span>
+
+<div *ngIf="userAssignments && !hasActiveAssignment()" class="dropdown">
     <b><u><h3>Pick an Assignment to edit</h3></u></b>
     <ul class="list-group">
         <li class="list-group-item assignmentPicker clickable" *ngFor="let personal_assignment of userAssignments;let idx = index" [ngClass]="{'list-group-item-primary': idx%2 == 0 }" id="{{personal_assignment.assignment_id}}">

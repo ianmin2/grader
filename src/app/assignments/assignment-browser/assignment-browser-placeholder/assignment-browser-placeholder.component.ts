@@ -6,6 +6,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { AssignmentsStoreService } from 'src/app/services/stor/assignments.stor.service';
 import { Subscription } from 'rxjs';
+import { GraderResponse } from 'src/app/models/Response.model';
 
 declare var $;
 @Component({
@@ -205,7 +206,7 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
             assignment_notes,
             assignment_created,
             assignment_last_modified,
-            }).subscribe((d: {response,data: {message,command}})=> {
+            }).subscribe((d: GraderResponse)=> {
               if(d.response == 200) this.fetchAssignments();
                 console.log(`Assignment Data update attempted!\nProof:`)
                 console.dir(d)
@@ -244,7 +245,7 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
                 attempt_assignment,
                 created_at,
                 updated_at
-              }).subscribe((d: {response,data: {message,command}})=> {
+              }).subscribe((d: GraderResponse)=> {
                   console.log(`Assignment Data update attempted!\nProof:`)
                   console.dir(d)
               })
@@ -261,7 +262,7 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
   }
 
   fetchAssignments(){
-    this.http.getAssignments().subscribe((d: {response,data: {message,command}})=> {
+    this.http.getAssignments().subscribe((d: GraderResponse)=> {
       if(d.response == 200){
         // console.dir(d.data.message);
         this.assignmentsUpdater.resetAssignments(<Assignment[]>d.data.message);

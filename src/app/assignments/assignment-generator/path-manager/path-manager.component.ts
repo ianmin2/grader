@@ -1,3 +1,4 @@
+import { GraderResponse } from './../../../models/Response.model';
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -46,7 +47,7 @@ export class PathManagerComponent implements OnInit {
     {
       d.stopPropagation();
       let identifier = $(d.currentTarget).attr('id');
-      this.setActiveAssignment( this.userAssignments.filter( assgnmnt => assgnmnt.assignment_id == identifier )[0]);
+      this.ngZone.run(() => this.setActiveAssignment( this.userAssignments.filter( assgnmnt => assgnmnt.assignment_id == identifier )[0]));
     })
 
 
@@ -56,8 +57,18 @@ export class PathManagerComponent implements OnInit {
     this.ngZone.run(() => this.router.navigate(commands,pars)).then();
   }
 
+  clearAssignment()
+  {
+    this.setActiveAssignment(undefined);
+  }
+
   setActiveAssignment(assignment: Assignment){
     this.activeAssignment = <Assignment>assignment;
+    if(!this.activeAssignment) return;
+  }
+
+  hasActiveAssignment(){
+    return this.activeAssignment != undefined;
   }
 
   clearActiveAssignment() {
@@ -69,7 +80,7 @@ export class PathManagerComponent implements OnInit {
   }
 
   fetchAssignments(){
-    this.http.getAssignments().subscribe((d: {response,data: {message,command}})=> {
+    this.http.getAssignments().subscribe((d: GraderResponse)=> {
       if(d.response == 200){
         // console.dir(d.data.message);
         this.assignmentsUpdater.resetAssignments(<Assignment[]>d.data.message);
@@ -80,5 +91,9 @@ export class PathManagerComponent implements OnInit {
        }
     }, err => {});
   }
+
+  // fetchAssignmentRules(){
+  //   this.http.getRules().subscribe((d: {res}))
+  // }
 
 }

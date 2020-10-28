@@ -5,6 +5,7 @@ import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { RulesStoreService } from 'src/app/services/stor/rules.store.service';
 import { Subscription } from 'rxjs';
+import { GraderResponse } from 'src/app/models/Response.model';
 
 declare var $;
 @Component({
@@ -184,7 +185,7 @@ export class OverviewComponent implements OnInit {
             rule_method,
             rule_name,
             rule_path,
-            }).subscribe((d: {response,data: {message,command}})=> {
+            }).subscribe((d: GraderResponse)=> {
                 if(d.response == 200) this.fetchRoutes();
                 console.log(`Assignment Rule/Route Data update attempted!\nProof:`)
                 console.dir(d)
@@ -205,7 +206,7 @@ export class OverviewComponent implements OnInit {
   }
 
   fetchRoutes(){
-    this.http.getRules().subscribe((d: {response,data: {message,command}})=> {
+    this.http.getRules().subscribe((d: GraderResponse)=> {
       if(d.response == 200){
         this.rulesUpdater.resetRules(<Rule[]>d.data.message);
       }
