@@ -1,5 +1,6 @@
+import { Rule } from './../../../models/Rule.model';
 import { GraderResponse } from './../../../models/Response.model';
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Assignment } from 'src/app/models/Assignment.model';
@@ -7,6 +8,7 @@ import { User } from 'src/app/models/User.model';
 import { ByteGraderHelperService } from 'src/app/services/byte-grader-helper.service';
 import { HttpService } from 'src/app/services/http.service';
 import { AssignmentsStoreService } from 'src/app/services/stor/assignments.stor.service';
+import { CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem } from '@angular/cdk/drag-drop';
 
 declare var $;
 
@@ -15,16 +17,24 @@ declare var $;
   templateUrl: './path-manager.component.html',
   styleUrls: ['./path-manager.component.css']
 })
-export class PathManagerComponent implements OnInit {
+export class PathManagerComponent implements OnInit,OnDestroy {
 
   userProfile: User;
-
   assignmentsSubscription : Subscription;
 
   public gradingRules : {
-    owned : any[],
-    public: any[],
+    owned : Rule[],
+    public: Rule[],
   };
+
+  public gradingSchema = []
+
+
+  @ViewChild('ownedRules', {static: true}) ownedRules;
+  ownedTable: any;
+
+  @ViewChild('publicRules', {static: true}) publicRules;
+  publicTable: any;
 
   public activeAssignment: Assignment;
 
@@ -32,8 +42,12 @@ export class PathManagerComponent implements OnInit {
 
   public userAssignments: Assignment[];
 
+
   constructor(private http: HttpService, public helpers: ByteGraderHelperService, private router: Router, private ngZone: NgZone,  private assignmentsUpdater: AssignmentsStoreService) {
 
+  }
+  ngOnDestroy(): void {
+    this.assignmentsSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -54,6 +68,18 @@ export class PathManagerComponent implements OnInit {
       let identifier = $(d.currentTarget).attr('id');
       this.ngZone.run(() => this.setActiveAssignment( this.userAssignments.filter( assgnmnt => assgnmnt.assignment_id == identifier )[0]));
     })
+
+    $(document).on('click','.idParent', (d) =>
+    {
+      d.stopPropagation();
+      let identifier = $(d.currentTarget).attr('id');
+      console.dir(d);
+
+      this.ngZone.run(() => {
+        alert(`${identifier} clicked`)
+      });
+
+    });
 
 
   }
@@ -103,11 +129,40 @@ export class PathManagerComponent implements OnInit {
       if(d.response == 200)
       {
         this.gradingRules = d.data.message;
+        this.gradingRules.owned[0].rule_path;
+
       }
       else{
         alert(`${d.data.message.toString()}`);
       }
     })
   }
+
+
+  onDrop(evt: CdkDragDrop<any[]>, copy:boolean = false, noDrop: boolean = false ){
+    if(evt.previousContainer == evt.container)
+    {
+      moveItemInArray(evt.container.data, evt.previousIndex, evt.currentIndex);
+    }
+    else
+    {
+      if(noDrop) return;      
+      if(!copy)
+      {
+        transferArrayItem(evt.previousContainer.data, evt.container.data, evt.previousIndex, evt.currentIndex);
+      }
+      else
+      {
+        copyArrayItem(evt.previousContainer.data,evt.container.data, evt.previousIndex, evt.currentIndex);
+      }
+    }
+  }
+
+  delItem(  ){
+    alert('Huh?')
+    console.dir(itm)
+  }
+
+
 
 }

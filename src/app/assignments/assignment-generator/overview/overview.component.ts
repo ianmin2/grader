@@ -199,7 +199,7 @@ export class OverviewComponent implements OnInit {
     };
   }
 
-  initializeDataTable() {
+  initializeDataTable() { 
     this.dataTable = $(this.table.nativeElement);
     // console.dir(this.dataTable);
     this.dataTable.DataTable(this.formOptions());

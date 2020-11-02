@@ -14,7 +14,7 @@
 </span>
 
 <div *ngIf="userAssignments && !hasActiveAssignment()" class="dropdown">
-    <b><u><h3>Pick an Assignment to edit</h3></u></b>
+    <b><u><h2>Pick an Assignment to edit</h2></u></b>
     <ul class="list-group">
         <li class="list-group-item assignmentPicker clickable" *ngFor="let personal_assignment of userAssignments;let idx = index" [ngClass]="{'list-group-item-primary': idx%2 == 0 }" id="{{personal_assignment.assignment_id}}">
             {{personal_assignment.assignment_name}} <sub>by <i><b>{{personal_assignment.assignment_owner_name}}</b></i></sub> <sup><b class="pull-right"><i>Due {{helpers.plainDateify(personal_assignment.assignment_due)}}</i></b></sup>
@@ -23,9 +23,64 @@
 </div>
 
 <div *ngIf="gradingRules">
-    <br> {{gradingRules.owned.length}} owned
-    <br> {{gradingRules.public.length}} public
+    <hr>
+    <b><u><h2>Grading Rule Setup </h2></u></b>
+
+    <p class="text-sm text-bold bg-warning text-dark row">
+        <small><b><i>`Owned`</i></b> rules are those that are primarily tied to this assignment whereas <b><i>`Public`</i></b> rules refer to those owned/tied by/to other assignments.</small>
+    </p>
+
+
+    <div class="list-container" cdkDropListGroup>
+        <!-- [cdkDropListConnectedTo]="[doneList]"  -->
+        <div class="todo-container column-container col-lg-3 col-sm-12">
+            <div class="list bg-success" cdkDropList #toDoList="cdkDropList" [cdkDropListData]="gradingRules.owned" (cdkDropListDropped)="onDrop($event,false,true)">
+                <h2> {{gradingRules.owned.length || 0}} Owned Rules</h2>
+                <mat-card *ngFor="let ruleItem of gradingRules.owned" cdkDrag>
+                    <mat-card-header>
+                        <mat-card-title><span class="idBox">{{ruleItem.rule_id}}</span>{{ruleItem.rule_name}}</mat-card-title>
+                        <mat-card-subtitle><b>{{ruleItem.rule_method}}</b> <i>{{ruleItem.rule_path}}</i></mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+            </div>
+        </div>
+
+        <!--  [cdkDropListConnectedTo]="toDoList" -->
+        <div class="done-container column-container col-lg-3 col-sm-12">
+            <div class="list  bg-warning" cdkDropList #doneList="cdkDropList" [cdkDropListData]="gradingRules.public" (cdkDropListDropped)="onDrop($event,false,true)">
+                <h2>{{gradingRules.public.length || 0}} Public Rules</h2>
+                <mat-card *ngFor="let ruleItem of gradingRules.public" cdkDrag>
+                    <mat-card-header>
+                        <mat-card-title><span class="idBox">{{ruleItem.rule_id}}</span>{{ruleItem.rule_name}}</mat-card-title>
+                        <mat-card-subtitle><b>{{ruleItem.rule_method}}</b> <i>{{ruleItem.rule_path}}</i></mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+            </div>
+        </div>
+
+        <!-- [cdkDropListConnectedTo]="toDoList" -->
+        <div class="done-container column-container col-lg-3 col-sm-12">
+            <div class="list bg-primary" cdkDropList #doneList="cdkDropList" [cdkDropListData]="gradingSchema" (cdkDropListDropped)="onDrop($event,true)">
+                <h2 class="text-white">Grading Definition</h2>
+                <mat-card *ngFor="let ruleItem of gradingSchema;index as idx;" cdkDrag>
+                    <span class="idParent float-right button" id="{{ruleItem.rule_id}}-{{idx}}">+</span>
+                    <mat-card-header>
+                        <mat-card-title> <span class="idBox">{{ruleItem.rule_id}}</span> {{ruleItem.rule_name}}</mat-card-title>
+                        <mat-card-subtitle><b>{{ruleItem.rule_method}}</b> <i>{{ruleItem.rule_path}}</i></mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+            </div>
+        </div>
+
+
+    </div>
+
+    <p>1. Define bundle type [(recipent/dependant/ has parent),(donor/links to)]</p>
+    <p>2x. (if has parent) Define extectations under &#123;expects&#125; </p>
+    <p>2x. (if has children) Define passed down value [and any transformations]</p>
+
 </div>
+
 
 
 <br>

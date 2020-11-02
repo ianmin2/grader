@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ByteGraderHelperService } from 'src/app/services/byte-grader-helper.service';
 import { AssignmentStoreService } from '../../../services/stor/assignment.stor.service'
 import { Subscription } from 'rxjs';
+import { GraderResponse } from 'src/app/models/Response.model';
 
 
 @Component({
@@ -104,7 +105,7 @@ assignmentSubscription : Subscription;
   private async fetchAssignmentById( assignmentId ) : Promise<Assignment>
   {
     return new Promise((resolve,reject)=>
-      this.http.getAssignments(assignmentId).subscribe((d: {response,data: {message,command}})=>{
+      this.http.getAssignments(assignmentId).subscribe((d: GraderResponse)=>{
         if(d.response != 200 || !d.data.message[0]) reject();
         resolve(d.data.message[0]);
       })
@@ -114,7 +115,7 @@ assignmentSubscription : Subscription;
   private async fetchAssignmentRoutes( assignmentId ) : Promise<Rule[]>
   {
     return new Promise((resolve,reject)=>
-      this.http.getRules(assignmentId,true).subscribe((d: {response,data: {message,command}})=>{
+      this.http.getRules(assignmentId,true).subscribe((d: GraderResponse)=>{
         if(d.response != 200) reject();
         resolve(d.data.message);
       })

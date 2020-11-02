@@ -42,6 +42,12 @@ import { AssignmentBrowserRubricComponent } from './assignments/assignment-brows
 import { AssignmentBrowserPlaceholderComponent } from './assignments/assignment-browser/assignment-browser-placeholder/assignment-browser-placeholder.component';
 import { AssignmentSubmissionComponent } from './assignments/assignment-submission/assignment-submission.component';
 import { AssignmentSubmissionBrowserComponent } from './assignments/assignment-submission-browser/assignment-submission-browser.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MatTreeModule } from '@angular/material/tree';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -86,7 +92,12 @@ import { AssignmentSubmissionBrowserComponent } from './assignments/assignment-s
       prefix: 'byteGrader',
       storageType: 'localStorage'
     }),
-    DataTablesModule
+    DataTablesModule,
+    DragDropModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatTreeModule,
+    MatIconModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptService, multi: true }

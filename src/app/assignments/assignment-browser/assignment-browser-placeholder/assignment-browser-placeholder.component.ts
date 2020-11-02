@@ -73,6 +73,20 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
         {title: 'Summary', data: 'assignment_summary', className: 'editable', sortable: false,
           render:  (data, type, row) => this.helpers.stringify(data,undefined)
         },
+        {
+          title: 'Due',
+          data: 'assignment_due', className: 'editable',
+          render:  (data, type, row) => this.helpers.dateify(data,'crimson')
+        },
+        {
+          title: 'Created', data: 'assignment_created',
+          render:  (data, type, row) => this.helpers.dateify(data,'green')
+        },         
+        {
+          title: 'Last Modified',
+          data: 'assignment_last_modified',
+          render:  (data, type, row) => this.helpers.dateify(data,undefined)
+        },
         {title: 'Notes', data: 'assignment_notes', className: 'editable', sortable: false,
           render:  (data, type, row) => this.helpers.stringify(data,undefined)
         },
@@ -84,21 +98,7 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
           sortable: false,
           data: null,
           render:  (data,type,row) => `<button class='btn btn-primary openAssignment' id="${row.assignment_id}" data="${this.helpers.str(row).replace(/'/ig,'&apos;').replace(/"/ig,"'")}"> Rules </btn>`
-        },
-        {
-          title: 'Due',
-          data: 'assignment_due', className: 'editable',
-          render:  (data, type, row) => this.helpers.dateify(data,'crimson')
-        },
-        {
-          title: 'Created', data: 'assignment_created',
-          render:  (data, type, row) => this.helpers.dateify(data,'green')
-        },
-        {
-          title: 'Last Modified',
-          data: 'assignment_last_modified',
-          render:  (data, type, row) => this.helpers.dateify(data,undefined)
-        },
+        },       
       ]
       ,dom: 'Bfrtip',        // Needs button container
       select: true, //'single',

@@ -133,7 +133,7 @@ export class ByteGraderHelperService {
     const body = document.body,
     html = document.documentElement;
 
-    return Math.min( body.scrollHeight, body.offsetHeight,html.clientHeight, html.scrollHeight, html.offsetHeight ) - 80;
+    return Math.min( body.scrollHeight, body.offsetHeight,html.clientHeight, html.scrollHeight, html.offsetHeight ) - 500;
 
   }
 
