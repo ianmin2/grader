@@ -25,9 +25,12 @@ export class PathManagerComponent implements OnInit,OnDestroy {
   public gradingRules : {
     owned : Rule[],
     public: Rule[],
+    ids: Number[],
   };
 
-  public gradingSchema = []
+  public gradingSchema: Rule[] = [];
+
+  public ruleBin = [];
 
 
   @ViewChild('ownedRules', {static: true}) ownedRules;
@@ -73,11 +76,27 @@ export class PathManagerComponent implements OnInit,OnDestroy {
     {
       d.stopPropagation();
       let identifier = $(d.currentTarget).attr('id');
-      console.dir(d);
+      let item_idx = identifier.split('-')[1];
 
-      this.ngZone.run(() => {
-        alert(`${identifier} clicked`)
-      });
+      let default_id = this.gradingRules.ids[0];
+
+      //@ Capture the parent rules
+      let parent_rule = prompt(`Enter this Item's parent id. If multiple, separate by a comma`,`${default_id},`);
+      if(!parent_rule) return;
+
+      //@ Handle internal rule mapping
+      
+
+        parent_rule.split(',')
+        .map(a=>parseInt(a,10))
+        .filter(b=>!isNaN(b))
+        .forEach( rule_id => {
+          //@ Add the parent rule dependency
+          alert(rule_id);          this.ngZone.run(() => {  this.gradingSchema[item_idx].parent_rules.push(rule_id);  });
+        }
+        
+        // alert(`${identifier} clicked === ${item_idx}`);
+      );
 
     });
 
@@ -128,8 +147,7 @@ export class PathManagerComponent implements OnInit,OnDestroy {
     this.http.getRules(assignmentId,true,true).subscribe((d: GraderResponse) => {
       if(d.response == 200)
       {
-        this.gradingRules = d.data.message;
-        this.gradingRules.owned[0].rule_path;
+        this.gradingRules = d.data.message;       
 
       }
       else{
@@ -139,28 +157,35 @@ export class PathManagerComponent implements OnInit,OnDestroy {
   }
 
 
-  onDrop(evt: CdkDragDrop<any[]>, copy:boolean = false, noDrop: boolean = false ){
+  onDrop(evt: CdkDragDrop<any[]>, copy:boolean = false, noDrop: boolean = false, bin: boolean = false ){
     if(evt.previousContainer == evt.container)
     {
-      moveItemInArray(evt.container.data, evt.previousIndex, evt.currentIndex);
+      moveItemInArray(evt.container.data, evt.previousIndex, evt.currentIndex);     
     }
     else
     {
-      if(noDrop) return;      
+      if(noDrop){
+        if(bin){         
+          //@ remove the item from the array
+          evt.previousContainer.data.splice(evt.previousIndex,1);
+        }
+        return;
+      }       
       if(!copy)
       {
-        transferArrayItem(evt.previousContainer.data, evt.container.data, evt.previousIndex, evt.currentIndex);
+        transferArrayItem(evt.previousContainer.data, evt.container.data, evt.previousIndex, evt.currentIndex);       
       }
       else
       {
-        copyArrayItem(evt.previousContainer.data,evt.container.data, evt.previousIndex, evt.currentIndex);
+        this.gradingSchema.splice(evt.currentIndex,0, <Rule>this.helpers.clone(evt.previousContainer.data[evt.previousIndex]));
+          // copyArrayItem(evt.previousContainer.data,evt.container.data, evt.previousIndex, evt.currentIndex);
       }
     }
   }
 
   delItem(  ){
     alert('Huh?')
-    console.dir(itm)
+    // console.dir()
   }
 
 

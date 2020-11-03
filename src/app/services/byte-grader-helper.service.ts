@@ -45,6 +45,15 @@ export class ByteGraderHelperService {
 
   }
 
+  clone( data: any )
+  {
+    try {
+      return this.json(this.str(data));
+    } catch (error) {
+      return data;
+    }
+  }
+
 
   colorize( method: string ) : string
   {

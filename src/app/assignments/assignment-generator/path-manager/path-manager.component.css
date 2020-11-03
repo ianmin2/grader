@@ -50,6 +50,7 @@ h2 {
 }
 
 mat-card {
+    min-height: 100px !important;
     margin: 1em;
     cursor: pointer;
 }
