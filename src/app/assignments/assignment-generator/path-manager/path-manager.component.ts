@@ -54,7 +54,7 @@ export class PathManagerComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit(): void {
-
+   
     this.userProfile = this.helpers.getUserInfo();
 
     this.assignmentsSubscription = this.assignmentsUpdater.assignmentsUpdated.subscribe((assignments: Assignment[]) => {
@@ -75,28 +75,34 @@ export class PathManagerComponent implements OnInit,OnDestroy {
     $(document).on('click','.idParent', (d) =>
     {
       d.stopPropagation();
-      let identifier = $(d.currentTarget).attr('id');
-      let item_idx = identifier.split('-')[1];
+      const identifier = $(d.currentTarget).attr('id');
+      const idxs = identifier.split('-');
+      const item_idx = parseInt( idxs[1], 10);
+      const item_id = parseInt( idxs[0], 10)
 
-      let default_id = this.gradingRules.ids[0];
+      const default_id = this.gradingRules.ids[0];
 
       //@ Capture the parent rules
-      let parent_rule = prompt(`Enter this Item's parent id. If multiple, separate by a comma`,`${default_id},`);
+      const parent_rule = prompt(`Enter this Item's parent id. If multiple, separate by a comma`,`${default_id},`);
       if(!parent_rule) return;
 
       //@ Handle internal rule mapping
       
+      this.ngZone.run(() => {
 
         parent_rule.split(',')
         .map(a=>parseInt(a,10))
-        .filter(b=>!isNaN(b))
+        .filter(b=>(!isNaN(b)) && (this.gradingRules.ids.indexOf(`${b}`)!= -1 ) && (b!=item_id))
         .forEach( rule_id => {
           //@ Add the parent rule dependency
-          alert(rule_id);          this.ngZone.run(() => {  this.gradingSchema[item_idx].parent_rules.push(rule_id);  });
-        }
+            this.gradingSchema[item_idx].parent_rules.push(rule_id);  
+        });
         
         // alert(`${identifier} clicked === ${item_idx}`);
-      );
+        this.gradingSchema[item_idx].parent_rules = this.gradingSchema[item_idx].parent_rules.filter((a,idx)=> (this.gradingSchema[item_idx].parent_rules.lastIndexOf(a) == idx) );
+
+      });
+      
 
     });
 
