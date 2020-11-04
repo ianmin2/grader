@@ -1,3 +1,4 @@
+import { Chaining } from './../../../models/Chaining.model';
 import { Rule } from './../../../models/Rule.model';
 import { GraderResponse } from './../../../models/Response.model';
 import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
@@ -72,6 +73,15 @@ export class PathManagerComponent implements OnInit,OnDestroy {
       this.ngZone.run(() => this.setActiveAssignment( this.userAssignments.filter( assgnmnt => assgnmnt.assignment_id == identifier )[0]));
     })
 
+    $(document).on('dblclick','.parentRuleList',(evt)=>{
+      evt.stopPropagation();
+      const identifier = $(evt.currentTarget).attr('id');
+      const idxs = identifier.split('-');
+      const item_position = parseInt( idxs[1], 10);
+      let removeParentRules = confirm(`Do you want to reset the dependencies for this grading rule?`);
+      if(removeParentRules) this.ngZone.run(() => this.gradingSchema[item_position].parent_rules = [] );
+    })
+
     $(document).on('click','.idParent', (d) =>
     {
       d.stopPropagation();
@@ -92,7 +102,7 @@ export class PathManagerComponent implements OnInit,OnDestroy {
 
         parent_rule.split(',')
         .map(a=>parseInt(a,10))
-        .filter(b=>(!isNaN(b)) && (this.gradingRules.ids.indexOf(`${b}`)!= -1 ) && (b!=item_id))
+        .filter(b=>(!isNaN(b)) && (this.gradingRules.ids.indexOf(b)!= -1 ) && (b!=item_id))
         .forEach( rule_id => {
           //@ Add the parent rule dependency
             this.gradingSchema[item_idx].parent_rules.push(rule_id);  
@@ -189,11 +199,47 @@ export class PathManagerComponent implements OnInit,OnDestroy {
     }
   }
 
-  delItem(  ){
-    alert('Huh?')
-    // console.dir()
+
+  saveGradingScheme(){
+    // let minimizedGradingScheme = [];
+
+    // this.gradingSchema.forEach((ruleItem: Rule, idx) => {
+    //   minimizedGradingScheme[idx] = {
+    //     rule: ruleItem.rule_id,
+    //     parents: ruleItem.parent_rules,
+    //   };
+    // });
+    let sure = confirm(`Save the grading scheme for the assignment ${this.activeAssignment.assignment_name}?`);
+    if(!sure) return;
+
+    let rule_chaining: Chaining = {
+      chaining_type : 'explicit',
+      chaining_assignment : this.activeAssignment.assignment_id,
+      chaining_rules: this.gradingSchema,
+    };
+
+    this.http.addChaining(rule_chaining).subscribe((d:GraderResponse)=>{
+      if(d.response == 200){
+        alert( `Grading rule chaining added for the assignment ${this.activeAssignment.assignment_name}.`);
+        this.ngZone.run(() => this.resetChainingUI());
+       }
+       else
+       {
+         alert(`${d.data.message.toString()}`);
+       }
+    });
+
   }
 
+  resetChainingUI(){
+
+    this.activeAssignment = null;
+
+    this.gradingRules = null;
+    this.gradingSchema = [];
+  
+    this.ruleBin = [];
+  }
 
 
 }

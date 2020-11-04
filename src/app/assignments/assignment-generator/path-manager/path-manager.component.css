@@ -59,7 +59,7 @@ mat-card {
     border: RGBA(46, 49, 49, .7) solid 1px;
     border-radius: 2px;
     overflow: auto;
-    max-height: 80vh !important;
+    max-height: 70vh !important;
 }
 
 .list-item {
@@ -132,4 +132,17 @@ span.idParent {
     border-radius: 20% !important;
     border: 1px solid;
     border-color: purple !important;
+}
+
+span.parentRuleList {
+    padding: .3em !important;
+    cursor: pointer !important;
+    background-color: white;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: small !important;
+    color: #E10A0A !important;
+    border: 1px solid;
+    border-color: crimson !important;
+    border-radius: 10% !important;
 }

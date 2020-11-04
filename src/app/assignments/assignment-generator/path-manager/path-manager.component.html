@@ -63,7 +63,7 @@
 
         <!-- [cdkDropListConnectedTo]="toDoList" -->
         <div class="done-container column-container col-lg-3 col-sm-12">
-            <div class="list bg-primary" cdkDropList #mappingList="cdkDropList" [cdkDropListData]="gradingSchema" (cdkDropListDropped)="onDrop($event,true)" [cdkDropListConnectedTo]="[publicList,ownedList,trashList]">
+            <div class="list bg-primary" style="min-height: 10vw !important;" cdkDropList #mappingList="cdkDropList" [cdkDropListData]="gradingSchema" (cdkDropListDropped)="onDrop($event,true)" [cdkDropListConnectedTo]="[publicList,ownedList,trashList]">
                 <h2 class="text-white">Grading Definition</h2>
                 <mat-card *ngFor="let ruleItem of gradingSchema;index as idx;" cdkDrag>
                     <span class="idParent float-right button" id="{{ruleItem.rule_id}}-{{idx}}">+</span>
@@ -71,17 +71,21 @@
                         <mat-card-title> <span class="idBox">{{ruleItem.rule_id}}</span> {{ruleItem.rule_name}}</mat-card-title>
                         <mat-card-subtitle><b>{{ruleItem.rule_method}}</b> <i>{{ruleItem.rule_path}}</i></mat-card-subtitle>
                     </mat-card-header>
-                    <span *ngIf="ruleItem.parent_rules[0]">
-                     {{helpers.str(ruleItem.parent_rules)}} !!
+                    <span id="{{ruleItem.rule_id}}-{{idx}}" *ngIf="ruleItem.parent_rules[0]" class="parentRuleList">
+                    Parents: {{ruleItem.parent_rules.join(',')}}
                     </span>
                 </mat-card>
             </div>
         </div>
 
         <div class="done-container column-container col-lg-3 col-sm-12">
-            <div class="list bg-danger" cdkDropList #trashList="cdkDropList" [cdkDropListData]="ruleBin" (cdkDropListDropped)="onDrop($event,true,true,true)" [cdkDropListConnectedTo]="[mappingList]">
+            <div class="list bg-danger" style="min-height: 10vw !important;" cdkDropList #trashList="cdkDropList" [cdkDropListData]="ruleBin" (cdkDropListDropped)="onDrop($event,true,true,true)" [cdkDropListConnectedTo]="[mappingList]">
                 <h2 class="text-white">TRASH</h2>
-                <div style="min-height: 100px !important;"></div>
+
+
+            </div>
+            <div *ngIf="gradingSchema[0]">
+                <button class="btn btn-block btn-success padding" (click)="saveGradingScheme()">SAVE GRADING SETUP</button>
             </div>
         </div>
 
