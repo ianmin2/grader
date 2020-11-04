@@ -32,18 +32,6 @@
 
     <!-- cdkDropListGroup -->
     <div class="list-container">
-        <!-- [cdkDropListConnectedTo]="[publicList]"  -->
-        <div class="todo-container column-container col-lg-3 col-sm-12">
-            <div class="list bg-success" cdkDropList #ownedList="cdkDropList" [cdkDropListData]="gradingRules.owned" (cdkDropListDropped)="onDrop($event,false,true)" [cdkDropListConnectedTo]="[mappingList]">
-                <h2> {{gradingRules.owned.length || 0}} Owned Rules</h2>
-                <mat-card *ngFor="let ruleItem of gradingRules.owned" cdkDrag>
-                    <mat-card-header>
-                        <mat-card-title><span class="idBox">{{ruleItem.rule_id}}</span>{{ruleItem.rule_name}}</mat-card-title>
-                        <mat-card-subtitle><b>{{ruleItem.rule_method}}</b> <i>{{ruleItem.rule_path}}</i></mat-card-subtitle>
-                    </mat-card-header>
-                </mat-card>
-            </div>
-        </div>
 
         <!--  [cdkDropListConnectedTo]="toDoList" -->
         <div class="done-container column-container col-lg-3 col-sm-12">
@@ -57,6 +45,21 @@
                 </mat-card>
             </div>
         </div>
+
+        <!-- [cdkDropListConnectedTo]="[publicList]"  -->
+        <div class="todo-container column-container col-lg-3 col-sm-12">
+            <div class="list bg-success" cdkDropList #ownedList="cdkDropList" [cdkDropListData]="gradingRules.owned" (cdkDropListDropped)="onDrop($event,false,true)" [cdkDropListConnectedTo]="[mappingList]">
+                <h2> {{gradingRules.owned.length || 0}} Owned Rules</h2>
+                <mat-card *ngFor="let ruleItem of gradingRules.owned" cdkDrag>
+                    <mat-card-header>
+                        <mat-card-title><span class="idBox">{{ruleItem.rule_id}}</span>{{ruleItem.rule_name}}</mat-card-title>
+                        <mat-card-subtitle><b>{{ruleItem.rule_method}}</b> <i>{{ruleItem.rule_path}}</i></mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+            </div>
+        </div>
+
+
 
         <!-- [cdkDropListConnectedTo]="toDoList" -->
         <div class="done-container column-container col-lg-3 col-sm-12">
