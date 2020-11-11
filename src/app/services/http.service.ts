@@ -117,7 +117,7 @@ export class HttpService {
 
   getChaining()
   {
-    return this.http.get<GraderResponse>(`${this.applicationHost}?command=get&table=chainings`);
+    return this.http.get<GraderResponse>(`${this.applicationHost}?command=get&table=chaining`);
   }
 
 

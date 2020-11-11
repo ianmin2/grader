@@ -2,7 +2,7 @@ import { Rule } from './Rule.model';
 
 export class Chaining
 {
-	id? : Number;
+	chaining_id? : Number;
 	chaining_assignment : Number;
   chaining_depends_on?: Number;
   chaining_depends_on_data? :Rule[];

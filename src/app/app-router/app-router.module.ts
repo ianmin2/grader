@@ -40,11 +40,7 @@ const graderRoutes: Routes = [
         [
           { path: 'grading', component: AssignmentGradingComponent},
           { path: 'routes',  component: RouteManagerComponent},
-          { path: 'chaining',   component: PathManagerComponent,
-            children: [
-              { path: "browse", component: RuleChainingBrowser }
-            ]
-          },
+          { path: 'chaining',   component: PathManagerComponent},
           { path: 'methods', component: MethodManagerComponent},
           { path: 'outputs', component: OutputManagerComponent},
           { path: 'review', component: OverviewComponent },
@@ -57,6 +53,7 @@ const graderRoutes: Routes = [
           { path : '', component: AssignmentBrowserPlaceholderComponent, pathMatch: "full"},
           { path : 'rubric/:id', component: AssignmentBrowserRubricComponent },
           { path : 'submissions', component: AssignmentSubmissionBrowserComponent },
+          { path : "chainings", component: RuleChainingBrowser },
           // { path: ':id', component: AssignmentBrowserRubricComponent},
           // { path: ':id/edit', component:AssignmentBrowserRubricComponent}
           { path: '**', component: NotFoundComponent}
