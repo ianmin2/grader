@@ -14,7 +14,7 @@ import { GradesViewerComponent } from './../grades/grades-viewer/grades-viewer.c
 import { GradesReviewerComponent } from './../grades/grades-reviewer/grades-reviewer.component';
 import { GradesPlaceholderComponent } from './../grades/grades-placeholder/grades-placeholder.component';
 import { GradesComponent } from './../grades/grades.component';
-// import { AssignmentViewerComponent } from './../assignments/assignment-viewer/assignment-viewer.component';
+import { AssignmentViewerComponent as RuleChainingBrowser } from './../assignments/assignment-viewer/assignment-viewer.component';
 import { AssignmentGeneratorComponent } from './../assignments/assignment-generator/assignment-generator.component';
 import { AssignmentPlaceholderComponent } from './../assignments/assignment-placeholder/assignment-placeholder.component';
 import { AssignmentsComponent } from './../assignments/assignments.component';
@@ -40,7 +40,11 @@ const graderRoutes: Routes = [
         [
           { path: 'grading', component: AssignmentGradingComponent},
           { path: 'routes',  component: RouteManagerComponent},
-          { path: 'chaining',   component: PathManagerComponent },
+          { path: 'chaining',   component: PathManagerComponent,
+            children: [
+              { path: "browse", component: RuleChainingBrowser }
+            ]
+          },
           { path: 'methods', component: MethodManagerComponent},
           { path: 'outputs', component: OutputManagerComponent},
           { path: 'review', component: OverviewComponent },
