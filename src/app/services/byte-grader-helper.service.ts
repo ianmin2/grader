@@ -5,6 +5,7 @@ import  jspdf from 'jspdf'
 import { LocalStorageService } from 'angular-2-local-storage';
 import { User } from '../models/User.model';
 
+
 @Injectable({
   providedIn: 'root'
 })

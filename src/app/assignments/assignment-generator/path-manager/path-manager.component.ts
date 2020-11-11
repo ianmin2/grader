@@ -123,11 +123,6 @@ export class PathManagerComponent implements OnInit,OnDestroy {
     this.ngZone.run(() => this.router.navigate(commands,pars)).then();
   }
 
-  clearAssignment()
-  {
-    this.setActiveAssignment(undefined);
-  }
-
   setActiveAssignment(assignment: Assignment){
     this.activeAssignment = <Assignment>assignment;
     if(!this.activeAssignment) return;
@@ -163,8 +158,7 @@ export class PathManagerComponent implements OnInit,OnDestroy {
     this.http.getRules(assignmentId,true,true).subscribe((d: GraderResponse) => {
       if(d.response == 200)
       {
-        this.gradingRules = d.data.message;       
-
+        this.setGradingRules(d.data.message);   
       }
       else{
         alert(`${d.data.message.toString()}`);
@@ -232,13 +226,43 @@ export class PathManagerComponent implements OnInit,OnDestroy {
   }
 
   resetChainingUI(){
+    this.ngZone.run(() =>{
+    
+      this.setActiveAssignment(undefined);
 
-    this.activeAssignment = null;
+      this.setGradingRules(undefined); 
 
-    this.gradingRules = null;
-    this.gradingSchema = [];
-  
-    this.ruleBin = [];
+      this.gradingSchema = [];
+    
+      this.ruleBin = [];
+
+    });
+  }
+
+  setGradingRules( bundledObj ){
+
+    //@ don't waste time
+    if(!bundledObj||!bundledObj.owned||!bundledObj.public||!bundledObj.ids) { 
+      this.gradingRules = bundledObj; 
+      return;
+    }
+
+    //@ setup the base object
+    this.gradingRules = {
+        owned : [],
+        public: [],
+        ids: [],
+      };                                                                                                      
+
+    //@ convert to object
+   let props = ["owned","public","ids"];
+    
+   props.forEach(prop => {
+      this.gradingRules[prop] = (Array.isArray(bundledObj[prop]))
+      ?  bundledObj[prop]
+      : Object.keys(bundledObj[prop]).map(vl=>bundledObj[prop][vl]);                                                                                                      
+   });
+
   }
 
 

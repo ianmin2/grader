@@ -146,3 +146,19 @@ span.parentRuleList {
     border-color: crimson !important;
     border-radius: 10% !important;
 }
+
+app-alert-dialogue-confirm {
+    position: sticky !important;
+    z-index: 100 !important;
+    color: white !important;
+    background-color: #E10A0A !important;
+}
+
+app-alert-dialogue-confirm>div {
+    position: relative !important;
+    top: 30px !important;
+    left: -10px !important;
+    width: 150px !important;
+    height: 30px !important;
+    background: #942911 !important;
+}
