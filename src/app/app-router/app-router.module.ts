@@ -30,6 +30,7 @@ import { AssignmentGradingComponent } from '../assignments/assignment-grading/as
 const graderRoutes: Routes = [
   { path: '', redirectTo: "/assignments", pathMatch: "full"},
   {path : 'auth', component: UserLoginComponent},
+  { path: 'submissions', component: AssignmentSubmissionComponent },
   { path: 'assignments', component: AssignmentsComponent,
     children : [
       { path: '', component: AssignmentPlaceholderComponent, pathMatch: "full"},

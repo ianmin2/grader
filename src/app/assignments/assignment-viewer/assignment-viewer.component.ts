@@ -126,7 +126,7 @@ export class AssignmentViewerComponent implements OnInit {
 
             // Getting the checkbox from the modal
             $('form[name="altEditor-edit-form-' +datatable.random_id + '"] *').filter(':input[type="checkbox"]').each(function(i) {
-                rowDataArray[$(this).attr('id')] = this.checked;
+                rowDataArray[$(this).attr('id')] = i; // this.checked;
             });
 
 
