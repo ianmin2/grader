@@ -5,7 +5,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ByteGraderHelperService } from 'src/app/services/byte-grader-helper.service';
 import { AssignmentStoreService } from '../../../services/stor/assignment.stor.service'
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { GraderResponse } from 'src/app/models/Response.model';
 
 
@@ -22,11 +22,17 @@ assignmentSubscription : Subscription;
 
   helper : ByteGraderHelperService;
 
+  activeAssignmentId: any;
+
   private nav;
 
   constructor(private ngZone: NgZone, private router:Router, private activatedRoute:ActivatedRoute, private http : HttpService, private helpers: ByteGraderHelperService, private assignmentUpdater: AssignmentStoreService) {
 
+
+
+    this.helper = this.helpers;
     this.nav = this.router.getCurrentNavigation();
+    this.activeAssignment = this?.nav?.extras?.state;
 
   }
 
@@ -35,16 +41,19 @@ assignmentSubscription : Subscription;
   }
 
   ngOnInit(): void {
-    // this.activeAssignment = history.state;
-    this.helper = this.helpers;
+
+
+    this.activeAssignmentId = this.activatedRoute.snapshot.paramMap.get('id');
 
       //@ Watch for recipe changes
     this.assignmentSubscription = this.assignmentUpdater.assignmentUpdated.subscribe((assignments: Assignment[]) => {
-      this.activeAssignment = assignments[0];
+      // console.log(`Available Assignments`,assignments)
+      this.activeAssignment = assignments.filter(asg=>asg.assignment_id == this.activeAssignmentId)[0];
     });
 
     try {
-      if(!this.nav.extras.state)
+      // if(!this?.nav?.extras?.state )
+      if(!history?.state?.assignment_id  || !this?.nav?.extras?.state )
       {
         this.fetchAssignmentById(this.activatedRoute.snapshot.paramMap.get("id"))
        .then( assignmentdata =>{
@@ -69,25 +78,29 @@ assignmentSubscription : Subscription;
 
         this.assignmentUpdater.addAssignment(<Assignment>(this.nav.extras.state));
 
-        console.log(`... Fetching assignment rules for the assignment '${this.nav.extras.state.assignment_name}'`)
+        // console.log(`... Fetching assignment rules for the assignment '${this.nav.extras.state.assignment_name}'`)
 
 
         //@ Fetch the relevant assignment route/rule data
-        this.fetchAssignmentRoutes(this.nav.extras.state.assignment_id)
-        .then( (routeAssignmentData: Rule[]) =>{
+        this.fetchAssignmentRoutes(this.activeAssignmentId)
+        .then( (routeAssignmentData: any) =>{
 
-           let assignmentRoutes =  <Rule[]>routeAssignmentData.map(rd=>{
+            // console.log(`route assignment rule`, routeAssignmentData)
+
+           let assignmentRoutes =  <Rule[]>routeAssignmentData.owned.map(rd=>{
             rd.rule_grading = this.helpers.json(rd.rule_grading);
             return rd;
           });
 
-          this.assignmentUpdater.registerRoutes(assignmentRoutes);
+          // console.log(`\nAssignment routes === `, assignmentRoutes);
+
+          this.assignmentUpdater.registerRoutes(assignmentRoutes, this.activeAssignmentId);
 
          })
          .catch(e=>{
            console.log(`\n\n@ Error at Fetch assignment routes`)
            console.dir(e);
-           this.router.navigateByUrl(`/assignments/browse`)
+           this.router.navigateByUrl(`/assignments/browse/rubric/`)
          });
 
       }
@@ -96,7 +109,7 @@ assignmentSubscription : Subscription;
       //   throw new Error();
       // }
     } catch (error) {
-      console.dir(error)
+      console.log(`@~117 fetch assignment failed`,error)
       this.router.navigateByUrl(`/assignments/browse`);
     }
 
@@ -127,6 +140,7 @@ assignmentSubscription : Subscription;
   }
 
   ngOnDestroy(){
+    this.activeAssignment = null;
     this.assignmentSubscription.unsubscribe();
   }
 

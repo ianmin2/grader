@@ -50,10 +50,40 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
       d.stopPropagation()
       let identifier = $(d.currentTarget).attr('id');
       let assignmentData = JSON.parse(($(d.currentTarget).attr('data')||'{}').replace(/'/ig,'"').replace(/&apos;/ig,"'"));
+      
       this.navigate([`/assignments/browse/rubric/${identifier}`], { state: assignmentData });
       // /assignments/browse/rubric/${identifier}
 
-    })
+    });
+
+    $(document).on('click','.openAttempts', (d) =>
+    {
+      d.stopPropagation()
+      let assignmentData = JSON.parse(($(d.currentTarget).attr('data')||'{}').replace(/'/ig,'"').replace(/&apos;/ig,"'"));
+      this.navigate([`/assignments/browse/attempts/${assignmentData.assignment_id}`], { state: assignmentData });
+      // /assignments/browse/rubric/${identifier}
+
+    });
+
+    $(document).on('click','.gradeAssignment', (d) =>
+    {
+      d.stopPropagation()
+      let assignmentData = JSON.parse(($(d.currentTarget).attr('data')||'{}').replace(/'/ig,'"').replace(/&apos;/ig,"'"));
+      this.http.doGrading({ assignment_id : assignmentData.assignment_id }).subscribe((dta: GraderResponse)=> {
+        console.log(`Grading invoked for the assignment #${assignmentData.assignment_id}`)
+        console.log(`Assignment Grading Invokation response`,dta);
+        if(dta.response == 200){
+         alert(dta.data.message || `Assignment grading invoked`);
+        } 
+        else
+        {
+          alert(`Something went wong: ${d?.data?.message}`);
+        }       
+      },err=> {
+        alert(err.message);
+      });
+
+    });
 
   }
 
@@ -73,6 +103,13 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
         {title: 'Summary', data: 'assignment_summary', className: 'editable', sortable: false,
           render:  (data, type, row) => this.helpers.stringify(data,undefined)
         },
+
+        {
+          title: 'Grade All',
+          sortable: false,
+          data: null,
+          render:  (data,type,row) => `<button class='btn btn-success gradeAssignment' data="${this.helpers.str(row).replace(/'/ig,'&apos;').replace(/"/ig,"'")}"> Grade Submissions </btn>`
+        },
         {
           title: 'Due',
           data: 'assignment_due', className: 'editable',
@@ -87,18 +124,19 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
           data: 'assignment_last_modified',
           render:  (data, type, row) => this.helpers.dateify(data,undefined)
         },
+        {
+          title: '',
+          sortable: false,
+          data: null,
+          render: (data,type,row) => `<button class='btn btn-primary openAssignment' id="${row.assignment_id}" data="${this.helpers.str(row).replace(/'/ig,'&apos;').replace(/"/ig,"'")}"> View Rubric </btn>`
+        },      
         {title: 'Notes', data: 'assignment_notes', className: 'editable', sortable: false,
           render:  (data, type, row) => this.helpers.stringify(data,undefined)
         },
         {title: 'Owner', data: 'assignment_owner',
           render:  (data, type, row) => this.helpers.stringify(row.assignment_owner_name,'blue')
-        },
-        {
-          title: '',
-          sortable: false,
-          data: null,
-          render:  (data,type,row) => `<button class='btn btn-primary openAssignment' id="${row.assignment_id}" data="${this.helpers.str(row).replace(/'/ig,'&apos;').replace(/"/ig,"'")}"> Rules </btn>`
-        },       
+        }, 
+        
       ]
       ,dom: 'Bfrtip',        // Needs button container
       select: true, //'single',
@@ -180,7 +218,7 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
 
             // Getting the checkbox from the modal
             $('form[name="altEditor-edit-form-' +datatable.random_id + '"] *').filter(':input[type="checkbox"]').each(function(i) {
-                rowDataArray[$(this).attr('id')] = this.checked;
+                rowDataArray[$(this).attr('id')] = i //this?.checked;
             });
 
 

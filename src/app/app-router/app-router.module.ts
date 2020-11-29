@@ -25,6 +25,7 @@ import { NgModule } from '@angular/core';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { AssignmentBrowserComponent } from '../assignments/assignment-browser/assignment-browser.component';
 import { AssignmentGradingComponent } from '../assignments/assignment-grading/assignment-grading.component';
+import { AssignmentBrowserAttemptsComponent } from '../assignments/assignment-browser/assignment-browser-attempts/assignment-browser-attempts.component';
 
 
 const graderRoutes: Routes = [
@@ -51,8 +52,13 @@ const graderRoutes: Routes = [
       { path: 'browse', component : AssignmentBrowserComponent,
         children:
         [
-          { path : '', component: AssignmentBrowserPlaceholderComponent, pathMatch: "full"},
-          { path : 'rubric/:id', component: AssignmentBrowserRubricComponent },
+          { path : '', component: AssignmentBrowserPlaceholderComponent, pathMatch: "full", canActivate : []},
+          { path : 'rubric/:id', component: AssignmentBrowserRubricComponent, pathMatch: "full" },
+          {
+            path: "attempts/:id",
+            component: AssignmentBrowserAttemptsComponent,
+            pathMatch: "full"
+          },
           { path : 'submissions', component: AssignmentSubmissionBrowserComponent },
           { path : "chainings", component: RuleChainingBrowser },
           // { path: ':id', component: AssignmentBrowserRubricComponent},
@@ -68,7 +74,7 @@ const graderRoutes: Routes = [
   },
   { path: 'grades', component: GradesComponent,
     children : [
-      { path: '', component: GradesPlaceholderComponent, pathMatch: "full"},
+      { path: '', component: GradesBrowserComponent, pathMatch: "full"},
       {path: 'review', component: GradesReviewerComponent,
       children:
         [

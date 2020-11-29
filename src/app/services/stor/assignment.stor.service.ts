@@ -36,9 +36,16 @@ export class AssignmentStoreService {
   //    this.registerChanges();
   // }
 
-  registerRoutes( routes: Rule[] )
+  registerRoutes( routes: Rule[], id = undefined )
   {
-    this.current_assignments[0].routes = routes;
+    if(id)
+    {
+      this.current_assignments.filter(asg => asg.assignment_id == id)[0].routes = routes;
+    } 
+    else
+    {
+      this.current_assignments[0].routes = routes;
+    }
   }
 
 }
