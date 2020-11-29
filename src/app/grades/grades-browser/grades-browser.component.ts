@@ -72,7 +72,7 @@ export class GradesBrowserComponent implements OnInit {
               data = this.helpers.json(data||{ });
               return  (data.possible) ? 
                 this.helpers.stringify(`${data.total} of ${data.possible} <sub>(${data.percentage}%)</sub>`,'teal')
-                :  this.helpers.stringify(`Not yet graded`,'red');
+                :  this.helpers.stringify(`No data`,'red');
             },       
           }, 
           {

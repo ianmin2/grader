@@ -56,6 +56,32 @@ export class AssignmentSubmissionBrowserComponent implements OnInit {
 
     // })
 
+
+      //@ Attempt to get the simple report
+      $(document).on('click','.simpleReport', (d) =>
+      {
+        d.stopPropagation()
+        let identifier = $(d.currentTarget).attr('id');
+
+        //@ Navigate to the relevant route 
+        let targetUrl = `${this.http.applicationHost}?command=get&table=gradereport&attempt_id=${identifier}`;   
+        window.open(targetUrl, "_blank");  
+
+      });
+
+      // @ Attempt to get the complex report
+      $(document).on('click','.complexReport', (d) =>
+      {
+        d.stopPropagation()
+        let identifier = $(d.currentTarget).attr('id');
+
+        //@ Navigate to the relevant route 
+        let targetUrl = `${this.http.applicationHost}?command=get&table=gradereport&attempt_id=${identifier}&technical=true`;   
+        window.open(targetUrl, "_blank");  
+
+      })
+
+
   }
 
   private navigate(commands: any[], pars: any = {}): void {
@@ -81,10 +107,14 @@ export class AssignmentSubmissionBrowserComponent implements OnInit {
           render:  (data, type, row) => this.helpers.stringify(row.attempt_assignment,'blue')
         },
         {
-          title: '',
+          title: 'Grade Report',
           sortable: false,
           data: null,
-          render:  (data,type,row) => `<button class='btn btn-primary openAssignment' id="${row.attempt_id}" data="${this.helpers.str(row).replace(/'/ig,'&apos;').replace(/"/ig,"'")}"> Download Grade Report</btn>`
+          render:  (data,type,row) => `
+            <button class='btn btn-primary simpleReport' id="${row.attempt_id}" data="${this.helpers.str(row).replace(/'/ig,'&apos;').replace(/"/ig,"'")}"> Simple </button> 
+            &nbsp;&nbsp;
+            <button class='btn btn-danger complexReport' id="${row.attempt_id}" data="${this.helpers.str(row).replace(/'/ig,'&apos;').replace(/"/ig,"'")}"> Detailed </button>
+          `
         },
         {
           title: 'Submitted',

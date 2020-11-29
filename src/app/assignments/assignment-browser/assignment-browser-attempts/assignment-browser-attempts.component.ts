@@ -58,15 +58,50 @@ ngOnInit(): void {
 
   this.fetchAssignmentAttempts();
 
-  // $(document).on('click','.openAssignment', (d) =>
-  // {
-  //   d.stopPropagation()
-  //   let identifier = $(d.currentTarget).attr('id');
-  //   let assignmentData = JSON.parse(($(d.currentTarget).attr('data')||'{}').replace(/'/ig,'"').replace(/&apos;/ig,"'"));
-  //   this.navigate([`/attempts/browse/rubric/${identifier}`], { state: assignmentData });
-  //   // /attempts/browse/rubric/${identifier}
+  //@ Attempt to get the simple report
+  $(document).on('click','.simpleReport', (d) =>
+  {
+    d.stopPropagation()
+    let identifier = $(d.currentTarget).attr('id');
 
-  // })
+    //@ Navigate to the relevant route 
+    let targetUrl = `${this.http.applicationHost}?command=get&table=gradereport&attempt_id=${identifier}`;   
+    window.open(targetUrl, "_blank");  
+
+  });
+
+  $(document).on('click','.complexReport', (d) =>
+  {
+    d.stopPropagation();
+    let identifier = $(d.currentTarget).attr('id');
+
+    //@ Navigate to the relevant route 
+    let targetUrl = `${this.http.applicationHost}?command=get&table=gradereport&attempt_id=${identifier}&technical=true`;   
+    window.open(targetUrl, "_blank");  
+
+  });
+
+  //@ Attempt an assignment re-grading
+  $(document).on('click','.gradeAssignment', (d) =>
+  {
+    d.stopPropagation();
+    let identifier = $(d.currentTarget).attr('id');
+    this.http.doGrading({ attempt_id : identifier }).subscribe((dta: GraderResponse)=> {
+      console.log(`Grading invoked for the attempt #${identifier}`);
+      console.log(`Assignment Grading Invokation response`,dta);
+      if(dta.response == 200){
+       alert(dta.data.message || `Assignment attempt grading invoked`);
+       this.fetchAssignmentAttempts();
+      } 
+      else
+      {
+        alert(`Something went wong: ${dta?.data?.message}`);
+      }       
+    },err=> {
+      alert(err.message);
+    });
+
+  });
 
 }
 
@@ -91,13 +126,25 @@ formOptions(){
         render:  (data, type, row) => this.helpers.stringify(data,undefined)
       },
       {title: 'Assignment', data: 'attempt_assignment',
-        render:  (data, type, row) => this.helpers.stringify(row.attempt_assignment,'blue')
+        render:  (data, type, row) => this.helpers.stringify(`<code>#${row.attempt_assignment}</code> ${row.assignment_name} <sub>by ${row.assignment_owner_name}</sub>`,'blue')
       },
       {
-        title: '',
+        title: 'Grade Report',
         sortable: false,
         data: null,
-        render:  (data,type,row) => `<button class='btn btn-primary openAssignment' id="${row.attempt_id}" data="${this.helpers.str(row).replace(/'/ig,'&apos;').replace(/"/ig,"'")}"> . </btn>`
+        render:  (data,type,row) => { 
+          return  `
+            <button class='btn btn-primary simpleReport' id="${row.attempt_id}"> Simple </button> 
+            &nbsp;&nbsp;
+            <button class='btn btn-danger complexReport' id="${row.attempt_id}"> Detailed </button>
+          ` ;
+        }
+      },
+      {
+        title: 'Grade Individualy',
+        sortable: false,
+        data: null,
+        render:  (data,type,row) => `<button class='btn btn-warning gradeAssignment' id="${row.attempt_id}"> Grade Attempt </button>`
       },
       {
         title: 'Submitted',

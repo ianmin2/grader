@@ -56,6 +56,18 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
 
     });
 
+
+    $(document).on('click','.openAssignmentSubmissions', (d) =>
+    {
+      d.stopPropagation()
+      let identifier = $(d.currentTarget).attr('id');
+      let assignmentData = JSON.parse(($(d.currentTarget).attr('data')||'{}').replace(/'/ig,'"').replace(/&apos;/ig,"'"));
+      
+      this.navigate([`/assignments/browse/attempts/${identifier}`], { state: assignmentData });
+      // /assignments/browse/rubric/${identifier}
+
+    });
+
     $(document).on('click','.openAttempts', (d) =>
     {
       d.stopPropagation()
@@ -67,7 +79,8 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
 
     $(document).on('click','.gradeAssignment', (d) =>
     {
-      d.stopPropagation()
+      d.stopPropagation();
+      alert(`Attempting to grade assignments`);
       let assignmentData = JSON.parse(($(d.currentTarget).attr('data')||'{}').replace(/'/ig,'"').replace(/&apos;/ig,"'"));
       this.http.doGrading({ assignment_id : assignmentData.assignment_id }).subscribe((dta: GraderResponse)=> {
         console.log(`Grading invoked for the assignment #${assignmentData.assignment_id}`)
@@ -77,7 +90,7 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
         } 
         else
         {
-          alert(`Something went wong: ${d?.data?.message}`);
+          alert(`Something went wong: ${dta?.data?.message}`);
         }       
       },err=> {
         alert(err.message);
@@ -108,7 +121,7 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
           title: 'Grade All',
           sortable: false,
           data: null,
-          render:  (data,type,row) => `<button class='btn btn-success gradeAssignment' data="${this.helpers.str(row).replace(/'/ig,'&apos;').replace(/"/ig,"'")}"> Grade Submissions </btn>`
+          render:  (data,type,row) => `<button class='btn btn-success gradeAssignment' data="${this.helpers.str(row).replace(/'/ig,'&apos;').replace(/"/ig,"'")}"> Grade All Attempts </button>`
         },
         {
           title: 'Due',
@@ -128,8 +141,14 @@ export class AssignmentBrowserPlaceholderComponent implements OnInit {
           title: '',
           sortable: false,
           data: null,
-          render: (data,type,row) => `<button class='btn btn-primary openAssignment' id="${row.assignment_id}" data="${this.helpers.str(row).replace(/'/ig,'&apos;').replace(/"/ig,"'")}"> View Rubric </btn>`
-        },      
+          render: (data,type,row) => `<button class='btn btn-primary openAssignment' id="${row.assignment_id}" data="${this.helpers.str(row).replace(/'/ig,'&apos;').replace(/"/ig,"'")}"> View Rubric </button>`
+        },  
+        {
+          title: '',
+          sortable: false,
+          data: null,
+          render: (data,type,row) => `<button class='btn btn-primary openAssignmentSubmissions' id="${row.assignment_id}" data="${this.helpers.str(row).replace(/'/ig,'&apos;').replace(/"/ig,"'")}"> View Assignment Submissions </button>`
+        },       
         {title: 'Notes', data: 'assignment_notes', className: 'editable', sortable: false,
           render:  (data, type, row) => this.helpers.stringify(data,undefined)
         },
