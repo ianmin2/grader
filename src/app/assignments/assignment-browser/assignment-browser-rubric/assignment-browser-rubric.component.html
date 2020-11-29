@@ -1,47 +1,51 @@
 <div class="container-fluid bg-gray padding" id="printable" *ngIf="activeAssignment">
 
-    <button id="unprintable" class=" btn btn-primary " (click)="helper.printPDF( 'printable',activeAssignment.assignment_name+' by '+ activeAssignment.assignment_owner_name) ">DOWNLOAD PDF</button>
+    <button id="unprintable" class=" btn btn-primary " (click)="helper.printPDF( 'printable',activeAssignment?.assignment_name+' by '+ activeAssignment?.assignment_owner_name) ">DOWNLOAD PDF</button>
 
-    <div class="row ">
-        <div class="col-8 col-main-header ">
-            <b class="u ">{{activeAssignment.assignment_name}}</b> &nbsp;&nbsp;&nbsp;
-            <code class="code ">( {{helper.plainDateify(activeAssignment.assignment_created)}} )</code> &nbsp;&nbsp;&nbsp;
+    <div *ngIf="activeAssignment">
 
-        </div>
-        <div class="col-1 ">
+        <div class="row ">
+            <div class="col-8 col-main-header ">
+                <b class="u ">{{activeAssignment?.assignment_name}}</b> &nbsp;&nbsp;&nbsp;
+                <code class="code ">( {{helper.plainDateify(activeAssignment?.assignment_created)}} )</code> &nbsp;&nbsp;&nbsp;
 
-        </div>
-        <div class="col-3 col-bordered ">
-            {{activeAssignment.assignment_id}}
-        </div>
-    </div>
-    <div class="row ">
-        <div class="col-9 ">
-            <sub class="sub ">by <b>Assignment Owner</b></sub>
-        </div>
-        <div class="col-3 col-bordered ">
-            {{helper.plainDateify(activeAssignment.assignment_due)}}
-        </div>
-    </div>
+            </div>
+            <div class="col-1 ">
 
-    <hr *ngIf="activeAssignment.assignment_summary">
-    <div class="row " *ngIf="activeAssignment.assignment_summary">
-        <div class="col-12">
-            <span class="subtitle">SUMMARY:</span>
-            <span class="sub myfont mid-text">
-              &nbsp; {{activeAssignment.assignment_summary}}
-            </span>
+            </div>
+            <div class="col-3 col-bordered ">
+                {{activeAssignment?.assignment_id}}
+            </div>
         </div>
-    </div>
+        <div class="row ">
+            <div class="col-9 ">
+                <sub class="sub ">by <b>Assignment Owner</b></sub>
+            </div>
+            <div class="col-3 col-bordered ">
+                {{helper.plainDateify(activeAssignment?.assignment_due)}}
+            </div>
+        </div>
 
-    <hr *ngIf="activeAssignment.assignment_notes">
-    <div class="row " *ngIf="activeAssignment.assignment_notes">
-        <div class="col-12">
-            <span class="subtitle">DESCRIPTION:</span>
-            <span class="sub myfont mid-text">
-              &nbsp;  {{activeAssignment.assignment_notes}}
-            </span>
+        <hr *ngIf="activeAssignment.assignment_summary">
+        <div class="row " *ngIf="activeAssignment?.assignment_summary">
+            <div class="col-12">
+                <span class="subtitle">SUMMARY:</span>
+                <span class="sub myfont mid-text">
+                &nbsp; {{activeAssignment?.assignment_summary}}
+                </span>
+            </div>
         </div>
+
+        <hr *ngIf="activeAssignment?.assignment_notes">
+        <div class="row " *ngIf="activeAssignment?.assignment_notes">
+            <div class="col-12">
+                <span class="subtitle">DESCRIPTION:</span>
+                <span class="sub myfont mid-text">
+                &nbsp;  {{activeAssignment?.assignment_notes}}
+                </span>
+            </div>
+        </div>
+
     </div>
 
     <hr>
@@ -66,7 +70,7 @@
                 <div class="row ">
                     <div class="col-12 " style=" ">
                         <i class="uu small-text bold">DESCRIPTION</i>:
-                        <span class="sub myfont mid-text"> &nbsp; {{rule.rule_description}}</span>
+                        <span class="sub myfont mid-text"> &nbsp; {{rule?.rule_description}}</span>
                     </div>
                 </div>
 
@@ -74,45 +78,45 @@
                 <div class="row ">
                     <div class="col-2 col-bordered-left ">
                         <i class="uu small-text "> METHOD:</i>
-                        <span style="color:{{helper.colorize( rule.rule_method)}}" class="computerfont mid-text bold ">
-                          {{rule.rule_method}}
+                        <span style="color:{{helper.colorize( rule?.rule_method)}}" class="computerfont mid-text bold ">
+                          {{rule?.rule_method}}
                         </span>
                     </div>
                     <div class="col-4 col-bordered-left ">
                         <i class="uu small-text ">PATH:</i>
                         <span class="computerfont mid-text bold " style="color:blue; ">
-                          {{rule.rule_path}}
+                          {{rule?.rule_path}}
                         </span>
                     </div>
                     <div class="col-4 col-bordered-left ">
                         <i class="uu small-text ">DATA TYPE:</i>
                         <span class="computerfont mid-text bold " style="color: purple ">
-                          {{rule.rule_expected_data_type}}
+                          {{rule?.rule_expected_data_type}}
                         </span>
                     </div>
                     <div class="col-2 col-bordered-left ">
                         <i class="uu small-text myfont "> STATUS CODE:</i>
                         <span class="computerfont mid-text bold " style="color:crimson ">
-                          {{rule.rule_expected_status_code}}
+                          {{rule?.rule_expected_status_code}}
                         </span>
                     </div>
                 </div>
 
-                <p *ngIf="rule.rule_expected_data"></p>
-                <div class="row" *ngIf="rule.rule_expected_data">
+                <p *ngIf="rule?.rule_expected_data"></p>
+                <div class="row" *ngIf="rule?.rule_expected_data">
                     <div class="col-12">
                         <i class="uu small-text bold">EXPECTED STATIC DATA</i>:
                         <span class="sub mid-text myfont ">
-                          {{rule.rule_expected_data}}
+                          {{rule?.rule_expected_data}}
                         </span>
                     </div>
                 </div>
-                <hr *ngIf="rule.rule_headers || rule.rule_parameters">
+                <hr *ngIf="rule?.rule_headers || rule?.rule_parameters">
 
                 <!-- HEADERS & PARAMETERS -->
                 <div class="row ">
 
-                    <div class="col-6" *ngIf="rule.rule_headers">
+                    <div class="col-6" *ngIf="rule?.rule_headers">
 
                         <i class="uu small-text bold ">PROVIDED HEADERS</i>
                         <table class="table table-dark mid-text">
@@ -120,15 +124,15 @@
                                 <td>Name</td>
                                 <td>Value</td>
                                 <tbody>
-                                    <tr *ngFor="let rule_header of helper.json(rule.rule_headers); let rule_headerIdx = index">
-                                        <td>{{rule_header.key}}</td>
-                                        <td>{{rule_header.value}}</td>
+                                    <tr *ngFor="let rule_header of helper.json(rule?.rule_headers); let rule_headerIdx = index">
+                                        <td>{{rule_header?.key}}</td>
+                                        <td>{{rule_header?.value}}</td>
                                     </tr>
                                 </tbody>
                         </table>
 
                     </div>
-                    <div class="col-6" *ngIf="rule.rule_parameters">
+                    <div class="col-6" *ngIf="rule?.rule_parameters">
                         <i class="uu small-text bold ">PROVIDED PARAMETERS</i>:
                         <table class="table table-dark mid-text">
                             <thead class="uppercase bold small-text">
@@ -136,9 +140,9 @@
                                 <td>value</td>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let rule_parameter of helper.json(rule.rule_parameters);let rule_parameterIdx = index;">
-                                    <td>{{rule_parameter.key}}</td>
-                                    <td>{{rule_parameter.value }}</td>
+                                <tr *ngFor="let rule_parameter of helper.json(rule?.rule_parameters);let rule_parameterIdx = index;">
+                                    <td>{{rule_parameter?.key}}</td>
+                                    <td>{{rule_parameter?.value }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -162,14 +166,14 @@
                             <tbody>
                                 <tr>
                                     <td>{{rule.rule_path}}</td>
-                                    <!-- <td>{{rule.rule_grading.path.weight}}</td> -->
-                                    <td>{{rule.rule_grading.path.match}}</td>
-                                    <td>{{rule.rule_grading.path.match.no_match|| 0}}</td>
+                                    <!-- <td>{{rule?.rule_grading?.path?.weight}}</td> -->
+                                    <td>{{rule?.rule_grading?.path?.match}}</td>
+                                    <td>{{rule?.rule_grading?.path?.match?.no_match|| 0}}</td>
                                 </tr>
-                                <tr *ngFor="let rule_path_match of rule.rule_grading.path.matches">
-                                    <td>{{rule_path_match.alternative}}</td>
-                                    <td>{{rule_path_match.match}}</td>
-                                    <td>{{rule_path_match.match.no_match|| 0}}</td>
+                                <tr *ngFor="let rule_path_match of rule?.rule_grading?.path?.matches">
+                                    <td>{{rule_path_match?.alternative}}</td>
+                                    <td>{{rule_path_match?.match}}</td>
+                                    <td>{{rule_path_match?.match?.no_match|| 0}}</td>
                                 </tr>
 
                             </tbody>
@@ -190,16 +194,16 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{{rule.rule_expected_status_code}}</td>
+                                    <td>{{rule?.rule_expected_status_code}}</td>
                                     <!-- <td>{{rule.rule_grading.status_code.weight}}</td> -->
-                                    <td>{{rule.rule_grading.status_code.match}}</td>
-                                    <td>{{rule.rule_grading.status_code.match.no_match || 0}}</td>
+                                    <td>{{rule?.rule_grading?.status_code?.match}}</td>
+                                    <td>{{rule?.rule_grading?.status_code?.match?.no_match || 0}}</td>
                                 </tr>
 
-                                <tr *ngFor="let rule_status_code_match of rule.rule_grading.status_code.matches">
-                                    <td>{{rule_status_code_match.alternative}}</td>
-                                    <td>{{rule_status_code_match.match}}</td>
-                                    <td>{{rule_status_code_match.match.no_match || 0}}</td>
+                                <tr *ngFor="let rule_status_code_match of rule?.rule_grading?.status_code?.matches">
+                                    <td>{{rule_status_code_match?.alternative}}</td>
+                                    <td>{{rule_status_code_match?.match}}</td>
+                                    <td>{{rule_status_code_match?.match?.no_match || 0}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -224,16 +228,16 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{{rule.rule_method}}</td>
-                                    <!-- <td>{{rule.rule_grading.verb.weight}}</td> -->
-                                    <td>{{rule.rule_grading.verb.match}}</td>
-                                    <td>{{rule.rule_grading.verb.match.no_match || 0}}</td>
+                                    <td>{{rule?.rule_method}}</td>
+                                    <!-- <td>{{rule?.rule_grading?.verb?.weight}}</td> -->
+                                    <td>{{rule?.rule_grading?.verb?.match}}</td>
+                                    <td>{{rule?.rule_grading?.verb?.match?.no_match || 0}}</td>
                                 </tr>
 
-                                <tr *ngFor="let rule_verb_match of rule.rule_grading.verb.matches">
-                                    <td>{{rule_verb_match.alternative}}</td>
-                                    <td>{{rule_verb_match.match}}</td>
-                                    <td>{{rule_verb_match.match.no_match || 0}}</td>
+                                <tr *ngFor="let rule_verb_match of rule?.rule_grading?.verb?.matches">
+                                    <td>{{rule_verb_match?.alternative}}</td>
+                                    <td>{{rule_verb_match?.match}}</td>
+                                    <td>{{rule_verb_match?.match?.no_match || 0}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -253,16 +257,16 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{{rule.rule_expected_data_type}}</td>
-                                    <!-- <td>{{rule.rule_grading.mime_type.weight}}</td> -->
-                                    <td>{{rule.rule_grading.mime_type.match}}</td>
-                                    <td>{{rule.rule_grading.mime_type.match.no_match || 0}}</td>
+                                    <td>{{rule?.rule_expected_data_type}}</td>
+                                    <!-- <td>{{rule?.rule_grading?.mime_type?.weight}}</td> -->
+                                    <td>{{rule?.rule_grading?.mime_type?.match}}</td>
+                                    <td>{{rule?.rule_grading?.mime_type?.match?.no_match || 0}}</td>
                                 </tr>
 
-                                <tr *ngFor="let rule_mime_type_match of rule.rule_grading.mime_type.matches">
-                                    <td>{{rule_mime_type_match.alternative}}</td>
-                                    <td>{{rule_mime_type_match.match}}</td>
-                                    <td>{{rule_mime_type_match.match.no_match || 0}}</td>
+                                <tr *ngFor="let rule_mime_type_match of rule?.rule_grading?.mime_type?.matches">
+                                    <td>{{rule_mime_type_match?.alternative}}</td>
+                                    <td>{{rule_mime_type_match?.match}}</td>
+                                    <td>{{rule_mime_type_match?.match?.no_match || 0}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -287,9 +291,3 @@
     <div class="i fa fa-spin"></div>
     ... Loading assignment rubric
 </div>
-
-<p>List the assignment details</p>
-<br>
-<p>Fetch all rules tied to this assignment</p>
-<br>
-<p>Generate a rubric for the given assignment</p>

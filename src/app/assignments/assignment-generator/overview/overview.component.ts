@@ -3,7 +3,7 @@ import { Rule } from './../../../models/Rule.model';
 import { HttpService } from './../../../services/http.service';
 import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { RulesStoreService } from 'src/app/services/stor/rules.store.service';
+import { RulesStoreService } from 'src/app/services/stor/rules.stor.service';
 import { Subscription } from 'rxjs';
 import { GraderResponse } from 'src/app/models/Response.model';
 

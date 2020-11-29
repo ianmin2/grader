@@ -368,7 +368,7 @@
 
                 // Getting the checkbox from the modal
                 $('form[name="altEditor-edit-form-' + this.random_id + '"] *').filter(':input[type="checkbox"]').each(function(i) {
-                    rowDataArray[$(this).attr('id')] = this.checked;
+                    rowDataArray[$(this).attr('id')] = i //this ? .checked;
                 });
 
                 console.log(rowDataArray); //DEBUG
@@ -770,7 +770,7 @@
 
                 // Getting the checkbox from the modal
                 $('form[name="altEditor-add-form-' + this.random_id + '"] *').filter(':input[type="checkbox"]').each(function(i) {
-                    rowDataArray[$(this).attr('id')] = this.checked;
+                    rowDataArray[$(this).attr('id')] = i //this ? .checked;
                 });
 
                 console.log(rowDataArray); //DEBUG

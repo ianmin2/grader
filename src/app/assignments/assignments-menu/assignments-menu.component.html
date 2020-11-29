@@ -48,9 +48,13 @@
                     <button type="button" class="list-group-item list-group-item-action btn-sm" routerLink="/assignments/generator/review" routerLinkActive="active">
                         VIEW RULES
                     </button>
-                    <button type="button" class="list-group-item list-group-item-action btn-sm" routerLink="/assignments/generator/chaining" routerLinkActive="active">
+                    <button type="button" class="list-group-item list-group-item-action btn-sm" routerLink="/assignments/generator/chaining" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                       BUNDLE/GROUP RULES
-                  </button>
+                    </button>
+                    <!-- -->
+                    <button type="button" class="list-group-item list-group-item-action btn-sm" routerLink="/assignments/browse/chainings" routerLinkActive="active">
+                        BUNDLED RULES
+                    </button>
                 </div>
 
             </div>
@@ -84,27 +88,5 @@
         </div>
     </div>
 
-    <!-- PAGE/HTML VALIDATION -->
-    <div class="card">
-        <div class="card-header" id="headingThree">
-            <h5 class="mb-0">
-                <button class="btn  collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    PAGE/HTML VALIDATION
-                  </button>
-            </h5>
-        </div>
-        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-            <div class="card-body">
-
-                <div class="list-group">
-                    <button type="button" class="list-group-item list-group-item-action">
-                    ++++++++++++++++++
-                  </button>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
 
 </div>

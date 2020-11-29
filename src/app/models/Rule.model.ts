@@ -25,7 +25,9 @@ export class Rule
   public created_at : string;
   public updated_at : string;
 
-  constructor(rule_id : number,  rule_method : string,  rule_path : string,  rule_name : string,  rule_description : string,  rule_assignment : number, rule_http_verb : string, rule_expected_status_code : number,  rule_expected_data_type : string, rule_expected_data: string,  rule_grading: Grading, rule_headers: RuleInfo[], rule_parameters: RuleInfo[])
+  public parent_rules? : any[];
+
+  constructor(rule_id : number,  rule_method : string,  rule_path : string,  rule_name : string,  rule_description : string,  rule_assignment : number, rule_http_verb : string, rule_expected_status_code : number,  rule_expected_data_type : string, rule_expected_data: string,  rule_grading: Grading, rule_headers: RuleInfo[], rule_parameters: RuleInfo[], parent_rules: any[])
   {
     this.rule_id = rule_id;
     this.rule_method = rule_method;
@@ -41,6 +43,8 @@ export class Rule
     this.rule_grading = rule_grading;
     this.rule_headers = rule_headers;
     this.rule_parameters = rule_parameters;
+    //@ Grading related
+    this.parent_rules = parent_rules;
   }
 
 }

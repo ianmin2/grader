@@ -10,7 +10,7 @@
 
 <span *ngIf="hasActiveAssignment()">
  <u><b>{{activeAssignment.assignment_name}}</b> <sub> by <b>{{activeAssignment.assignment_owner_name}}</b></sub></u>
-  &nbsp;&nbsp;<button (click)="clearAssignment()"  type="button" class="btn btn-danger"><i class="fa fa-times"></i></button>
+  &nbsp;&nbsp;<button (click)="resetChainingUI()"  type="button" class="btn btn-danger"><i class="fa fa-times"></i></button>
 </span>
 
 <div *ngIf="userAssignments && !hasActiveAssignment()" class="dropdown">
@@ -30,58 +30,85 @@
         <small><b><i>`Owned`</i></b> rules are those that are primarily tied to this assignment whereas <b><i>`Public`</i></b> rules refer to those owned/tied by/to other assignments.</small>
     </p>
 
-
-    <div class="list-container" cdkDropListGroup>
-        <!-- [cdkDropListConnectedTo]="[doneList]"  -->
-        <div class="todo-container column-container col-lg-3 col-sm-12">
-            <div class="list bg-success" cdkDropList #toDoList="cdkDropList" [cdkDropListData]="gradingRules.owned" (cdkDropListDropped)="onDrop($event,false,true)">
-                <h2> {{gradingRules.owned.length || 0}} Owned Rules</h2>
-                <mat-card *ngFor="let ruleItem of gradingRules.owned" cdkDrag>
-                    <mat-card-header>
-                        <mat-card-title><span class="idBox">{{ruleItem.rule_id}}</span>{{ruleItem.rule_name}}</mat-card-title>
-                        <mat-card-subtitle><b>{{ruleItem.rule_method}}</b> <i>{{ruleItem.rule_path}}</i></mat-card-subtitle>
-                    </mat-card-header>
-                </mat-card>
-            </div>
-        </div>
+    <!-- cdkDropListGroup -->
+    <div class="list-container">
 
         <!--  [cdkDropListConnectedTo]="toDoList" -->
         <div class="done-container column-container col-lg-3 col-sm-12">
-            <div class="list  bg-warning" cdkDropList #doneList="cdkDropList" [cdkDropListData]="gradingRules.public" (cdkDropListDropped)="onDrop($event,false,true)">
+            <div class="list bg-warning" cdkDropList #publicList="cdkDropList" [cdkDropListData]="gradingRules.public" (cdkDropListDropped)="onDrop($event,false,true)" [cdkDropListConnectedTo]="[mappingList]">
                 <h2>{{gradingRules.public.length || 0}} Public Rules</h2>
-                <mat-card *ngFor="let ruleItem of gradingRules.public" cdkDrag>
-                    <mat-card-header>
-                        <mat-card-title><span class="idBox">{{ruleItem.rule_id}}</span>{{ruleItem.rule_name}}</mat-card-title>
-                        <mat-card-subtitle><b>{{ruleItem.rule_method}}</b> <i>{{ruleItem.rule_path}}</i></mat-card-subtitle>
-                    </mat-card-header>
-                </mat-card>
+                <div *ngIf="gradingRules.public[0]">
+                    <mat-card *ngFor="let ruleItem of gradingRules.public" cdkDrag>
+                        <mat-card-header>
+                            <mat-card-title><span class="idBox">{{ruleItem.rule_id}}</span>{{ruleItem.rule_name}}</mat-card-title>
+                            <mat-card-subtitle><b>{{ruleItem.rule_method}}</b> <i>{{ruleItem.rule_path}}</i></mat-card-subtitle>
+                        </mat-card-header>
+                    </mat-card>
+                </div>
+
             </div>
         </div>
 
+        <!-- [cdkDropListConnectedTo]="[publicList]"  -->
+        <div class="todo-container column-container col-lg-3 col-sm-12">
+            <div class="list bg-success" cdkDropList #ownedList="cdkDropList" [cdkDropListData]="gradingRules.owned" (cdkDropListDropped)="onDrop($event,false,true)" [cdkDropListConnectedTo]="[mappingList]">
+                <h2> {{gradingRules.owned.length || 0}} Owned Rules</h2>
+                <div *ngIf="gradingRules.owned[0]">
+                    <mat-card *ngFor="let ruleItem of gradingRules.owned" cdkDrag>
+                        <mat-card-header>
+                            <mat-card-title><span class="idBox">{{ruleItem.rule_id}}</span>{{ruleItem.rule_name}}</mat-card-title>
+                            <mat-card-subtitle><b>{{ruleItem.rule_method}}</b> <i>{{ruleItem.rule_path}}</i></mat-card-subtitle>
+                        </mat-card-header>
+                    </mat-card>
+                </div>
+
+            </div>
+        </div>
+
+
+
         <!-- [cdkDropListConnectedTo]="toDoList" -->
         <div class="done-container column-container col-lg-3 col-sm-12">
-            <div class="list bg-primary" cdkDropList #doneList="cdkDropList" [cdkDropListData]="gradingSchema" (cdkDropListDropped)="onDrop($event,true)">
+            <div class="list bg-primary" style="min-height: 10vw !important;" cdkDropList #mappingList="cdkDropList" [cdkDropListData]="gradingSchema" (cdkDropListDropped)="onDrop($event,true)" [cdkDropListConnectedTo]="[publicList,ownedList,trashList]">
                 <h2 class="text-white">Grading Definition</h2>
-                <mat-card *ngFor="let ruleItem of gradingSchema;index as idx;" cdkDrag>
-                    <span class="idParent float-right button" id="{{ruleItem.rule_id}}-{{idx}}">+</span>
-                    <mat-card-header>
-                        <mat-card-title> <span class="idBox">{{ruleItem.rule_id}}</span> {{ruleItem.rule_name}}</mat-card-title>
-                        <mat-card-subtitle><b>{{ruleItem.rule_method}}</b> <i>{{ruleItem.rule_path}}</i></mat-card-subtitle>
-                    </mat-card-header>
-                </mat-card>
+                <div *ngIf="gradingSchema[0]">
+                    <mat-card *ngFor="let ruleItem of gradingSchema;index as idx;  " cdkDrag>
+                        <span class="idParent float-right button" id="{{ruleItem.rule_id}}-{{idx}}">+</span>
+                        <mat-card-header>
+                            <mat-card-title> <span class="idBox">{{ruleItem.rule_id}}</span> {{ruleItem.rule_name}}</mat-card-title>
+                            <mat-card-subtitle><b>{{ruleItem.rule_method}}</b> <i>{{ruleItem.rule_path}}</i></mat-card-subtitle>
+                        </mat-card-header>
+                        <span id="{{ruleItem.rule_id}}-{{idx}}" *ngIf="ruleItem.parent_rules[0]" class="parentRuleList">
+                        Parents: {{ruleItem.parent_rules.join(',')}}
+                      </span>
+                    </mat-card>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="done-container column-container col-lg-3 col-sm-12">
+            <div class="list bg-danger" style="min-height: 10vw !important;" cdkDropList #trashList="cdkDropList" [cdkDropListData]="ruleBin" (cdkDropListDropped)="onDrop($event,true,true,true)" [cdkDropListConnectedTo]="[mappingList]">
+                <h2 class="text-white">TRASH</h2>
+
+
+            </div>
+            <div *ngIf="gradingSchema[0]">
+                <button class="btn btn-block btn-success padding" (click)="saveGradingScheme()">SAVE GRADING SETUP</button>
             </div>
         </div>
 
 
     </div>
-
+    <!-- 
     <p>1. Define bundle type [(recipent/dependant/ has parent),(donor/links to)]</p>
     <p>2x. (if has parent) Define extectations under &#123;expects&#125; </p>
-    <p>2x. (if has children) Define passed down value [and any transformations]</p>
+    <p>2x. (if has children) Define passed down value [and any transformations]</p> -->
 
 </div>
 
 
+<!-- 
 
 <br>
 <br>
@@ -129,7 +156,7 @@
       <span style="color:blueviolet">]</span>
     <span style="color:blue">&#125;,</span>
   &#125;
-</pre>
+</pre> -->
 
 
 

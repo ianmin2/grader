@@ -14,7 +14,7 @@ import { GradesViewerComponent } from './../grades/grades-viewer/grades-viewer.c
 import { GradesReviewerComponent } from './../grades/grades-reviewer/grades-reviewer.component';
 import { GradesPlaceholderComponent } from './../grades/grades-placeholder/grades-placeholder.component';
 import { GradesComponent } from './../grades/grades.component';
-// import { AssignmentViewerComponent } from './../assignments/assignment-viewer/assignment-viewer.component';
+import { AssignmentViewerComponent as RuleChainingBrowser } from './../assignments/assignment-viewer/assignment-viewer.component';
 import { AssignmentGeneratorComponent } from './../assignments/assignment-generator/assignment-generator.component';
 import { AssignmentPlaceholderComponent } from './../assignments/assignment-placeholder/assignment-placeholder.component';
 import { AssignmentsComponent } from './../assignments/assignments.component';
@@ -25,11 +25,13 @@ import { NgModule } from '@angular/core';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { AssignmentBrowserComponent } from '../assignments/assignment-browser/assignment-browser.component';
 import { AssignmentGradingComponent } from '../assignments/assignment-grading/assignment-grading.component';
+import { AssignmentBrowserAttemptsComponent } from '../assignments/assignment-browser/assignment-browser-attempts/assignment-browser-attempts.component';
 
 
 const graderRoutes: Routes = [
   { path: '', redirectTo: "/assignments", pathMatch: "full"},
   {path : 'auth', component: UserLoginComponent},
+  { path: 'submissions', component: AssignmentSubmissionComponent },
   { path: 'assignments', component: AssignmentsComponent,
     children : [
       { path: '', component: AssignmentPlaceholderComponent, pathMatch: "full"},
@@ -40,7 +42,7 @@ const graderRoutes: Routes = [
         [
           { path: 'grading', component: AssignmentGradingComponent},
           { path: 'routes',  component: RouteManagerComponent},
-          { path: 'chaining',   component: PathManagerComponent },
+          { path: 'chaining',   component: PathManagerComponent},
           { path: 'methods', component: MethodManagerComponent},
           { path: 'outputs', component: OutputManagerComponent},
           { path: 'review', component: OverviewComponent },
@@ -50,9 +52,15 @@ const graderRoutes: Routes = [
       { path: 'browse', component : AssignmentBrowserComponent,
         children:
         [
-          { path : '', component: AssignmentBrowserPlaceholderComponent, pathMatch: "full"},
-          { path : 'rubric/:id', component: AssignmentBrowserRubricComponent },
+          { path : '', component: AssignmentBrowserPlaceholderComponent, pathMatch: "full", canActivate : []},
+          { path : 'rubric/:id', component: AssignmentBrowserRubricComponent, pathMatch: "full" },
+          {
+            path: "attempts/:id",
+            component: AssignmentBrowserAttemptsComponent,
+            pathMatch: "full"
+          },
           { path : 'submissions', component: AssignmentSubmissionBrowserComponent },
+          { path : "chainings", component: RuleChainingBrowser },
           // { path: ':id', component: AssignmentBrowserRubricComponent},
           // { path: ':id/edit', component:AssignmentBrowserRubricComponent}
           { path: '**', component: NotFoundComponent}
@@ -66,7 +74,7 @@ const graderRoutes: Routes = [
   },
   { path: 'grades', component: GradesComponent,
     children : [
-      { path: '', component: GradesPlaceholderComponent, pathMatch: "full"},
+      { path: '', component: GradesBrowserComponent, pathMatch: "full"},
       {path: 'review', component: GradesReviewerComponent,
       children:
         [

@@ -19,7 +19,7 @@ export class HttpService {
 
   tableNames: String[] = ['users','routes','chainings','attempts','assignments']
 
- applicationHost:string =  "http://localhost/"; // `${window.location.href}/api.php/`; //"http://localhost/";
+ applicationHost:string =  `${window.location.href}/api.php/`; //"http://localhost/"; 
 
   constructor(private http: HttpClient) { }
 
@@ -117,7 +117,7 @@ export class HttpService {
 
   getChaining()
   {
-    return this.http.get<GraderResponse>(`${this.applicationHost}?command=get&table=chainings`);
+    return this.http.get<GraderResponse>(`${this.applicationHost}?command=get&table=chaining`);
   }
 
 
@@ -135,5 +135,13 @@ export class HttpService {
     return this.http.get<GraderResponse>(`${this.applicationHost}?command=get&table=attempts${assignment?'&assignment='+assignment:''}${id?'&id='+id:''}`);
   }
 
+
+  //=============================================================================
+  //# GRADING
+  //=============================================================================
+  doGrading ( referenceObject: any )
+  {
+    return this.http.post<GraderResponse>(`${this.applicationHost}?command=grade`,referenceObject,{headers: {"content-type": "application/json"}});
+  }
 
 }

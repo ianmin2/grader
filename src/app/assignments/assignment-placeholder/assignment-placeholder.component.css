@@ -1,0 +1,11 @@
+.extra-padded {
+    padding: 3em !important;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    text-align: center;
+}
+
+.card {
+    border-radius: 1em;
+}

@@ -2,9 +2,10 @@ import { Rule } from './Rule.model';
 
 export class Chaining
 {
-	id : Number;
+  id?: Number;
+	chaining_id? : Number;
 	chaining_assignment : Number;
-  chaining_depends_on: Number;
+  chaining_depends_on?: Number;
   chaining_depends_on_data? :Rule[];
 	chaining_type : string;
 	chaining_rules? : Rule[];
@@ -12,9 +13,10 @@ export class Chaining
   updated_at? : Date;
 
   constructor(
-{ id, chaining_assignment, chaining_depends_on, chaining_depends_on_data, chaining_type, chaining_rules, created_at, updated_at }: { id: Number; chaining_assignment: Number; chaining_depends_on: Number; chaining_depends_on_data?: Rule[]; chaining_type: string; chaining_rules?: Rule[]; created_at?: Date; updated_at?: Date; }  )
+{ id, chaining_assignment, chaining_depends_on, chaining_depends_on_data, chaining_type, chaining_rules, created_at, updated_at, chaining_id }: { id: Number; chaining_assignment: Number; chaining_depends_on: Number; chaining_depends_on_data?: Rule[]; chaining_type: string; chaining_rules?: Rule[]; created_at?: Date; updated_at?: Date; chaining_id?:Number }  )
   {
     this.id = id;
+    this.chaining_id = chaining_id;
     this.chaining_assignment = chaining_assignment;
     this.chaining_depends_on = chaining_depends_on;
     this.chaining_depends_on_data = chaining_depends_on_data;

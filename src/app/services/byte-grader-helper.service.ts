@@ -5,6 +5,7 @@ import  jspdf from 'jspdf'
 import { LocalStorageService } from 'angular-2-local-storage';
 import { User } from '../models/User.model';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -43,6 +44,15 @@ export class ByteGraderHelperService {
       });
 
 
+  }
+
+  clone( data: any )
+  {
+    try {
+      return this.json(this.str(data));
+    } catch (error) {
+      return data;
+    }
   }
 
 
