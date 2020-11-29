@@ -19,7 +19,7 @@ export class HttpService {
 
   tableNames: String[] = ['users','routes','chainings','attempts','assignments']
 
- applicationHost:string =  "http://localhost/"; // `${window.location.href}/api.php/`; //"http://localhost/"; 
+ applicationHost:string =  `${window.location.href}/api.php/`; //"http://localhost/"; 
 
   constructor(private http: HttpClient) { }
 
