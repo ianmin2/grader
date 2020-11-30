@@ -9,7 +9,9 @@
     color: #ffffff !important;
 }
 
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+/* @import "~@angular/material/prebuilt-themes/indigo-pink.css"; */
+
 body,
 html,
 .mat-card,
