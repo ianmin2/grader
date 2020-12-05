@@ -98,7 +98,7 @@ const graderRoutes: Routes = [
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(graderRoutes, {useHash: false})],
+  imports: [RouterModule.forRoot(graderRoutes, {useHash: true})],
   exports: [RouterModule]
 })
 

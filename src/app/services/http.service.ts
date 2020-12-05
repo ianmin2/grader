@@ -19,7 +19,7 @@ export class HttpService {
 
   tableNames: String[] = ['users','routes','chainings','attempts','assignments']
 
- applicationHost:string =  'https://ianmin2.bixbyte.io/'; // "/618985/api.php/"; // `${window.location.href}/api.php/`; //"http://localhost/"; 
+  applicationHost:string =    "/618985/api.php/"; // `${window.location.href}/api.php/`; //"http://localhost/"; 
 
   constructor(private http: HttpClient) { }
 

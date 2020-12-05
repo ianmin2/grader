@@ -125,9 +125,19 @@ formOptions(){
       {title: 'App URL', data: 'attempt_main_path', className: 'editable', sortable: false,
         render:  (data, type, row) => this.helpers.stringify(data,undefined)
       },
+      {
+        title: 'score',
+        data: 'attempt_grade',
+        render:  (data, type, row) => 
+        {
+          data = this.helper.json(data);
+          return this.helpers.stringify(`${data.percentage}%`,'teal');
+        }
+      },
       {title: 'Assignment', data: 'attempt_assignment',
         render:  (data, type, row) => this.helpers.stringify(`<code>#${row.attempt_assignment}</code> ${row.assignment_name} <sub>by ${row.assignment_owner_name}</sub>`,'blue')
       },
+     
       {
         title: 'Grade Report',
         sortable: false,
@@ -156,7 +166,7 @@ formOptions(){
         render:  (data, type, row) => this.helpers.dateify(data,'green')
       },
       {
-        title: 'Last Modified',
+        title: 'Last Graded',
         data: 'updated_at',
         render:  (data, type, row) => this.helpers.dateify(data,undefined)
       },
