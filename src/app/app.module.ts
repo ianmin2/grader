@@ -47,6 +47,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatTreeModule } from '@angular/material/tree';
+import { UserLogoutComponent } from './user-logout/user-logout.component';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
@@ -80,7 +81,8 @@ import { MatTreeModule } from '@angular/material/tree';
     AssignmentBrowserRubricComponent,
     AssignmentBrowserPlaceholderComponent,
     AssignmentSubmissionComponent,
-    AssignmentSubmissionBrowserComponent
+    AssignmentSubmissionBrowserComponent,
+    UserLogoutComponent
   ],
   imports: [
     BrowserModule,

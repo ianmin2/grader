@@ -1,3 +1,4 @@
+import { UserLogoutComponent } from './../user-logout/user-logout.component';
 import { AssignmentSubmissionBrowserComponent } from './../assignments/assignment-submission-browser/assignment-submission-browser.component';
 import { AssignmentBrowserPlaceholderComponent } from './../assignments/assignment-browser/assignment-browser-placeholder/assignment-browser-placeholder.component';
 import { AssignmentBrowserRubricComponent } from './../assignments/assignment-browser/assignment-browser-rubric/assignment-browser-rubric.component';
@@ -31,6 +32,7 @@ import { AssignmentBrowserAttemptsComponent } from '../assignments/assignment-br
 const graderRoutes: Routes = [
   { path: '', redirectTo: "/assignments", pathMatch: "full"},
   {path : 'auth', component: UserLoginComponent},
+  {path: 'logout', component: UserLogoutComponent},
   { path: 'submissions', component: AssignmentSubmissionComponent },
   { path: 'assignments', component: AssignmentsComponent,
     children : [
