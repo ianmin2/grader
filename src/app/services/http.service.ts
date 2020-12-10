@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { LoginModel } from './../models/Login.model';
 import { Attempts } from './../models/Attempts.model';
 import { Chaining } from './../models/Chaining.model';
@@ -19,7 +20,7 @@ export class HttpService {
 
   tableNames: String[] = ['users','routes','chainings','attempts','assignments']
 
-  applicationHost:string =    "https://ianmin2.bixbyte.io/api.php"; // `${window.location.href}/api.php/`; //"http://localhost/"; 
+  applicationHost:string =   environment.baseUrl;  //"https://ianmin2.bixbyte.io/api.php"; // `${window.location.href}/api.php/`; //"http://localhost/"; 
 
   constructor(private http: HttpClient) { }
 
